@@ -1,38 +1,29 @@
-<project name="Raclette Project" default="dist" basedir=".">
-    <description>
-        simple example build file
-    </description>
-    <!-- set global properties for this build -->
-    <property name="src" location="src"/>
-    <property name="build" location="build"/>
-    <property name="dist" location="dist"/>
+<project>
 
-    <target name="init">
-        <!-- Create the time stamp -->
-        <tstamp/>
-        <!-- Create the build directory structure used by compile -->
-        <mkdir dir="${build}"/>
+    <target name="clean">
+        <delete dir="build"/>
     </target>
 
-    <target name="compile" depends="init"
-            description="compile the source">
-        <!-- Compile the java code from ${src} into ${build} -->
-        <javac srcdir="${src}" destdir="${build}"/>
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
     </target>
 
-    <target name="dist" depends="compile"
-            description="generate the distribution">
-        <!-- Create the distribution directory -->
-        <mkdir dir="${dist}/lib"/>
-
-        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/ACL2017_LaraClette.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="start.Main"/>
+            </manifest>
+        </jar>
     </target>
 
-    <target name="clean"
-            description="clean up">
-        <!-- Delete the ${build} and ${dist} directory trees -->
-        <delete dir="${build}"/>
-        <delete dir="${dist}"/>
+    <target name="runJar">
+        <java jar="build/jar/ACL2017_LaraClette.jar" fork="true"/>
     </target>
+
+    <target name="run" depends="clean,compile,jar,runJar">
+
+    </target>
+
 </project>
