@@ -9,23 +9,23 @@
 ## Brain storming
 * Jeu en 2D
 * Porte pour changer de map
-* But : trouver le tr?sor
+* But : trouver le trésor
 * Monstres (surtout autour du coffre)
-* Perso arm? d'une ?p?e
+* Perso armé d'une épée
 * Perso a des points de vie
-* Pi?ges (lave par exemple)
-* Touche pour fouiller et trouver des objets (bonus: pdv, boost arme, minimap, malus: monstre) cach?s (jarre)
+* Pièges (lave par exemple)
+* Touche pour fouiller et trouver des objets (bonus: pdv, boost arme, minimap, malus: monstre) cachés (jarre)
 * Boss ?
 * Sauvegarde
 * Plusieurs niveaux
 * Score / temps
-* Gestion d?placement par case, plus tard par pixel ?
+* Gestion déplacement par case, plus tard par pixel ?
 
-## Sprint
-* 0. Version texte : une carte avec coffre (pas al?atoire), un perso qui peut se d?placer case par case.
-* 1. Premi?re version graphique basique. G?n?ration al?atoire map ?
-* 2. Deuxi?me version graphique : ajout ?lem sur map non textur?s (+pi?ge)
-* 3. Ajout des sprites + anim ?
-* 4. Monstres + armes + combat + pdv
-* 5. Fouiller + niveaux + sauvegarde + score
+## Backlog
+* 1 Version texte : une carte avec coffre (pas aléatoire), un perso qui peut se déplacer case par case.
+* 2 Première version graphique basique. Génération aléatoire map ?
+* 3 Deuxième version graphique : ajout élem sur map non texturés (+piège)
+* 4 Ajout des sprites + anim ?
+* 5 Monstres + armes + combat + pdv
+* 6 Fouiller + niveaux + sauvegarde + score
 
