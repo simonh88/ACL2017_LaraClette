@@ -29,3 +29,37 @@
 * 5 Monstres + armes + combat + pdv
 * 6 Fouiller + niveaux + sauvegarde + score
 
+
+## Backlog détaillé
+
+### Sprint 1
+
+#### Séance 1
+
+* Un plateau de taille fixe
+* Un perso qui se déplace case par case (il ne peut pas sortir du plateau)
+* Un coffre à une position aléatoire
+* Détection de la victoire (touche action pour ramasser le coffre)
+
+#### Suite du sprint 1
+
+* Intégration du moteur graphique
+* Version graphique du jeu
+* Fond map, sprite perso, sprite coffre
+
+### Sprint 2
+
+#### Séance 2
+
+* Un niveau avec plusieur map fixe à parcourir pour trouver le trésor
+* Le perso peut changer de maps
+
+#### Suite du print 2
+
+* Génération d'ensemble de map aléatoire
+* Algo de validation des maps générées
+
+
+
+
+
