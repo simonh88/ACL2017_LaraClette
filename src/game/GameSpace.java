@@ -27,6 +27,9 @@ public class GameSpace {
 
     public String toString() {
         return rooms.get(0).toString();
+    }
 
+    public String toString(int posx, int posy) {
+        return rooms.get(0).toString(posx, posy);
     }
 }
