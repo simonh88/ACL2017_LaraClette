@@ -66,10 +66,20 @@ public class Room {
         }
     }
 
+    /**
+     * Place aléatoirement un coffre dans cette room
+     */
     public void placeChestInRoom() {
+        int x = 0;
+        int y = 0;
+
         Random rand = new Random();
-        int x = Math.abs(rand.nextInt()) % room[0].length - 2;
-        int y = Math.abs(rand.nextInt()) % room.length - 2;
+
+        while (! (room[y][x] instanceof Empty)) {
+            x = Math.abs(rand.nextInt()) % room[0].length - 2;
+            y = Math.abs(rand.nextInt()) % room.length - 2;
+        }
+
         room[y][x] = new Chest();
     }
 }
