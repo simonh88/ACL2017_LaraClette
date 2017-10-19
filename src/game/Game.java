@@ -33,28 +33,28 @@ public class Game {
             switch (key){
                 case 'q'://Gauche
                     if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1)){
-                    h.setPosX(gameState.getHero().getPosX());
-                    h.setPosY(gameState.getHero().getPosY()-1);
+                    h.setPosX(gameState.getHero().getPosX()-1);
+                    h.setPosY(gameState.getHero().getPosY());
                 }
                     break;
                 case 's':
-                    if(gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY()){
-                    h.setPosX(gameState.getHero().getPosX()+1);
-                    h.setPosY(gameState.getHero().getPosY());
-                }
-
-                    break;
-                case 'd':
-                    if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1){
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1)){
                     h.setPosX(gameState.getHero().getPosX());
                     h.setPosY(gameState.getHero().getPosY()+1);
                 }
 
                     break;
+                case 'd':
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY())){
+                    h.setPosX(gameState.getHero().getPosX()+1);
+                    h.setPosY(gameState.getHero().getPosY());
+                }
+
+                    break;
                 case 'z':
                     if(gameSpace.isValidPosition(gameState.getHero().getPosX()-1, gameState.getHero().getPosY())){
-                        h.setPosX(gameState.getHero().getPosX()-1);
-                        h.setPosY(gameState.getHero().getPosY());
+                        h.setPosX(gameState.getHero().getPosX());
+                        h.setPosY(gameState.getHero().getPosY()-1);
                     }
 
                     break;
@@ -62,7 +62,7 @@ public class Game {
                     break;
             }
 
-            if(gameSpace.isChest(h.getPosX(), h.getPosY())){
+            if(gameSpace.isChest(h.getPosY(), h.getPosX())){
                 gameState.setVictory();
             }
         }

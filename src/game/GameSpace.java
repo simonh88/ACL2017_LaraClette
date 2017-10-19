@@ -36,6 +36,6 @@ public class GameSpace {
     }
 
     public boolean isChest(int posX, int posY){
-        
+        return rooms.get(0).hasChest(posX, posY);
     }
 }
