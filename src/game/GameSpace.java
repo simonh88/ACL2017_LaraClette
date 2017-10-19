@@ -14,4 +14,8 @@ public class GameSpace {
 
         rooms.add(new Room());
     }
+
+    public String toString() {
+        return rooms.get(0).toString();
+    }
 }

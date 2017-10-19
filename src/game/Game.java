@@ -7,4 +7,8 @@ public class Game {
     public Game() {
         this.gameSpace = new GameSpace();
     }
+
+    public void show() {
+        System.out.println(gameSpace);
+    }
 }
