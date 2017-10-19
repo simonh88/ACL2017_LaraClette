@@ -1,11 +1,5 @@
 package environement;
 
-public class Chest implements Decor {
-    private int x;
-    private int y;
+public class Chest extends Decor {
 
-    @Override
-    public void setPosition(int x, int y) {
-
-    }
 }

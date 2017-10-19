@@ -1,11 +1,5 @@
 package environement;
 
-public class Lava implements Decor {
-    private int x;
-    private int y;
+public class Lava extends Decor {
 
-    @Override
-    public void setPosition(int x, int y) {
-
-    }
 }

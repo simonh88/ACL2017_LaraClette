@@ -1,12 +1,5 @@
 package environement;
 
-public class Wall implements Decor {
-    private int x;
-    private int y;
+public class Wall extends Decor {
 
-
-    @Override
-    public void setPosition(int x, int y) {
-
-    }
 }
