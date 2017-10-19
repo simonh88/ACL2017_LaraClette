@@ -1,6 +1,6 @@
 package environement;
 
-public class Chest extends Decor {
+public class Chest implements Decor {
 
     public Chest(){
 
