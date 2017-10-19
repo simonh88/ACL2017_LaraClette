@@ -13,6 +13,7 @@ public class GameSpace {
         rooms = new ArrayList<>();
 
         rooms.add(new Room());
+        placeChest();
     }
 
     public void placeChest() {
