@@ -1,9 +1,14 @@
 package environement;
 
-public class Chest extends Decor {
+public class Chest implements Decor {
 
     public Chest(){
 
+    }
+
+    @Override
+    public int getType() {
+        return Decor.CHEST;
     }
 
     @Override

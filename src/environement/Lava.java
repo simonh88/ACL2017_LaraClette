@@ -1,9 +1,15 @@
 package environement;
 
-public class Lava extends Decor {
+public class Lava implements Decor {
 
     public Lava(){
 
+    }
+
+
+    @Override
+    public int getType() {
+        return Decor.LAVA;
     }
 
     @Override
