@@ -1,5 +1,7 @@
 package environement;
 
+import java.util.Random;
+
 public class Room {
 
     private final Decor[][] room;
@@ -20,15 +22,9 @@ public class Room {
             for (int i = 0; i < room[0].length; i++) {
 
 
+                sb.append(room[j][i]);
+                sb.append("|");
 
-
-                if (room[j][i] instanceof Empty) {
-                    sb.append("__|");
-                }
-
-                if (room[j][i] instanceof Wall) {
-                    sb.append("WW|");
-                }
 
             }
             sb.append("\n");
@@ -68,5 +64,24 @@ public class Room {
         for (int i = 0; i < room.length; i++) {
             room[room.length - 1][i] = new Wall();
         }
+    }
+
+    /**
+     * Place aléatoirement un coffre dans cette room
+     */
+    public void placeChestInRoom() {
+        int x = 0;
+        int y = 0;
+
+        Random rand = new Random();
+
+        while (! (room[y][x] instanceof Empty)) {
+            x = Math.abs(rand.nextInt()) % (room[0].length - 2);
+            y = Math.abs(rand.nextInt()) % (room.length - 2);
+            x++;
+            y++;
+        }
+
+        room[y][x] = new Chest();
     }
 }
