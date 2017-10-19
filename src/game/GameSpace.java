@@ -22,6 +22,11 @@ public class GameSpace {
     }
 
 
+    public boolean isValidPosition(int x, int y) {
+        return rooms.get(0).isValidPosition(x, y);
+    }
+
+
     public String toString() {
         return rooms.get(0).toString();
 
