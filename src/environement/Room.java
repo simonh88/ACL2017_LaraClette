@@ -103,6 +103,23 @@ public class Room {
         room[y][x] = new Chest();
     }
 
+
+    /**
+     *
+     * @param x position abscisse
+     * @param y position ordonnee
+     * @return si la case a un chest
+     */
+    public boolean hasChest(int x, int y){
+        boolean chest = false;
+
+        if ( room[x][y].getType() == Decor.CHEST ){
+            chest = true;
+        }
+
+        return chest;
+    }
+
     public boolean isValidPosition(int x, int y) {
         if (x < 0 || y < 0) return false;
         return ! (room[y][x] instanceof Wall);
