@@ -30,6 +30,26 @@ public class Room {
         return sb.toString();
     }
 
+    public String toString(int posx, int posy) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n");
+        for (int j = 0; j < room.length; j++) {
+            sb.append("|");
+            for (int i = 0; i < room[0].length; i++) {
+
+                if (j == posy && i == posx) {
+                    sb.append("H_");
+                } else {
+                    sb.append(room[j][i]);
+                }
+                sb.append("|");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
     /**
      * Place les murs sur le bord de la room
      * @param room
@@ -83,7 +103,25 @@ public class Room {
         room[y][x] = new Chest();
     }
 
+
+    /**
+     *
+     * @param x position abscisse
+     * @param y position ordonnee
+     * @return si la case a un chest
+     */
+    public boolean hasChest(int x, int y){
+        boolean chest = false;
+
+        if ( room[x][y].getType() == Decor.CHEST ){
+            chest = true;
+        }
+
+        return chest;
+    }
+
     public boolean isValidPosition(int x, int y) {
+        if (x < 0 || y < 0) return false;
         return ! (room[y][x] instanceof Wall);
     }
 }

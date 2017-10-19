@@ -1,9 +1,14 @@
 package environement;
 
-public class Empty extends Decor {
+public class Empty implements Decor {
 
     public Empty(){
 
+    }
+
+    @Override
+    public int getType() {
+        return Decor.EMPTY;
     }
 
     @Override

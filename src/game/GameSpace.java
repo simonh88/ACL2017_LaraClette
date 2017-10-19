@@ -21,13 +21,18 @@ public class GameSpace {
         rooms.get(choosedRoom).placeChestInRoom();
     }
 
+
     public boolean isValidPosition(int x, int y) {
         return rooms.get(0).isValidPosition(x, y);
     }
 
+
     public String toString() {
         return rooms.get(0).toString();
+    }
 
+    public String toString(int posx, int posy) {
+        return rooms.get(0).toString(posx, posy);
     }
 
     public boolean isChest(int posX, int posY){

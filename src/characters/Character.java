@@ -5,22 +5,18 @@ package characters;
  */
 public abstract class Character {
 
-    private int hp;
-    private int posX;
-    private int posY;
 
+    public abstract int getHP();
 
-    public int getHP() {
-        return this.hp;
-    }
+    public abstract int getPosX();
 
-    public int getPosX(){
-        return this.posX;
-    }
+    public abstract int getPosY();
 
-    public int getPosY(){
-        return this.posY;
-    }
+    public abstract void setHP(int hp);
+
+    public abstract void setPosX(int x);
+
+    public abstract void setPosY(int y);
 
     public abstract String toString();
 

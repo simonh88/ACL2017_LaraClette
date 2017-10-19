@@ -22,7 +22,7 @@ public class GameState {
 
     public GameState(){
         lMonsters = new ArrayList<>();
-        hero = new Hero(0,0);
+        hero = new Hero(4,4);
         state = State.Running;
     }
 
