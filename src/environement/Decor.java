@@ -8,4 +8,6 @@ public abstract class Decor {
         this.x = x;
         this.y = y;
     }
+
+    public abstract String toString();
 }
