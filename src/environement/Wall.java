@@ -1,9 +1,14 @@
 package environement;
 
-public class Wall extends Decor {
+public class Wall implements Decor {
 
     public Wall(){
 
+    }
+
+    @Override
+    public int getType() {
+        return Decor.WALL;
     }
 
     @Override

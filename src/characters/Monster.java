@@ -21,6 +21,33 @@ public class Monster extends Character {
         this.posY = y;
     }
 
+    @Override
+    public int getHP() {
+        return this.hp;
+    }
+
+    @Override
+    public int getPosX() {
+        return this.posX;
+    }
+
+    @Override
+    public int getPosY() {
+        return this.posY;
+    }
+
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
     public String toString(){
         return "M";
     }

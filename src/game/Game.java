@@ -75,7 +75,7 @@ public class Game {
     }
 
     public String toString(){
-        return gameSpace.toString();
+        return gameSpace.toString(gameState.getHero().getPosX(), gameState.getHero().getPosY());
 
     }
 }
