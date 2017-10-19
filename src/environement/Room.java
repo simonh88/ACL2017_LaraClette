@@ -70,14 +70,17 @@ public class Room {
      * Place aléatoirement un coffre dans cette room
      */
     public void placeChestInRoom() {
+        System.out.println("PCIR");
         int x = 0;
         int y = 0;
 
         Random rand = new Random();
 
         while (! (room[y][x] instanceof Empty)) {
-            x = Math.abs(rand.nextInt()) % room[0].length - 2;
-            y = Math.abs(rand.nextInt()) % room.length - 2;
+            x = Math.abs(rand.nextInt()) % (room[0].length - 2);
+            y = Math.abs(rand.nextInt()) % (room.length - 2);
+            x++;
+            y++;
         }
 
         room[y][x] = new Chest();
