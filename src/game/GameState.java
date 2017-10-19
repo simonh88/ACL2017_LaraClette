@@ -14,6 +14,7 @@ public class GameState {
     private Hero hero;
     private List<Monster> lMonsters;
 
+
     public GameState(){
         lMonsters = new ArrayList<>();
         hero = new Hero(0,0);
