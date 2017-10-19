@@ -13,9 +13,7 @@ public class Room {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < room[0].length; i++) {
-            sb.append("___");
-        }
+
         sb.append("\n");
         for (int j = 0; j < room.length; j++) {
             sb.append("|");
@@ -66,10 +64,26 @@ public class Room {
         }
     }
 
+    /**
+     * Place aléatoirement un coffre dans cette room
+     */
     public void placeChestInRoom() {
+        int x = 0;
+        int y = 0;
+
         Random rand = new Random();
-        int x = Math.abs(rand.nextInt()) % room[0].length - 2;
-        int y = Math.abs(rand.nextInt()) % room.length - 2;
+
+        while (! (room[y][x] instanceof Empty)) {
+            x = Math.abs(rand.nextInt()) % (room[0].length - 2);
+            y = Math.abs(rand.nextInt()) % (room.length - 2);
+            x++;
+            y++;
+        }
+
         room[y][x] = new Chest();
+    }
+
+    public boolean isValidPosition(int x, int y) {
+        return ! (room[y][x] instanceof Wall);
     }
 }
