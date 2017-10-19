@@ -13,4 +13,8 @@ public class Game {
     public void show() {
         System.out.println(gameSpace);
     }
+
+    public boolean isValidPosition(int x, int y) {
+        return gameSpace.isValidPosition(x, y);
+    }
 }
