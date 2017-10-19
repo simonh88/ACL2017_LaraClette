@@ -7,6 +7,11 @@ public class Empty implements Decor {
     }
 
     @Override
+    public int getType() {
+        return Decor.EMPTY;
+    }
+
+    @Override
     public String toString() {
         return "__";
     }

@@ -21,6 +21,7 @@ public class GameSpace {
         rooms.get(choosedRoom).placeChestInRoom();
     }
 
+
     public String toString() {
         return rooms.get(0).toString();
 
