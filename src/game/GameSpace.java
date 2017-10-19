@@ -14,4 +14,10 @@ public class GameSpace {
 
         rooms.add(new Room());
     }
+
+
+    public void placeChest(){
+        int choosedRoom = (int)(Math.random() * ((rooms.size() - 1) + 1));
+        rooms.get(choosedRoom).placeChestInRoom();
+    }
 }
