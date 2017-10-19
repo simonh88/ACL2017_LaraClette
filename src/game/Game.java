@@ -27,7 +27,7 @@ public class Game {
             System.out.println(toString());
             //DEMANDE DE COMMANDE DE MOUVEMENT
             System.out.println("Commandes de deplacement:\nZ -> haut S -> bas, Q -> gauche, D -> droite");
-            System.out.println("Quel deplacement ?");
+            System.out.println("Quel deplacement ? ");
             Scanner in = new Scanner(System.in);
 
             char key = in.next().charAt(0);
