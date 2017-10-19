@@ -6,6 +6,12 @@ public class Lava implements Decor {
 
     }
 
+
+    @Override
+    public int getType() {
+        return Decor.LAVA;
+    }
+
     @Override
     public String toString() {
         return "LL";
