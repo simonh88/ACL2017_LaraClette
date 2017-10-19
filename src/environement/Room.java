@@ -25,13 +25,6 @@ public class Room {
                 sb.append(room[j][i]);
                 sb.append("|");
 
-                if (room[j][i] instanceof Empty) {
-                    sb.append("__|");
-                }
-
-                if (room[j][i] instanceof Wall) {
-                    sb.append("WW|");
-                }
 
             }
             sb.append("\n");

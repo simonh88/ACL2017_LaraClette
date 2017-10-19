@@ -8,6 +8,6 @@ public class Chest extends Decor {
 
     @Override
     public String toString() {
-        return "CC";
+        return "_C";
     }
 }
