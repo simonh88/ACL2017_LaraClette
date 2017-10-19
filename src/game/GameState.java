@@ -47,5 +47,9 @@ public class GameState {
         return this.state == State.Running;
     }
 
+    public void setVictory(){
+        this.state = State.Victory;
+    }
+
 
 }

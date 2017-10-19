@@ -1,5 +1,7 @@
 package game;
 
+import characters.Hero;
+
 import java.util.Scanner;
 
 public class Game {
@@ -27,26 +29,44 @@ public class Game {
             Scanner in = new Scanner(System.in);
 
             char key = in.next().charAt(0);
+            Hero h = gameState.getHero();
             switch (key){
                 case 'q'://Gauche
-                    gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1);
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1)){
+                    h.setPosX(gameState.getHero().getPosX());
+                    h.setPosY(gameState.getHero().getPosY()-1);
+                }
                     break;
                 case 's':
-                    gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY());
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY()){
+                    h.setPosX(gameState.getHero().getPosX()+1);
+                    h.setPosY(gameState.getHero().getPosY());
+                }
 
                     break;
                 case 'd':
-                    gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1);
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1){
+                    h.setPosX(gameState.getHero().getPosX());
+                    h.setPosY(gameState.getHero().getPosY()+1);
+                }
 
                     break;
                 case 'z':
-                    gameSpace.isValidPosition(gameState.getHero().getPosX()-1, gameState.getHero().getPosY());
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX()-1, gameState.getHero().getPosY())){
+                        h.setPosX(gameState.getHero().getPosX()-1);
+                        h.setPosY(gameState.getHero().getPosY());
+                    }
 
                     break;
                 case 'e':
                     break;
             }
+
+            if(gameSpace.isChest(h.getPosX(), h.getPosY())){
+                gameState.setVictory();
+            }
         }
+        System.out.println("\n\n====== VICTOIRE ==== ");
     }
 
 
