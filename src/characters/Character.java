@@ -5,22 +5,12 @@ package characters;
  */
 public abstract class Character {
 
-    private int hp;
-    private int posX;
-    private int posY;
 
+    public abstract int getHP();
 
-    public int getHP() {
-        return this.hp;
-    }
+    public abstract int getPosX();
 
-    public int getPosX(){
-        return this.posX;
-    }
-
-    public int getPosY(){
-        return this.posY;
-    }
+    public abstract int getPosY();
 
     public abstract String toString();
 
