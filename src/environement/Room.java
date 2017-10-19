@@ -2,10 +2,10 @@ package environement;
 
 public class Room {
 
-    private final char[][] room;
+    private final Decor[][] room;
 
     public Room() {
-        room = new char[12][12];
+        room = new Decor[12][12];
         setupRoomAndBorder(room);
     }
 
@@ -22,11 +22,11 @@ public class Room {
 
 
 
-                if (room[j][i] == ' ') {
+                if (room[j][i] instanceof Empty) {
                     sb.append("__|");
                 }
 
-                if (room[j][i] == 'W') {
+                if (room[j][i] instanceof Wall) {
                     sb.append("WW|");
                 }
 
@@ -40,33 +40,33 @@ public class Room {
      * Place les murs sur le bord de la room
      * @param room
      */
-    private void setupRoomAndBorder(char[][] room) {
+    private void setupRoomAndBorder(Decor[][] room) {
 
         // Le vide central
         for (int j = 0; j < room.length; j++) {
             for (int i = 0; i < room[0].length; i++) {
-                room[j][i] = ' ';
+                room[j][i] = new Empty();
             }
         }
 
         // Mur à gauche
         for (int j = 0; j < room.length; j++) {
-            room[j][0] = 'W';
+            room[j][0] = new Wall();
         }
 
         // Mur à droite
         for (int j = 0; j < room.length; j++) {
-            room[j][room[0].length-1] = 'W';
+            room[j][room[0].length-1] = new Wall();
         }
 
         // Mur en haut
         for (int i = 0; i < room[0].length; i++) {
-            room[0][i] = 'W';
+            room[0][i] = new Wall();
         }
 
         // Mur à droite
         for (int i = 0; i < room.length; i++) {
-            room[room.length - 1][i] = 'W';
+            room[room.length - 1][i] = new Wall();
         }
     }
 }
