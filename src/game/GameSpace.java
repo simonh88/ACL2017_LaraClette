@@ -29,4 +29,8 @@ public class GameSpace {
         return rooms.get(0).toString();
 
     }
+
+    public boolean isChest(int posX, int posY){
+        
+    }
 }
