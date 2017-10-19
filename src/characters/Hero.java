@@ -40,7 +40,7 @@ public class Hero extends Character {
         return "H";
     }
 
-    public void setHp(int hp) {
+    public void setHP(int hp) {
         this.hp = hp;
     }
 

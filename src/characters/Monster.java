@@ -36,7 +36,7 @@ public class Monster extends Character {
         return this.posY;
     }
 
-    public void setHp(int hp) {
+    public void setHP(int hp) {
         this.hp = hp;
     }
 
