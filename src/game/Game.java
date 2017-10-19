@@ -9,4 +9,8 @@ public class Game {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
     }
+
+    public void show() {
+        System.out.println(gameSpace);
+    }
 }
