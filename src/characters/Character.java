@@ -12,6 +12,12 @@ public abstract class Character {
 
     public abstract int getPosY();
 
+    public abstract void setHP(int hp);
+
+    public abstract void setPosX(int x);
+
+    public abstract void setPosY(int y);
+
     public abstract String toString();
 
 }
