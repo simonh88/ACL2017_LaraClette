@@ -1,11 +1,5 @@
 package environement;
 
-public class Empty implements Decor {
-    private int x;
-    private int y;
+public class Empty extends Decor {
 
-    @Override
-    public void setPosition(int x, int y) {
-
-    }
 }
