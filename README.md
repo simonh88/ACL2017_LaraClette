@@ -36,7 +36,7 @@
 
 #### Séance 1
 
-* Un plateau de taille fixe
+* Un plateau de taille fixe avec mur et obstacle
 * Un perso qui se déplace case par case (il ne peut pas sortir du plateau)
 * Un coffre à une position aléatoire
 * Détection de la victoire (touche action pour ramasser le coffre)
@@ -46,6 +46,7 @@
 * Intégration du moteur graphique
 * Version graphique du jeu
 * Fond map, sprite perso, sprite coffre
+* Ajout de monstre qui se déplace aléatoirement
 
 ### Sprint 2
 
