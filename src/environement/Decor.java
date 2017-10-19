@@ -1,13 +1,6 @@
 package environement;
 
-public abstract class Decor {
-    protected int x;
-    protected int y;
+public interface Decor {
 
-    public void setPosition(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-    public abstract String toString();
+    public String toString();
 }

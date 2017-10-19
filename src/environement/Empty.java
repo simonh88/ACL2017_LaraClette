@@ -1,6 +1,6 @@
 package environement;
 
-public class Empty extends Decor {
+public class Empty implements Decor {
 
     public Empty(){
 
