@@ -6,6 +6,7 @@ public class Room {
 
     public Room() {
         room = new char[12][12];
+        setupBorderWall(room);
     }
 
     public String toString() {
@@ -22,5 +23,13 @@ public class Room {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    private void setupBorderWall(Room room) {
+        for (int j = 0; j < room.room.length; j++) {
+            for (int i = 0; i < room.room[0].length; i++) {
+
+            }
+        }
     }
 }
