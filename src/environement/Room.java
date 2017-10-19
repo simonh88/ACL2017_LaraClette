@@ -70,7 +70,6 @@ public class Room {
      * Place aléatoirement un coffre dans cette room
      */
     public void placeChestInRoom() {
-        System.out.println("PCIR");
         int x = 0;
         int y = 0;
 
