@@ -28,7 +28,7 @@
 * 4 Ajout des sprites + anim ?
 * 5 Monstres + armes + combat + pdv
 * 6 Fouiller + niveaux + sauvegarde + score
-
+ 
 
 ## Backlog détaillé
 
