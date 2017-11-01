@@ -1,5 +1,8 @@
 package game;
 
+
+import characters.Hero;
+
 import java.util.Scanner;
 
 public class Game {
@@ -24,29 +27,51 @@ public class Game {
             //PRINT DE LETAT DU JEU
             System.out.println(toString());
             //DEMANDE DE COMMANDE DE MOUVEMENT
+
+            System.out.println("Commandes de deplacement:\nZ -> haut S -> bas, Q -> gauche, D -> droite");
+            System.out.println("Quel deplacement ? ");
             Scanner in = new Scanner(System.in);
 
             char key = in.next().charAt(0);
+            Hero h = gameState.getHero();
             switch (key){
                 case 'q'://Gauche
-                    gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1);
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1)){
+                    h.setPosX(gameState.getHero().getPosX()-1);
+                    h.setPosY(gameState.getHero().getPosY());
+                }
                     break;
                 case 's':
-                    gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY());
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1)){
+                    h.setPosX(gameState.getHero().getPosX());
+                    h.setPosY(gameState.getHero().getPosY()+1);
+                }
 
                     break;
                 case 'd':
-                    gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1);
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY())){
+                    h.setPosX(gameState.getHero().getPosX()+1);
+                    h.setPosY(gameState.getHero().getPosY());
+                }
 
                     break;
                 case 'z':
-                    gameSpace.isValidPosition(gameState.getHero().getPosX()-1, gameState.getHero().getPosY());
+                    if(gameSpace.isValidPosition(gameState.getHero().getPosX()-1, gameState.getHero().getPosY())){
+                        h.setPosX(gameState.getHero().getPosX());
+                        h.setPosY(gameState.getHero().getPosY()-1);
+                    }
 
                     break;
                 case 'e':
                     break;
             }
+
+
+            if(gameSpace.isChest(h.getPosY(), h.getPosX())){
+                gameState.setVictory();
+            }
         }
+        System.out.println("\n\n====== VICTOIRE ==== ");
     }
 
 

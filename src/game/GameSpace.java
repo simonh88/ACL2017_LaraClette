@@ -34,4 +34,9 @@ public class GameSpace {
     public String toString(int posx, int posy) {
         return rooms.get(0).toString(posx, posy);
     }
+
+
+    public boolean isChest(int posX, int posY){
+        return rooms.get(0).hasChest(posX, posY);
+    }
 }

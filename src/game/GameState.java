@@ -48,4 +48,9 @@ public class GameState {
     }
 
 
+    public void setVictory(){
+        this.state = State.Victory;
+    }
+
+
 }
