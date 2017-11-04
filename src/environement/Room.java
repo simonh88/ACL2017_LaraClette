@@ -116,7 +116,7 @@ public class Room {
     public boolean hasChest(int x, int y){
         boolean chest = false;
 
-        if ( room[x][y].getType() == Decor.CHEST ){
+        if ( room[y][x].getType() == Decor.CHEST ){
             chest = true;
         }
 

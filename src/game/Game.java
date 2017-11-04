@@ -15,9 +15,12 @@ public class Game implements engine.Game {
     private final GameSpace gameSpace;
     private final GameState gameState;
 
+    private boolean isFinished;
+
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
+        isFinished = false;
     }
 
     /**
@@ -58,6 +61,13 @@ public class Game implements engine.Game {
                 }
 
                 break;
+            case ACTION:
+                if (gameSpace.isChest(h.getPosX(), h.getPosY())) {
+                    // Alors on win
+                    isFinished = true;
+                    System.out.println("Vous avez gagné");
+                }
+                break;
 
         }
 
@@ -91,13 +101,10 @@ public class Game implements engine.Game {
 
 
             posY = h.getPosY() - m.getPosY();
-            System.out.println("PosY = " + posY);
             if (posY > 1) {
                 //Bas
                 if (isValidPosition(m.getPosX(), m.getPosY() + 1)) {
                     m.setPosY(m.getPosY() + 1);
-                } else {
-                    System.out.println("Bas pas une pos valide");
                 }
             } else if (posY < 1) {
                 //Haut
@@ -127,7 +134,7 @@ public class Game implements engine.Game {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return isFinished;
     }
 
     public Room currentRoom() {

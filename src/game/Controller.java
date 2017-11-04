@@ -59,6 +59,7 @@ public class Controller implements GameController {
 
                 break;
             case 'e':
+                this.commandeEnCours = Cmd.ACTION;
                 break;
 
         }
