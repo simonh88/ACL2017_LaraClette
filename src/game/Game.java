@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-public class Game implements engine.Game{
+public class Game implements engine.Game {
 
     private final GameSpace gameSpace;
     private final GameState gameState;
@@ -32,29 +32,29 @@ public class Game implements engine.Game{
 
         switch (commande) {
             case LEFT://Gauche
-                if(gameSpace.isValidPosition(gameState.getHero().getPosX() -1, gameState.getHero().getPosY())){
-                    h.setPosX(gameState.getHero().getPosX()-1);
+                if (isValidPosition(gameState.getHero().getPosX() - 1, gameState.getHero().getPosY())) {
+                    h.setPosX(gameState.getHero().getPosX() - 1);
                     h.setPosY(gameState.getHero().getPosY());
                 }
                 break;
             case DOWN:
-                if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1)){
+                if (isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY() + 1)) {
                     h.setPosX(gameState.getHero().getPosX());
-                    h.setPosY(gameState.getHero().getPosY()+1);
+                    h.setPosY(gameState.getHero().getPosY() + 1);
                 }
 
                 break;
             case RIGHT:
-                if(gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY())){
-                    h.setPosX(gameState.getHero().getPosX()+1);
+                if (isValidPosition(gameState.getHero().getPosX() + 1, gameState.getHero().getPosY())) {
+                    h.setPosX(gameState.getHero().getPosX() + 1);
                     h.setPosY(gameState.getHero().getPosY());
                 }
 
                 break;
             case UP:
-                if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY() -1)){
+                if (isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY() - 1)) {
                     h.setPosX(gameState.getHero().getPosX());
-                    h.setPosY(gameState.getHero().getPosY()-1);
+                    h.setPosY(gameState.getHero().getPosY() - 1);
                 }
 
                 break;
@@ -68,48 +68,59 @@ public class Game implements engine.Game{
     /**
      * Fait bouger tous les monstres vers le héro.
      */
-    public void mooveMonsters(){
+    public void mooveMonsters() {
         Monster m;
         Hero h = gameState.getHero();
         int posX;
         int posY;
-        for (int i = 0; i<gameState.sizeMonsters(); i++){
+        for (int i = 0; i < gameState.sizeMonsters(); i++) {
             m = gameState.getMonster(i);
             posX = h.getPosX() - m.getPosX();
             //Ne peut pas aller sur la même case que le héro
-            if(posX > 0){
+            if (posX > 1) {
                 //Droite
-                if(isValidPosition(m.getPosX()+1, m.getPosY())) {
+                if (isValidPosition(m.getPosX() + 1, m.getPosY())) {
                     m.setPosX(m.getPosX() + 1);
                 }
-            }else if(posX < 0){
+            } else if (posX < 1) {
                 //Gauche
-                if(isValidPosition(m.getPosX()-1, m.getPosY())) {
+                if (isValidPosition(m.getPosX() - 1, m.getPosY())) {
                     m.setPosX(m.getPosX() - 1);
                 }
-            }else{
-                posY = h.getPosY() - m.getPosY();
-                if(posY > 0){
-                    //Bas
-                    if(isValidPosition(m.getPosX(), m.getPosY() + 1)) {
-                        m.setPosY(m.getPosY() + 1);
-                    }
-                }else if(posY < 0){
-                    //Haut
-                    if(isValidPosition(m.getPosX(), m.getPosY() - 1)) {
-                        m.setPosY(m.getPosY() - 1);
-                    }
+            }
+
+
+            posY = h.getPosY() - m.getPosY();
+            System.out.println("PosY = " + posY);
+            if (posY > 1) {
+                //Bas
+                if (isValidPosition(m.getPosX(), m.getPosY() + 1)) {
+                    m.setPosY(m.getPosY() + 1);
+                } else {
+                    System.out.println("Bas pas une pos valide");
+                }
+            } else if (posY < 1) {
+                //Haut
+                if (isValidPosition(m.getPosX(), m.getPosY() - 1)) {
+                    m.setPosY(m.getPosY() - 1);
                 }
             }
+
         }
     }
 
 
     public boolean isValidPosition(int x, int y) {
+        // Check monstres
+        for (Monster monster : monsters()) {
+            if (x == monster.getPosX() && y == monster.getPosY()) return false;
+        }
+
+        // Check murs
         return gameSpace.isValidPosition(x, y);
     }
 
-    public String toString(){
+    public String toString() {
         return gameSpace.toString(gameState.getHero().getPosX(), gameState.getHero().getPosY());
 
     }
@@ -130,5 +141,10 @@ public class Game implements engine.Game{
 
     public List<Monster> monsters() {
         return gameState.monsters();
+    }
+
+    private boolean isValidposition(int x, int y) {
+
+        return gameSpace.isValidPosition(x, y);
     }
 }
