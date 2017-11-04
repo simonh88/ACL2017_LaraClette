@@ -3,6 +3,7 @@ package game;
 import characters.Hero;
 import characters.Monster;
 import engine.Cmd;
+import environement.Chest;
 import environement.Room;
 
 import java.util.Iterator;
