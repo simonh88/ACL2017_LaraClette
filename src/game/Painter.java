@@ -3,8 +3,8 @@ package game;
 import characters.Hero;
 import characters.Monster;
 import engine.GamePainter;
-import environement.Chest;
 import environement.Room;
+import factory.TileFactory;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -40,8 +40,11 @@ public class Painter implements GamePainter {
                         crayon.fillRect(i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
                         break;
                     case EMPTY:
-                        crayon.setColor(Color.WHITE);
-                        crayon.fillRect(i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+
+                        crayon.drawImage(TileFactory.instance().getGrassTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
+                        //crayon.setColor(Color.WHITE);
+                        //crayon.fillRect(i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
                         break;
                     case CHEST:
                         crayon.setColor(Color.orange);
