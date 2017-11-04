@@ -75,8 +75,9 @@ public class Painter implements GamePainter {
 
                         break;
                     case CHEST:
-                        crayon.setColor(Color.orange);
-                        crayon.fillRect(i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+
+                        crayon.drawImage(TileFactory.instance().getChestTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
                         break;
                 }
             }
@@ -85,14 +86,17 @@ public class Painter implements GamePainter {
 
     private void printHero(Graphics2D crayon) {
         Hero hero = game.getHero();
-        crayon.setColor(Color.BLUE);
-        crayon.fillRect(hero.getPosX() * Room.TILE_WIDTH, hero.getPosY() * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+
+        crayon.drawImage(TileFactory.instance().getGirl(),
+                hero.getPosX() * Room.TILE_WIDTH,
+                hero.getPosY() * Room.TILE_HEIGHT, null);
     }
 
     private void printMonsters(Graphics2D crayon) {
         for (Monster monster : game.monsters()) {
-            crayon.setColor(Color.RED);
-            crayon.fillRect(monster.getPosX() * Room.TILE_WIDTH, monster.getPosY() * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+            crayon.drawImage(TileFactory.instance().getMonster(),
+                    monster.getPosX() * Room.TILE_WIDTH,
+                    monster.getPosY() * Room.TILE_HEIGHT, null);
         }
     }
 
