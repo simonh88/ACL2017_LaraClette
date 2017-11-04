@@ -12,8 +12,11 @@ import java.util.Scanner;
 
 public class Game implements engine.Game {
 
-    private final GameSpace gameSpace;
-    private final GameState gameState;
+    /**
+     * Pas final car pour la réinitialisation -> new
+     */
+    private GameSpace gameSpace;
+    private GameState gameState;
 
     private boolean isFinished;
 
@@ -68,16 +71,25 @@ public class Game implements engine.Game {
             case ACTION:
                 if (gameSpace.isChest(h.getPosX(), h.getPosY())) {
                     // Alors on win
-                    isFinished = true;
+                    //isFinished = true;
                     gameState.setVictory();
-                    System.out.println("Vous avez gagné");
                 }
                 break;
-
+            case RESTART:
+                if(gameState.isVictory() || gameState.isLoss()){
+                    restart();
+                }
+                break;
         }
 
         //Fait bouger tous les monstres aléatoirement d'une case
         if (!(commande == Cmd.IDLE)) mooveMonsters();
+    }
+
+    private void restart(){
+        gameState = new GameState();
+        gameSpace = new GameSpace();
+
     }
 
     /**

@@ -65,6 +65,11 @@ public class GameState {
         this.state = State.Victory;
     }
 
+    public void setRunning(){
+        this.state = State.Running;
+
+    }
+
     public List<Monster> monsters() {
         return lMonsters;
     }
