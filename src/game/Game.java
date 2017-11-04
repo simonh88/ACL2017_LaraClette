@@ -4,10 +4,12 @@ import characters.Hero;
 import characters.Monster;
 import engine.Cmd;
 import environement.Chest;
+import environement.Empty;
 import environement.Room;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game implements engine.Game {
@@ -24,6 +26,7 @@ public class Game implements engine.Game {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
         isFinished = false;
+        generateHero();
     }
 
     public GameState getGameState(){
@@ -89,6 +92,7 @@ public class Game implements engine.Game {
     private void restart(){
         gameState = new GameState();
         gameSpace = new GameSpace();
+        generateHero();
 
     }
 
@@ -131,6 +135,18 @@ public class Game implements engine.Game {
             }
 
         }
+    }
+
+    private void generateHero(){
+        Random rand = new Random();
+        int x = 0;
+        int y = 0;
+        while (! (isValidPosition(x,y))) {
+            x = Math.abs(rand.nextInt()) % (10) + 1;
+            y = Math.abs(rand.nextInt()) % (10) + 1;
+        }
+        gameState.setHero(x,y);
+
     }
 
 

@@ -97,10 +97,8 @@ public class Room {
         Random rand = new Random();
 
         while (! (room[y][x] instanceof Empty)) {
-            x = Math.abs(rand.nextInt()) % (room[0].length - 2);
-            y = Math.abs(rand.nextInt()) % (room.length - 2);
-            x++;
-            y++;
+            x = Math.abs(rand.nextInt()) % (room[0].length - 2) + 1;
+            y = Math.abs(rand.nextInt()) % (room.length - 2) + 1;
         }
 
         room[y][x] = new Chest();

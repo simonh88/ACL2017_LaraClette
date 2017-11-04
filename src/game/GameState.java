@@ -33,6 +33,10 @@ public class GameState {
         return hero;
     }
 
+    public void setHero(int x, int y){
+        hero = new Hero(x,y);
+    }
+
     public Monster getMonster(int i){
         if(i >= 0 && i < lMonsters.size()){//Innaccessible
             return lMonsters.get(i);
