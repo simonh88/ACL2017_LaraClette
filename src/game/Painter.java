@@ -14,7 +14,6 @@ import static environement.Decor.*;
 public class Painter implements GamePainter {
 
 
-
     /* Taille de la fenetre */
     private static final int WIN_WIDTH = 600;
     private static final int WIN_HEIGHT = 600;
@@ -29,6 +28,34 @@ public class Painter implements GamePainter {
     public void draw(BufferedImage image) {
         Graphics2D crayon = (Graphics2D) image.getGraphics();
 
+        if (game.getGameState().isRunning()) {
+        /* On dessine les mur */
+            printwalls(crayon);
+
+        /* On dessine le hero */
+            printHero(crayon);
+
+        /* On dessine les monstres */
+            printMonsters(crayon);
+
+            crayon.drawString("Commands : ", 10, 565);
+            crayon.drawString("LEFT: q | RIGHT: d | UP: z | DOWN: s", 30, 580);
+            crayon.drawString("ACTION: e", 30, 595);
+        }else if(game.getGameState().isLoss()){
+            crayon.setColor(Color.RED);
+            crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
+            crayon.drawString("Loss ! ", 250, 300);
+        }else if(game.getGameState().isVictory()){
+            crayon.setColor(Color.RED);
+            crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
+            crayon.drawString("Win ! ", 250, 300);
+            crayon.drawString("Press R to restart", 140, 350);
+
+        }
+
+    }
+
+    private void printwalls(Graphics2D crayon) {
         Room currentRoom = game.currentRoom();
 
         /* On dessine les mur */
@@ -50,18 +77,19 @@ public class Painter implements GamePainter {
                 }
             }
         }
+    }
 
-        /* On dessine le hero */
+    private void printHero(Graphics2D crayon) {
         Hero hero = game.getHero();
         crayon.setColor(Color.BLUE);
         crayon.fillRect(hero.getPosX() * Room.TILE_WIDTH, hero.getPosY() * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+    }
 
-        /* On dessine les monstres */
+    private void printMonsters(Graphics2D crayon) {
         for (Monster monster : game.monsters()) {
             crayon.setColor(Color.RED);
             crayon.fillRect(monster.getPosX() * Room.TILE_WIDTH, monster.getPosY() * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
         }
-
     }
 
     @Override
