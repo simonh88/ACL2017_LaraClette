@@ -1,7 +1,6 @@
 package factory;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,15 +11,20 @@ public class TileFactory {
     public static TileFactory instance;
 
     private BufferedImage grassTile;
-    private ImageIcon grassTile2;
-
+    private BufferedImage wallTile;
 
     private TileFactory() {
         try {
             grassTile = ImageIO.read(new File("res/grass_tile.png"));
-            grassTile2 = new ImageIcon("/res/grass_tile.png");
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/grass_tile.png");
+            System.exit(-1);
+        }
+
+        try {
+            wallTile = ImageIO.read(new File("res/wall_tile.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/wall_tile.png");
             System.exit(-1);
         }
     }
@@ -35,5 +39,9 @@ public class TileFactory {
 
     public Image getGrassTile() {
         return grassTile;
+    }
+
+    public Image getWallTile() {
+        return wallTile;
     }
 }

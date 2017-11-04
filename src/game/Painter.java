@@ -36,15 +36,16 @@ public class Painter implements GamePainter {
             for (int i = 0; i < currentRoom.getWidth(); i++) {
                 switch (currentRoom.get(i, j).getType()) {
                     case WALL:
-                        crayon.setColor(Color.DARK_GRAY);
-                        crayon.fillRect(i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+
+                        crayon.drawImage(TileFactory.instance().getWallTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
+
                         break;
                     case EMPTY:
 
                         crayon.drawImage(TileFactory.instance().getGrassTile(),
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
-                        //crayon.setColor(Color.WHITE);
-                        //crayon.fillRect(i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+
                         break;
                     case CHEST:
                         crayon.setColor(Color.orange);
