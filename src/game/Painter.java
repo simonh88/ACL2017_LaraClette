@@ -1,6 +1,7 @@
 package game;
 
 import characters.Hero;
+import characters.Monster;
 import engine.GamePainter;
 import environement.Room;
 
@@ -29,6 +30,7 @@ public class Painter implements GamePainter {
 
         Room currentRoom = game.currentRoom();
 
+        /* On dessine les mur */
         for (int j = 0; j < currentRoom.getHeight(); j++) {
             for (int i = 0; i < currentRoom.getWidth(); i++) {
                 switch (currentRoom.get(i, j).getType()) {
@@ -44,9 +46,16 @@ public class Painter implements GamePainter {
             }
         }
 
+        /* On dessine le hero */
         Hero hero = game.getHero();
         crayon.setColor(Color.BLUE);
         crayon.fillRect(hero.getPosX() * Room.TILE_WIDTH, hero.getPosY() * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+
+        /* On dessine les monstres */
+        for (Monster monster : game.monsters()) {
+            crayon.setColor(Color.RED);
+            crayon.fillRect(monster.getPosX() * Room.TILE_WIDTH, monster.getPosY() * Room.TILE_HEIGHT, Room.TILE_WIDTH, Room.TILE_HEIGHT);
+        }
     }
 
     @Override

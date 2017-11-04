@@ -5,6 +5,7 @@ import characters.Hero;
 import characters.Monster;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -56,5 +57,7 @@ public class GameState {
         this.state = State.Victory;
     }
 
-
+    public List<Monster> monsters() {
+        return lMonsters;
+    }
 }

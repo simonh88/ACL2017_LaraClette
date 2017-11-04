@@ -6,6 +6,7 @@ import engine.Cmd;
 import environement.Room;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Game implements engine.Game{
@@ -30,7 +31,7 @@ public class Game implements engine.Game{
 
         switch (commande) {
             case LEFT://Gauche
-                if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1)){
+                if(gameSpace.isValidPosition(gameState.getHero().getPosX() -1, gameState.getHero().getPosY())){
                     h.setPosX(gameState.getHero().getPosX()-1);
                     h.setPosY(gameState.getHero().getPosY());
                 }
@@ -50,7 +51,7 @@ public class Game implements engine.Game{
 
                 break;
             case UP:
-                if(gameSpace.isValidPosition(gameState.getHero().getPosX()-1, gameState.getHero().getPosY())){
+                if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY() -1)){
                     h.setPosX(gameState.getHero().getPosX());
                     h.setPosY(gameState.getHero().getPosY()-1);
                 }
@@ -58,8 +59,9 @@ public class Game implements engine.Game{
                 break;
 
         }
+
         //Fait bouger tous les monstres aléatoirement d'une case
-        mooveMonsters();
+        if (!(commande == Cmd.IDLE)) mooveMonsters();
     }
 
     /**
@@ -122,5 +124,10 @@ public class Game implements engine.Game{
 
     public Hero getHero() {
         return gameState.getHero();
+    }
+
+
+    public List<Monster> monsters() {
+        return gameState.monsters();
     }
 }
