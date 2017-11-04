@@ -23,6 +23,10 @@ public class Game implements engine.Game {
         isFinished = false;
     }
 
+    public GameState getGameState(){
+        return gameState;
+    }
+
     /**
      * faire evoluer le jeu suite a une commande
      *
@@ -65,6 +69,7 @@ public class Game implements engine.Game {
                 if (gameSpace.isChest(h.getPosX(), h.getPosY())) {
                     // Alors on win
                     isFinished = true;
+                    gameState.setVictory();
                     System.out.println("Vous avez gagné");
                 }
                 break;
@@ -154,4 +159,6 @@ public class Game implements engine.Game {
 
         return gameSpace.isValidPosition(x, y);
     }
+
+
 }

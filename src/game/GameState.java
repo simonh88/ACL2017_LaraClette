@@ -53,6 +53,14 @@ public class GameState {
         return this.state == State.Running;
     }
 
+    public boolean isVictory(){
+        return this.state == State.Victory;
+    }
+
+    public boolean isLoss(){
+        return this.state == State.Loss;
+    }
+
     public void setVictory(){
         this.state = State.Victory;
     }
