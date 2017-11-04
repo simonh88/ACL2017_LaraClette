@@ -1,10 +1,11 @@
 package game;
 
 import characters.Hero;
+import engine.Cmd;
 
 import java.util.Scanner;
 
-public class Game {
+public class Game implements engine.Game{
 
     private final GameSpace gameSpace;
     private final GameState gameState;
@@ -30,7 +31,7 @@ public class Game {
 
             char key = in.next().charAt(0);
             Hero h = gameState.getHero();
-            switch (key){
+            /*switch (key){
                 case 'q'://Gauche
                     if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1)){
                     h.setPosX(gameState.getHero().getPosX()-1);
@@ -60,13 +61,55 @@ public class Game {
                     break;
                 case 'e':
                     break;
-            }
+            }*/
 
             if(gameSpace.isChest(h.getPosY(), h.getPosX())){
                 gameState.setVictory();
             }
         }
         System.out.println("\n\n====== VICTOIRE ==== ");
+    }
+
+    /**
+     * faire evoluer le jeu suite a une commande
+     *
+     * @param commande
+     */
+    @Override
+    public void evolve(Cmd commande) {
+
+        Hero h = gameState.getHero();
+
+        switch (commande) {
+            case LEFT://Gauche
+                if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()-1)){
+                    h.setPosX(gameState.getHero().getPosX()-1);
+                    h.setPosY(gameState.getHero().getPosY());
+                }
+                break;
+            case DOWN:
+                if(gameSpace.isValidPosition(gameState.getHero().getPosX(), gameState.getHero().getPosY()+1)){
+                    h.setPosX(gameState.getHero().getPosX());
+                    h.setPosY(gameState.getHero().getPosY()+1);
+                }
+
+                break;
+            case RIGHT:
+                if(gameSpace.isValidPosition(gameState.getHero().getPosX()+1, gameState.getHero().getPosY())){
+                    h.setPosX(gameState.getHero().getPosX()+1);
+                    h.setPosY(gameState.getHero().getPosY());
+                }
+
+                break;
+            case UP:
+                if(gameSpace.isValidPosition(gameState.getHero().getPosX()-1, gameState.getHero().getPosY())){
+                    h.setPosX(gameState.getHero().getPosX());
+                    h.setPosY(gameState.getHero().getPosY()-1);
+                }
+
+                break;
+
+        }
     }
 
 
@@ -77,5 +120,10 @@ public class Game {
     public String toString(){
         return gameSpace.toString(gameState.getHero().getPosX(), gameState.getHero().getPosY());
 
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 }
