@@ -46,7 +46,7 @@
 * Intégration du moteur graphique
 * Version graphique du jeu
 * Fond map, sprite perso, sprite coffre
-* Ajout de monstre qui se déplace aléatoirement
+* Ajout de monstre qui se déplace vers le héro
 
 ### Sprint 2
 

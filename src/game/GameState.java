@@ -24,6 +24,7 @@ public class GameState {
         lMonsters = new ArrayList<>();
         hero = new Hero(4,4);
         state = State.Running;
+        lMonsters.add(new Monster(2,2));
     }
 
 
@@ -31,7 +32,7 @@ public class GameState {
         return hero;
     }
 
-    public Monster get(int i){
+    public Monster getMonster(int i){
         if(i >= 0 && i < lMonsters.size()){//Innaccessible
             return lMonsters.get(i);
         }
@@ -41,6 +42,10 @@ public class GameState {
 
     public State getState(){
         return state;
+    }
+
+    public int sizeMonsters(){
+        return lMonsters.size();
     }
 
     public boolean isRunning(){
