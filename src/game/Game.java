@@ -1,6 +1,7 @@
 package game;
 
 import characters.Hero;
+import characters.Monster;
 import engine.Cmd;
 import environement.Room;
 
@@ -56,6 +57,47 @@ public class Game implements engine.Game{
 
                 break;
 
+        }
+        //Fait bouger tous les monstres aléatoirement d'une case
+        mooveMonsters();
+    }
+
+    /**
+     * Fait bouger tous les monstres vers le héro.
+     */
+    public void mooveMonsters(){
+        Monster m;
+        Hero h = gameState.getHero();
+        int posX;
+        int posY;
+        for (int i = 0; i<gameState.sizeMonsters(); i++){
+            m = gameState.getMonster(i);
+            posX = h.getPosX() - m.getPosX();
+            //Ne peut pas aller sur la même case que le héro
+            if(posX > 0){
+                //Droite
+                if(isValidPosition(m.getPosX()+1, m.getPosY())) {
+                    m.setPosX(m.getPosX() + 1);
+                }
+            }else if(posX < 0){
+                //Gauche
+                if(isValidPosition(m.getPosX()-1, m.getPosY())) {
+                    m.setPosX(m.getPosX() - 1);
+                }
+            }else{
+                posY = h.getPosY() - m.getPosY();
+                if(posY > 0){
+                    //Bas
+                    if(isValidPosition(m.getPosX(), m.getPosY() + 1)) {
+                        m.setPosY(m.getPosY() + 1);
+                    }
+                }else if(posY < 0){
+                    //Haut
+                    if(isValidPosition(m.getPosX(), m.getPosY() - 1)) {
+                        m.setPosY(m.getPosY() - 1);
+                    }
+                }
+            }
         }
     }
 
