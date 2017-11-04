@@ -64,6 +64,8 @@ public class Controller implements GameController {
             case 'r':
                 this.commandeEnCours = Cmd.RESTART;
                 break;
+            case '-':
+                System.exit(0);
 
         }
 
