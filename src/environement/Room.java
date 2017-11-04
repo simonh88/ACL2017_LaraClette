@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class Room {
 
+    public static final int TILE_HEIGHT = 50;
+    public static final int TILE_WIDTH = 50;
+
     private final Decor[][] room;
 
     public Room() {
@@ -123,5 +126,17 @@ public class Room {
     public boolean isValidPosition(int x, int y) {
         if (x < 0 || y < 0) return false;
         return ! (room[y][x] instanceof Wall);
+    }
+
+    public int getWidth() {
+        return room[0].length;
+    }
+
+    public int getHeight() {
+        return room.length;
+    }
+
+    public Decor get(int i, int j) {
+        return room[j][i];
     }
 }
