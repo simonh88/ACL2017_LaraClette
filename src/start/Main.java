@@ -1,7 +1,11 @@
 package start;
 
 
+import engine.GameEngineGraphical;
+import game.Controller;
 import game.Game;
+import game.Painter;
+import factory.TileFactory;
 
 /**
  * lancement du moteur avec le jeu
@@ -9,8 +13,12 @@ import game.Game;
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		Game game = new Game();
-		game.run();
+        TileFactory.instance();
+        Game game = new Game();
+        Controller controller = new Controller();
+        Painter painter = new Painter(game);
+		GameEngineGraphical engine = new GameEngineGraphical(game, painter, controller);
+        engine.run();
 	}
 
 }

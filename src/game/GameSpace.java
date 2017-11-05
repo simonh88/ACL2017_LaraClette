@@ -3,6 +3,7 @@ package game;
 import environement.Room;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GameSpace {
@@ -36,7 +37,17 @@ public class GameSpace {
     }
 
 
-    public boolean isChest(int posX, int posY){
+    public boolean isChest(int posX, int posY) {
         return rooms.get(0).hasChest(posX, posY);
+    }
+
+    /**
+     * Renvoie un iterateur sur la liste des rooms
+     * Utilisé pour remonter les rooms jusqu'au painter
+     *
+     * @return
+     */
+    public Room currentRoom() {
+        return rooms.get(0);
     }
 }

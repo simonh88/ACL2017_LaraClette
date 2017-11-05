@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class Room {
 
+    public static final int TILE_HEIGHT = 50;
+    public static final int TILE_WIDTH = 50;
+
     private final Decor[][] room;
 
     public Room() {
@@ -94,10 +97,8 @@ public class Room {
         Random rand = new Random();
 
         while (! (room[y][x] instanceof Empty)) {
-            x = Math.abs(rand.nextInt()) % (room[0].length - 2);
-            y = Math.abs(rand.nextInt()) % (room.length - 2);
-            x++;
-            y++;
+            x = Math.abs(rand.nextInt()) % (room[0].length - 2) + 1;
+            y = Math.abs(rand.nextInt()) % (room.length - 2) + 1;
         }
 
         room[y][x] = new Chest();
@@ -113,7 +114,7 @@ public class Room {
     public boolean hasChest(int x, int y){
         boolean chest = false;
 
-        if ( room[x][y].getType() == Decor.CHEST ){
+        if ( room[y][x].getType() == Decor.CHEST ){
             chest = true;
         }
 
@@ -123,5 +124,17 @@ public class Room {
     public boolean isValidPosition(int x, int y) {
         if (x < 0 || y < 0) return false;
         return ! (room[y][x] instanceof Wall);
+    }
+
+    public int getWidth() {
+        return room[0].length;
+    }
+
+    public int getHeight() {
+        return room.length;
+    }
+
+    public Decor get(int i, int j) {
+        return room[j][i];
     }
 }
