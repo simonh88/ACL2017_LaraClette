@@ -38,6 +38,8 @@ public class Painter implements GamePainter {
         /* On dessine les monstres */
             printMonsters(crayon);
 
+            crayon.setColor(Color.WHITE);
+            crayon.setFont(new Font(" TimesRoman ",Font.BOLD,15));
             crayon.drawString("Commands : ", 10, 565);
             crayon.drawString("LEFT: q | RIGHT: d | UP: z | DOWN: s", 30, 580);
             crayon.drawString("ACTION: e", 30, 595);

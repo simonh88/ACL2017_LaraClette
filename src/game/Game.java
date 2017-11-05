@@ -20,6 +20,9 @@ public class Game implements engine.Game {
     private GameSpace gameSpace;
     private GameState gameState;
 
+    private long deltaTime;
+    private long timeSinceStart;
+
     private boolean isFinished;
 
     public Game() {
@@ -27,6 +30,8 @@ public class Game implements engine.Game {
         this.gameState = new GameState();
         isFinished = false;
         generateHero();
+        deltaTime = 1000;
+        timeSinceStart = System.currentTimeMillis();
     }
 
     public GameState getGameState(){
@@ -85,8 +90,12 @@ public class Game implements engine.Game {
                 break;
         }
 
-        //Fait bouger tous les monstres aléatoirement d'une case
-        if (!(commande == Cmd.IDLE)) mooveMonsters();
+        //Fait bouger tous les monstres aléatoirement d'une case toutes les 1sec
+
+        if (System.currentTimeMillis() - timeSinceStart > deltaTime ) {
+            mooveMonsters();
+            timeSinceStart = System.currentTimeMillis();
+        }
     }
 
     private void restart(){
