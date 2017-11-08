@@ -54,6 +54,9 @@
 
 * Un niveau avec plusieur map fixe à parcourir pour trouver le trésor
 * Le perso peut changer de maps
+* Ajouter un menu
+* Le monstre peut attaquer
+* Ajout de sons
 
 #### Suite du print 2
 
