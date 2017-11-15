@@ -1,0 +1,24 @@
+@startuml
+title Joueur va chercher le coffre
+actor Joueur
+database Application
+
+loop
+  Application -> Joueur : Quelle cmd pour deplacement ?
+  Joueur --> Application : cmd
+  Application -> Application : isValide(cmd)
+
+  alt cmd valide
+    Application -> Application : joueur.move(cmd)
+  else cmd non valide
+    Application -> Application : ne bouge pas le joueur
+  end
+end
+  Joueur -> Application : Appuie sur touche E
+  Application -> Application : Check si la case du joueur est un coffre
+  alt Case est un coffre
+    Application --> Joueur : Partie terminée
+  else Case n'est pas un coffre
+    Application --> Joueur : Partie continue
+  end
+@enduml

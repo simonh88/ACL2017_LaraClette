@@ -1,0 +1,20 @@
+@startuml
+title Application avec menu
+actor Joueur
+database Application
+
+loop
+  Application -> Joueur : Affiche le menu et attend une action
+  Joueur --> Application : Appuie sur une fleche cmd
+  Application -> Application : isValide(cmd)
+
+  alt cmd valide
+    Application -> Application : Deplace le curseur dans le menu
+  else cmd non valide
+    Application -> Application : Ne bouge pas le curseur
+  end
+end
+  Joueur -> Application : Appuie sur touche Entrée
+  Application -> Application : Execute la commande du menu
+  Application --> Joueur : Affiche les informations à l'écran
+@enduml
