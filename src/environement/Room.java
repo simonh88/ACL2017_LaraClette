@@ -6,11 +6,12 @@ public class Room {
 
     public static final int TILE_HEIGHT = 50;
     public static final int TILE_WIDTH = 50;
+    public static final int SIZE = 12;
 
     private final Decor[][] room;
 
     public Room() {
-        room = new Decor[12][12];
+        room = new Decor[SIZE][SIZE];
         setupRoomAndBorder(room);
     }
 
@@ -123,6 +124,7 @@ public class Room {
 
     public boolean isValidPosition(int x, int y) {
         if (x < 0 || y < 0) return false;
+        if (x >= SIZE || y >= SIZE) return false;
         return ! (room[y][x] instanceof Wall);
     }
 
