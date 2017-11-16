@@ -2,6 +2,8 @@ package test.testConteneur;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 class ConteneurTest {
 
     @Test
@@ -26,5 +28,33 @@ class ConteneurTest {
         c.retirer(o);
         c.ajouter(new Object());
         c.ajouter(new Object());
+
+
+
+        c = new ConteneurImpl(4);
+        o = new Object();
+        try {
+            c.retirer(o);
+            fail("On a retiré un objet non présent");
+        } catch (ErreurConteneur ec) {
+
+        }
+
+
+        c = new ConteneurImpl(5);
+        o = new Object();
+        String p = "str";
+        c.ajouter(o);
+        c.ajouter(p);
+        c.retirer(p);
+        try {
+            c.retirer(p);
+            fail("L'objet P a été retiré deux fois");
+        } catch (ErreurConteneur ec) {
+
+        }
+
+
+
     }
 }
