@@ -3,14 +3,10 @@ package game;
 import characters.Hero;
 import characters.Monster;
 import engine.Cmd;
-import environement.Chest;
-import environement.Empty;
 import environement.Room;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Game implements engine.Game {
 

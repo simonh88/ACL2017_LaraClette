@@ -1,11 +1,9 @@
 package game;
 
-import characters.Character;
 import characters.Hero;
 import characters.Monster;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
