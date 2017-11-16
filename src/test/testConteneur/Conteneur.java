@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package fr.udl.acl.conteneur;
+package test.testConteneur;
 
 /**
  * Contient un ensemble d'objects
