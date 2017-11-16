@@ -132,9 +132,26 @@ class ConteneurTest {
 
     @Test
     void redimensioner(){
+        // Fail
         Conteneur c1 = new ConteneurImpl(1);
         try {
             c1.redimensionner(-1);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+        // Right
+        Conteneur c2 = new ConteneurImpl(1);
+        try {
+            c2.redimensionner(2);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+        // Fail
+        Conteneur c3 = new ConteneurImpl(1);
+        try {
+            c3.redimensionner(0);
         } catch (Exception e){
             System.out.println(e);
         }
