@@ -12,8 +12,6 @@ class ConteneurTest {
         conteneur1.ajouter(new Object());
         conteneur1.ajouter(new Object());
 
-        // Boundary
-
 
     }
 
