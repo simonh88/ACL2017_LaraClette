@@ -1,6 +1,6 @@
 package test.testConteneur;
 
-import com.sun.org.apache.xpath.internal.operations.String;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -127,6 +127,17 @@ class ConteneurTest {
         }
 
 
+
+    }
+
+    @Test
+    void redimensioner(){
+        Conteneur c1 = new ConteneurImpl(1);
+        try {
+            c1.redimensionner(-1);
+        } catch (Exception e){
+            System.out.println(e);
+        }
 
     }
 }
