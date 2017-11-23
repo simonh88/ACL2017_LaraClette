@@ -1,15 +1,14 @@
 package game;
 
-import characters.Hero;
-import characters.Monster;
+import characters.Character;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GameState {
-    private Hero hero;
-    private List<Monster> lMonsters;
+    private Character hero;
+    private List<Character> lMonsters;
 
     private static enum State {
         Running,
@@ -21,22 +20,23 @@ public class GameState {
 
     public GameState(){
         lMonsters = new ArrayList<>();
-        hero = new Hero(4,4);
+        hero = new Character(4,4);
         state = State.Running;
-        lMonsters.add(new Monster(2,2));
+        lMonsters.add(new Character(2,2));
     }
 
 
-    public Hero getHero(){
+    public Character getHero(){
         return hero;
     }
 
     public void setHero(int x, int y){
-        hero = new Hero(x,y);
+        hero = new Character(x,y);
     }
 
-    public Monster getMonster(int i){
-        if(i >= 0 && i < lMonsters.size()){//Innaccessible
+    public Character getMonster(int i){
+        if(i >= 0 && i < lMonsters.size()){
+            //Innaccessible
             return lMonsters.get(i);
         }
         //ERROR
@@ -73,7 +73,7 @@ public class GameState {
 
     }
 
-    public List<Monster> monsters() {
+    public List<Character> monsters() {
         return lMonsters;
     }
 }

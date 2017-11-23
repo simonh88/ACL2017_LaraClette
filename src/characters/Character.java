@@ -1,23 +1,40 @@
 package characters;
 
-/**
- * Created by simon on 19/10/17.
- */
-public abstract class Character {
 
+public class Character {
 
-    public abstract int getHP();
+    private int hp;
+    private int posX;
+    private int posY;
 
-    public abstract int getPosX();
+    public Character(int x, int y){
+        this.hp = 10;
+        this.posX = x;
+        this.posY = y;
+    }
 
-    public abstract int getPosY();
+    public int getHP() {
+        return this.hp;
+    }
 
-    public abstract void setHP(int hp);
+    public int getPosX() {
+        return this.posX;
+    }
 
-    public abstract void setPosX(int x);
+    public int getPosY() {
+        return this.posY;
+    }
 
-    public abstract void setPosY(int y);
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
 
-    public abstract String toString();
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
 
 }

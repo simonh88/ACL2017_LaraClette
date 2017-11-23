@@ -1,7 +1,6 @@
 package game;
 
-import characters.Hero;
-import characters.Monster;
+import characters.Character;
 import engine.GamePainter;
 import environement.Room;
 import factory.TileFactory;
@@ -87,7 +86,7 @@ public class Painter implements GamePainter {
     }
 
     private void printHero(Graphics2D crayon) {
-        Hero hero = game.getHero();
+        Character hero = game.getHero();
 
         crayon.drawImage(TileFactory.instance().getGirl(),
                 hero.getPosX() * Room.TILE_WIDTH,
@@ -95,7 +94,7 @@ public class Painter implements GamePainter {
     }
 
     private void printMonsters(Graphics2D crayon) {
-        for (Monster monster : game.monsters()) {
+        for (Character monster : game.monsters()) {
             crayon.drawImage(TileFactory.instance().getMonster(),
                     monster.getPosX() * Room.TILE_WIDTH,
                     monster.getPosY() * Room.TILE_HEIGHT, null);
