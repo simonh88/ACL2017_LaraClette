@@ -17,6 +17,7 @@ public class SoundFactory {
 
     public static SoundFactory instance;
 
+    private Clip background;
 
     private SoundFactory(){
 
@@ -51,7 +52,7 @@ public class SoundFactory {
         try {
             AudioInputStream audioInputStream =
                     AudioSystem.getAudioInputStream(new File("res/sound/Background_Retro.wav"));
-            Clip background = AudioSystem.getClip();
+            background = AudioSystem.getClip();
             background.open(audioInputStream);
             background.loop(Clip.LOOP_CONTINUOUSLY);
             background.start();
@@ -60,5 +61,9 @@ public class SoundFactory {
             System.out.println("Impossible de charger res/sound/Background_Retro.wav");
             System.exit(-1);
         }
+    }
+
+    public void stopBackground(){
+        background.stop();
     }
 }

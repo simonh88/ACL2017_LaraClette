@@ -95,6 +95,7 @@ public class Game implements engine.Game {
                 if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
                     // Alors on win
                     //isFinished = true;
+                    SoundFactory.instance().stopBackground();
                     gameState.setVictory();
                 }
                 break;
@@ -118,6 +119,7 @@ public class Game implements engine.Game {
         gameState = new GameState();
         gameSpace = new GameSpace();
         generateHero();
+        SoundFactory.instance().playBackground();
 
     }
 
