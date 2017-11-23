@@ -41,12 +41,11 @@ public class GameSpace {
     }
 
     /**
-     * Renvoie un iterateur sur la liste des rooms
-     * Utilisé pour remonter les rooms jusqu'au painter
-     *
+     * Renvoie la room correspondante à l'index
+     * @param indexRoom
      * @return
      */
-    public Room currentRoom() {
-        return rooms.get(0);
+    public Room currentRoom(int indexRoom) {
+        return rooms.get(indexRoom);
     }
 }
