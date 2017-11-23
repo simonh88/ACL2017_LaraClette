@@ -10,48 +10,51 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
 
-    private static int TEST_DURATION = 10;
-
-    /**
-     * Evolve aléatoirement pendant TEST_DURATION (seulement mouvement)
-     */
     @Test
-    void evolve() {
-
+    void wallOutRight() {
         Game g = new Game();
 
-        long start_time = System.currentTimeMillis();
-        long duration_millis = TEST_DURATION * 1000;
-        long end_time = start_time + duration_millis;
-
-        long current_time = System.currentTimeMillis();
-
-        Random rand = new Random();
-
-        while (current_time < end_time) {
-
-            Cmd cmd;
-            int r = rand.nextInt() % 4;
-            switch (r) {
-                case 0:
-                    cmd = Cmd.LEFT;
-                    break;
-                case 1:
-                    cmd = Cmd.RIGHT;
-                    break;
-                case 2:
-                    cmd = Cmd.DOWN;
-                    break;
-                case 3:
-                    cmd = Cmd.UP;
-                    break;
-                default:
-                    cmd = Cmd.UP;
-            }
-
+        Cmd cmd = Cmd.RIGHT;
+        for (int i = 0; i < 100; i++) {
             g.evolve(cmd);
-            current_time = System.currentTimeMillis();
         }
+
+        assertTrue(g.getHero().getPosX() < 20);
     }
 
+    @Test
+    void wallOutLeft() {
+        Game g = new Game();
+
+        Cmd cmd = Cmd.LEFT;
+        for (int i = 0; i < 100; i++) {
+            g.evolve(cmd);
+        }
+
+        assertTrue(g.getHero().getPosX() >= 0);
+    }
+
+    @Test
+    void wallOutTop() {
+        Game g = new Game();
+
+        Cmd cmd = Cmd.UP;
+        for (int i = 0; i < 100; i++) {
+            g.evolve(cmd);
+        }
+
+        assertTrue(g.getHero().getPosY() >= 0);
+    }
+
+    @Test
+    void wallOutBottom() {
+        Game g = new Game();
+
+        Cmd cmd = Cmd.DOWN;
+        for (int i = 0; i < 100; i++) {
+            g.evolve(cmd);
+        }
+
+        assertTrue(g.getHero().getPosY() < 20);
+    }
 }
