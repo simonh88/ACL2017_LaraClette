@@ -6,6 +6,7 @@
 
     <target name="compile">
         <mkdir dir="build/classes"/>
+        <unzip src="dist/lib/junit-platform-console-standalone-1.0.2.jar" dest="build/classes" />
         <javac srcdir="src" destdir="build/classes"/>
     </target>
 
