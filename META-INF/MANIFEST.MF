@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Implementation-Title: junit-platform-console-standalone
+Build-Date: 2017-11-12
+Implementation-Version: 1.0.2
+Built-By: JUnit Team
+Specification-Vendor: junit.org
+Specification-Title: junit-platform-console-standalone
+Class-Path: junit-platform-console-1.0.2.jar junit-jupiter-engine-5.0.
+ 2.jar junit-jupiter-params-5.0.2.jar junit-vintage-engine-4.12.2.jar 
+ junit-platform-launcher-1.0.2.jar junit-platform-engine-1.0.2.jar jun
+ it-jupiter-api-5.0.2.jar junit-4.12.jar junit-platform-commons-1.0.2.
+ jar opentest4j-1.0.0.jar hamcrest-core-1.3.jar
+Implementation-Vendor: junit.org
+Main-Class: org.junit.platform.console.ConsoleLauncher
+Build-Revision: 3484293c2a998fd593dfe48b4901ab94f007f25f
+Build-Time: 15:01:42.896+0100
+Engine-Version-junit-vintage: 4.12.2
+Created-By: 1.8.0_131 (Oracle Corporation 25.131-b11)
+Specification-Version: 1.0.2
+Engine-Version-junit-jupiter: 5.0.2
+
