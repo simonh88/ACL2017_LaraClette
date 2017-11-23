@@ -6,12 +6,37 @@ public class Room {
 
     public static final int TILE_HEIGHT = 50;
     public static final int TILE_WIDTH = 50;
-    public static final int SIZE = 12;
+    public static final int SIZE = 11;
 
     private final Decor[][] room;
 
+    private int index_room_up;
+    private int index_room_bottom;
+    private int index_room_left;
+    private int index_room_right;
+
+
     public Room() {
+
+        index_room_bottom = -1;
+        index_room_up = -1;
+        index_room_left = -1;
+        index_room_right = -1;
+
         room = new Decor[SIZE][SIZE];
+
+        setupRoomAndBorder(room);
+    }
+
+    public Room(int index_room_up, int index_room_bottom, int index_room_left, int index_room_right) {
+
+        this.index_room_bottom = index_room_bottom;
+        this.index_room_up = index_room_up;
+        this.index_room_left = index_room_left;
+        this.index_room_right = index_room_right;
+
+        room = new Decor[SIZE][SIZE];
+
         setupRoomAndBorder(room);
     }
 
@@ -69,24 +94,29 @@ public class Room {
 
         // Mur à gauche
         for (int j = 0; j < room.length; j++) {
-            room[j][0] = new Wall();
+            if ( j != 5 || !hasLeftRoom())
+                room[j][0] = new Wall();
         }
 
         // Mur à droite
         for (int j = 0; j < room.length; j++) {
-            room[j][room[0].length-1] = new Wall();
+            if ( j != 5 || !hasRightRoom())
+                room[j][room[0].length-1] = new Wall();
         }
 
         // Mur en haut
         for (int i = 0; i < room[0].length; i++) {
-            room[0][i] = new Wall();
+            if ( i != 5 || !hasUpRoom())
+                room[0][i] = new Wall();
         }
 
-        // Mur à droite
+        // Mur en bas
         for (int i = 0; i < room.length; i++) {
-            room[room.length - 1][i] = new Wall();
+            if ( i != 5 || !hasBottomRoom())
+                room[room.length - 1][i] = new Wall();
         }
     }
+
 
     /**
      * Place aléatoirement un coffre dans cette room
@@ -138,5 +168,21 @@ public class Room {
 
     public Decor get(int i, int j) {
         return room[j][i];
+    }
+
+    public boolean hasLeftRoom() {
+        return index_room_left != -1;
+    }
+
+    public boolean hasRightRoom() {
+        return index_room_right != -1;
+    }
+
+    public boolean hasUpRoom() {
+        return index_room_up != -1;
+    }
+
+    public boolean hasBottomRoom() {
+        return index_room_bottom != -1;
     }
 }

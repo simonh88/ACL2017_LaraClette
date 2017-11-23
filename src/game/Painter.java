@@ -14,8 +14,8 @@ public class Painter implements GamePainter {
 
 
     /* Taille de la fenetre */
-    private static final int WIN_WIDTH = 600;
-    private static final int WIN_HEIGHT = 600;
+    private static final int WIN_WIDTH = Room.SIZE * Room.TILE_WIDTH;
+    private static final int WIN_HEIGHT = Room.SIZE * Room.TILE_HEIGHT;
 
     private Game game;
 
