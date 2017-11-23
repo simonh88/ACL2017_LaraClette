@@ -2,16 +2,14 @@ package test;
 
 import engine.Cmd;
 import game.Game;
-import org.junit.jupiter.api.Test;
-
-import java.util.Random;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameTest {
+public class GameTest {
 
     @Test
-    void wallOutRight() {
+    public void wallOutRight() {
         Game g = new Game();
 
         Cmd cmd = Cmd.RIGHT;
@@ -23,7 +21,7 @@ class GameTest {
     }
 
     @Test
-    void wallOutLeft() {
+    public void wallOutLeft() {
         Game g = new Game();
 
         Cmd cmd = Cmd.LEFT;
@@ -35,7 +33,7 @@ class GameTest {
     }
 
     @Test
-    void wallOutTop() {
+    public void wallOutTop() {
         Game g = new Game();
 
         Cmd cmd = Cmd.UP;
@@ -47,7 +45,7 @@ class GameTest {
     }
 
     @Test
-    void wallOutBottom() {
+    public void wallOutBottom() {
         Game g = new Game();
 
         Cmd cmd = Cmd.DOWN;

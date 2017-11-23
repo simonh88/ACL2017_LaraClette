@@ -1,5 +1,13 @@
 <project>
 
+    <path id="test.classpath">
+        <pathelement location="build/classes/test" />
+    </path>
+
+    <path id="project.classpath">
+        <pathelement location="build/classes/" />
+    </path>
+
     <target name="clean">
         <delete dir="build"/>
     </target>
@@ -26,5 +34,29 @@
     <target name="run" depends="clean,compile,jar,runJar">
 
     </target>
+
+
+
+
+
+    <target name="test" depends="compile">
+
+
+        <junit printsummary="false" fork="off" haltonfailure="true">
+
+            <classpath refid="project.classpath"/>
+            <classpath refid="test.classpath"/>
+
+            <test name="test.GameTest" />
+            <test name="test.GameSpaceTest" />
+
+
+
+            <formatter type="brief" usefile="false"/>
+        </junit>
+
+
+    </target>
+
 
 </project>
