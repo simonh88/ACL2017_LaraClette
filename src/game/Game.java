@@ -4,6 +4,7 @@ package game;
 import characters.Character;
 import engine.Cmd;
 import environement.Room;
+import factory.SoundFactory;
 
 import java.util.List;
 import java.util.Random;
@@ -73,6 +74,7 @@ public class Game implements engine.Game {
 
                 break;
             case ACTION:
+                //SoundFactory.instance().playSwordSwing();
                 if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
                     // Alors on win
                     //isFinished = true;
