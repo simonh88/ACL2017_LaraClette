@@ -66,6 +66,10 @@ public class Controller implements GameController {
                 break;
             case '-':
                 System.exit(0);
+                break;
+            case ' ':
+                this.commandeEnCours = Cmd.ATTACK;
+                break;
 
         }
 

@@ -61,7 +61,7 @@ public class Game implements engine.Game {
                 break;
             case DOWN:
                 if (hero.getPosX() >= Room.SIZE) { //Bas
-//TODO Changement map
+                //TODO Changement map
                 }
                 if (isValidPosition(hero.getPosX(), hero.getPosY() + 1)) {
                     hero.setPosX(hero.getPosX());
@@ -71,7 +71,7 @@ public class Game implements engine.Game {
                 break;
             case RIGHT:
                 if( hero.getPosY() >= Room.SIZE){//Droite
-//TODO Changement map
+                    //TODO Changement map
                 }
                 if (isValidPosition(hero.getPosX() + 1, hero.getPosY())) {
                     hero.setPosX(hero.getPosX() + 1);
@@ -81,7 +81,7 @@ public class Game implements engine.Game {
                 break;
             case UP:
                 if (hero.getPosX() < 0){//Haut
-//TODO Changement map
+                    //TODO Changement map
                 }
                 if (isValidPosition(hero.getPosX(), hero.getPosY() - 1)) {
                     hero.setPosX(hero.getPosX());
@@ -90,7 +90,7 @@ public class Game implements engine.Game {
 
                 break;
             case ACTION:
-                SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
 
                 if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
                     // Alors on win
@@ -99,6 +99,9 @@ public class Game implements engine.Game {
                     gameState.setVictory();
                 }
                 break;
+            case ATTACK:
+                SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                //TODO L'ATTAQUE
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
                     restart();
