@@ -29,6 +29,7 @@ public class Game implements engine.Game {
         generateHero();
         deltaTime = 1000;
         timeSinceStart = System.currentTimeMillis();
+        SoundFactory.instance().playBackground();
     }
 
     public GameState getGameState() {
@@ -74,7 +75,8 @@ public class Game implements engine.Game {
 
                 break;
             case ACTION:
-                //SoundFactory.instance().playSwordSwing();
+                SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+
                 if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
                     // Alors on win
                     //isFinished = true;

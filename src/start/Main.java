@@ -15,7 +15,7 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
         TileFactory.instance();
-        //SoundFactory.instance();
+        SoundFactory.instance();
         Game game = new Game();
         Controller controller = new Controller();
         Painter painter = new Painter(game);
