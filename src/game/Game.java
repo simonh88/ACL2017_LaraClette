@@ -132,36 +132,47 @@ public class Game implements engine.Game {
     public void mooveMonsters() {
         Character monster;
         Character h = gameState.getHero();
+
+        System.out.println("A");
         int posX;
         int posY;
         for (int i = 0; i < gameState.sizeMonsters(); i++) {
             monster = gameState.getMonster(i);
-            posX = h.getPosX() - monster.getPosX();
-            //Ne peut pas aller sur la même case que le héro
-            if (posX > 1) {
-                //Droite
-                if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
-                    monster.setPosX(monster.getPosX() + 1);
-                }
-            } else if (posX < 1) {
-                //Gauche
+
+            //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
+            //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
+
+
+
+            if(monster.getPosX() > h.getPosX()){
+                // DROITE
                 if (isValidPosition(monster.getPosX() - 1, monster.getPosY())) {
                     monster.setPosX(monster.getPosX() - 1);
                 }
             }
 
-            posY = h.getPosY() - monster.getPosY();
-            if (posY > 1) {
-                //Bas
-                if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
-                    monster.setPosY(monster.getPosY() + 1);
+            if(monster.getPosX() < h.getPosX()){
+                // GAUCHE
+                if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
+                    monster.setPosX(monster.getPosX() + 1);
                 }
-            } else if (posY < 1) {
-                //Haut
+            }
+
+            if(monster.getPosY() > h.getPosY()){
+                // BAS
                 if (isValidPosition(monster.getPosX(), monster.getPosY() - 1)) {
                     monster.setPosY(monster.getPosY() - 1);
                 }
             }
+
+            if(monster.getPosY() < h.getPosY()){
+                // HAUT
+                if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
+                    monster.setPosY(monster.getPosY() + 1);
+                }
+            }
+
+
         }
 
     }
@@ -184,6 +195,10 @@ public class Game implements engine.Game {
         for (Character monster : monsters()) {
             if (x == monster.getPosX() && y == monster.getPosY()) return false;
         }
+
+        // Check Hero
+        Character hero = gameState.getHero();
+        if (x == hero.getPosX() && y == hero.getPosY()) return false;
 
         // Check murs
         return gameSpace.isValidPosition(x, y);
