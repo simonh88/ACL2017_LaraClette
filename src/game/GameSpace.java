@@ -53,12 +53,7 @@ public class GameSpace {
         return rooms.get(0).hasChest(posX, posY);
     }
 
-    /**
-     * Renvoie un iterateur sur la liste des rooms
-     * Utilisé pour remonter les rooms jusqu'au painter
-     *
-     * @return
-     */
+
     public Room currentRoom() {
         return rooms.get(current_room);
     }
@@ -82,11 +77,18 @@ public class GameSpace {
         current_room = index_room_up;
     }
 
-    // TODO refactor avec une seule fonction !
-
     public void goRoomBottom() {
         Room current = rooms.get(current_room);
         int index_room_bottom = current.getIndexRoomBottom();
         current_room = index_room_bottom;
+    }
+
+    /**
+     * Renvoie la room correspondante à l'index
+     * @param indexRoom
+     * @return
+     */
+    public Room currentRoom(int indexRoom) {
+        return rooms.get(indexRoom);
     }
 }

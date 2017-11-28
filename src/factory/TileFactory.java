@@ -14,41 +14,65 @@ public class TileFactory {
     private BufferedImage wallTile;
     private BufferedImage chestTile;
     private BufferedImage girl;
+    private BufferedImage girlAttack;
     private BufferedImage monster;
+    private BufferedImage monsterDead;
+    private BufferedImage heart;
 
     private TileFactory() {
         try {
-            grassTile = ImageIO.read(new File("res/grass_tile.png"));
+            grassTile = ImageIO.read(new File("res/img/grass_tile.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/grass_tile.png");
+            System.out.println("Impossible de charger res/img/grass_tile.png");
             System.exit(-1);
         }
 
         try {
-            monster = ImageIO.read(new File("res/monster.png"));
+            monster = ImageIO.read(new File("res/img/monster.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/monster.png");
+            System.out.println("Impossible de charger res/img/monster.png");
             System.exit(-1);
         }
 
         try {
-            wallTile = ImageIO.read(new File("res/wall_tile.png"));
+            monsterDead = ImageIO.read(new File("res/img/monster_dead.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/wall_tile.png");
+            System.out.println("Impossible de charger res/img/monster_dead.png");
             System.exit(-1);
         }
 
         try {
-            chestTile = ImageIO.read(new File("res/chest_tile.png"));
+            wallTile = ImageIO.read(new File("res/img/wall_tile.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/chest_tile.png");
+            System.out.println("Impossible de charger res/img/wall_tile.png");
             System.exit(-1);
         }
 
         try {
-            girl = ImageIO.read(new File("res/girl.png"));
+            chestTile = ImageIO.read(new File("res/img/chest_tile.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/girl.png");
+            System.out.println("Impossible de charger res/img/chest_tile.png");
+            System.exit(-1);
+        }
+
+        try {
+            girl = ImageIO.read(new File("res/img/girl.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/girl.png");
+            System.exit(-1);
+        }
+
+        try {
+            girlAttack = ImageIO.read(new File("res/img/girl_attack.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/girl_attack.png");
+            System.exit(-1);
+        }
+
+        try {
+            heart = ImageIO.read(new File("res/img/heart.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/heart.png");
             System.exit(-1);
         }
     }
@@ -77,7 +101,19 @@ public class TileFactory {
         return girl;
     }
 
+    public Image getGirlAttack() {
+        return girlAttack;
+    }
+
     public Image getMonster() {
         return monster;
+    }
+
+    public Image getMonsterDead() {
+        return monsterDead;
+    }
+
+    public Image getHeart() {
+        return heart;
     }
 }

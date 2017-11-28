@@ -4,6 +4,7 @@ package game;
 import characters.Character;
 import engine.Cmd;
 import environement.Room;
+import factory.SoundFactory;
 
 import java.util.List;
 import java.util.Random;
@@ -17,17 +18,23 @@ public class Game implements engine.Game {
     private GameState gameState;
 
     private long deltaTime;
+    private long deltaTimeAttack;
     private long timeSinceStart;
+    private long timeSinceStartAttack;
 
     private boolean isFinished;
+    private boolean heroOnAttack;
 
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
         isFinished = false;
+        heroOnAttack = false;
         generateHero();
         deltaTime = 1000;
+        deltaTimeAttack = 100;
         timeSinceStart = System.currentTimeMillis();
+        SoundFactory.instance().playBackground();
     }
 
     public GameState getGameState() {
@@ -44,14 +51,23 @@ public class Game implements engine.Game {
 
         Character hero = gameState.getHero();
 
+        Room currentRoom = currentRoom();
         switch (commande) {
             case LEFT://Gauche
-                if (isValidPosition(hero.getPosX() - 1, hero.getPosY())) {
+                int nextX = hero.getPosX() - 1;
+                int nextY = hero.getPosY();
+                if( nextY < 0){//Gauche
+                    //TODO Changement map
+                }
+                if (isValidPosition(nextX, nextY)) {
                     hero.setPosX(hero.getPosX() - 1);
                     hero.setPosY(hero.getPosY());
                 }
                 break;
             case DOWN:
+                if (hero.getPosX() >= Room.SIZE) { //Bas
+                //TODO Changement map
+                }
                 if (isValidPosition(hero.getPosX(), hero.getPosY() + 1)) {
                     hero.setPosX(hero.getPosX());
                     hero.setPosY(hero.getPosY() + 1);
@@ -59,6 +75,9 @@ public class Game implements engine.Game {
 
                 break;
             case RIGHT:
+                if( hero.getPosY() >= Room.SIZE){//Droite
+                    //TODO Changement map
+                }
                 if (isValidPosition(hero.getPosX() + 1, hero.getPosY())) {
                     hero.setPosX(hero.getPosX() + 1);
                     hero.setPosY(hero.getPosY());
@@ -66,6 +85,9 @@ public class Game implements engine.Game {
 
                 break;
             case UP:
+                if (hero.getPosX() < 0){//Haut
+                    //TODO Changement map
+                }
                 if (isValidPosition(hero.getPosX(), hero.getPosY() - 1)) {
                     hero.setPosX(hero.getPosX());
                     hero.setPosY(hero.getPosY() - 1);
@@ -73,12 +95,20 @@ public class Game implements engine.Game {
 
                 break;
             case ACTION:
+                //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+
                 if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
                     // Alors on win
                     //isFinished = true;
+                    SoundFactory.instance().stopBackground();
                     gameState.setVictory();
                 }
                 break;
+            case ATTACK:
+                SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                attackHero();
+
+                //TODO L'ATTAQUE
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
                     restart();
@@ -97,7 +127,15 @@ public class Game implements engine.Game {
 
         if (System.currentTimeMillis() - timeSinceStart > deltaTime ) {
             mooveMonsters();
+            attackMonster();
             timeSinceStart = System.currentTimeMillis();
+        }
+
+
+        //Fait l'animation de l'attaque du hero
+
+        if (System.currentTimeMillis() - timeSinceStartAttack > deltaTimeAttack ) {
+            heroOnAttack = false;
         }
     }
 
@@ -106,45 +144,58 @@ public class Game implements engine.Game {
         gameState = new GameState();
         gameSpace = new GameSpace();
         generateHero();
+        SoundFactory.instance().playBackground();
 
     }
 
     /**
      * Fait bouger tous les monstres vers le héro.
      */
-    public void mooveMonsters() {
+    private void mooveMonsters() {
         Character monster;
         Character h = gameState.getHero();
+
         int posX;
         int posY;
         for (int i = 0; i < gameState.sizeMonsters(); i++) {
             monster = gameState.getMonster(i);
-            posX = h.getPosX() - monster.getPosX();
-            //Ne peut pas aller sur la même case que le héro
-            if (posX > 1) {
-                //Droite
-                if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
-                    monster.setPosX(monster.getPosX() + 1);
+
+            if(monster.isAlive()) {
+
+                //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
+                //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
+
+
+                if (monster.getPosX() > h.getPosX()) {
+                    // DROITE
+                    if (isValidPosition(monster.getPosX() - 1, monster.getPosY())) {
+                        monster.setPosX(monster.getPosX() - 1);
+                    }
                 }
-            } else if (posX < 1) {
-                //Gauche
-                if (isValidPosition(monster.getPosX() - 1, monster.getPosY())) {
-                    monster.setPosX(monster.getPosX() - 1);
+
+                if (monster.getPosX() < h.getPosX()) {
+                    // GAUCHE
+                    if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
+                        monster.setPosX(monster.getPosX() + 1);
+                    }
                 }
+
+                if (monster.getPosY() > h.getPosY()) {
+                    // BAS
+                    if (isValidPosition(monster.getPosX(), monster.getPosY() - 1)) {
+                        monster.setPosY(monster.getPosY() - 1);
+                    }
+                }
+
+                if (monster.getPosY() < h.getPosY()) {
+                    // HAUT
+                    if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
+                        monster.setPosY(monster.getPosY() + 1);
+                    }
+                }
+
             }
 
-            posY = h.getPosY() - monster.getPosY();
-            if (posY > 1) {
-                //Bas
-                if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
-                    monster.setPosY(monster.getPosY() + 1);
-                }
-            } else if (posY < 1) {
-                //Haut
-                if (isValidPosition(monster.getPosX(), monster.getPosY() - 1)) {
-                    monster.setPosY(monster.getPosY() - 1);
-                }
-            }
         }
 
     }
@@ -161,12 +212,56 @@ public class Game implements engine.Game {
 
     }
 
+    private void attackHero() {
+        Character hero = gameState.getHero();
+        this.heroOnAttack = true;
+        timeSinceStartAttack = System.currentTimeMillis();
+
+        for (Character monster : monsters()) {
+
+            int distanceX = monster.getPosX() - hero.getPosX();
+            int distanceY = monster.getPosY() - hero.getPosY();
+
+            //System.out.println("\n\ndistanceX  : " + distanceX);
+            //System.out.println("distanceY  : " + distanceY);
+
+            if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1){
+                monster.setHP(monster.getHP() - 5);
+            }
+
+        }
+    }
+
+    private void attackMonster() {
+        Character hero = gameState.getHero();
+
+        for (Character monster : monsters()) {
+
+            if(monster.isAlive()) {
+
+                int distanceX = monster.getPosX() - hero.getPosX();
+                int distanceY = monster.getPosY() - hero.getPosY();
+
+                if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
+                    hero.setHP(hero.getHP() - 1);
+                }
+
+                if (!hero.isAlive()) gameState.setLoss();
+
+            }
+        }
+    }
+
 
     public boolean isValidPosition(int x, int y) {
         // Check monstres
         for (Character monster : monsters()) {
-            if (x == monster.getPosX() && y == monster.getPosY()) return false;
+            if (x == monster.getPosX() && y == monster.getPosY() && monster.isAlive()) return false;
         }
+
+        // Check Hero
+        Character hero = gameState.getHero();
+        if (x == hero.getPosX() && y == hero.getPosY()) return false;
 
         // Check murs
         return gameSpace.isValidPosition(x, y);
@@ -183,7 +278,8 @@ public class Game implements engine.Game {
     }
 
     public Room currentRoom() {
-        return gameSpace.currentRoom();
+        int indexRoom = getHero().getCurrentRoom();
+        return gameSpace.currentRoom(indexRoom);
     }
 
     public Character getHero() {
@@ -248,4 +344,7 @@ public class Game implements engine.Game {
     }
 
 
+    public boolean heroIsOnAttack(){
+        return this.heroOnAttack;
+    }
 }

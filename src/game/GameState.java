@@ -23,6 +23,7 @@ public class GameState {
         hero = new Character(4,4);
         state = State.Running;
         lMonsters.add(new Character(2,2));
+        lMonsters.add(new Character(5,5));
     }
 
 
@@ -41,6 +42,11 @@ public class GameState {
         }
         //ERROR
         return null;
+    }
+
+    public void killMonster(Character monster){
+        lMonsters.remove(monster);
+        System.out.println("SIZE: " + lMonsters.size());
     }
 
     public State getState(){
@@ -65,6 +71,10 @@ public class GameState {
 
     public void setVictory(){
         this.state = State.Victory;
+    }
+
+    public void setLoss(){
+        this.state = State.Loss;
     }
 
 

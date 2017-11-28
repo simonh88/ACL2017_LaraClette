@@ -29,13 +29,16 @@ public class Painter implements GamePainter {
 
         if (game.getGameState().isRunning()) {
         /* On dessine les mur */
-            printwalls(crayon);
+            printWalls(crayon);
+
+        /* On dessine les monstres */
+            printMonsters(crayon);
 
         /* On dessine le hero */
             printHero(crayon);
 
-        /* On dessine les monstres */
-            printMonsters(crayon);
+        /* On dessine les infos du hero */
+            printInfo(crayon);
 
             crayon.setColor(Color.WHITE);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,15));
@@ -46,6 +49,7 @@ public class Painter implements GamePainter {
             crayon.setColor(Color.RED);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
             crayon.drawString("Loss ! ", 250, 300);
+            crayon.drawString("Press R to restart", 140, 350);
         }else if(game.getGameState().isVictory()){
             crayon.setColor(Color.RED);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
@@ -56,7 +60,7 @@ public class Painter implements GamePainter {
 
     }
 
-    private void printwalls(Graphics2D crayon) {
+    private void printWalls(Graphics2D crayon) {
         Room currentRoom = game.currentRoom();
 
         /* On dessine les mur */
@@ -88,17 +92,52 @@ public class Painter implements GamePainter {
     private void printHero(Graphics2D crayon) {
         Character hero = game.getHero();
 
-        crayon.drawImage(TileFactory.instance().getGirl(),
-                hero.getPosX() * Room.TILE_WIDTH,
-                hero.getPosY() * Room.TILE_HEIGHT, null);
+        if(!game.heroIsOnAttack()){
+            crayon.drawImage(TileFactory.instance().getGirl(),
+                    hero.getPosX() * Room.TILE_WIDTH,
+                    hero.getPosY() * Room.TILE_HEIGHT, null);
+        }
+
+        else{
+            crayon.drawImage(TileFactory.instance().getGirlAttack(),
+                    hero.getPosX() * Room.TILE_WIDTH,
+                    hero.getPosY() * Room.TILE_HEIGHT, null);
+        }
     }
 
     private void printMonsters(Graphics2D crayon) {
         for (Character monster : game.monsters()) {
-            crayon.drawImage(TileFactory.instance().getMonster(),
-                    monster.getPosX() * Room.TILE_WIDTH,
-                    monster.getPosY() * Room.TILE_HEIGHT, null);
+
+            if(monster.isAlive()) {
+                crayon.drawImage(TileFactory.instance().getMonster(),
+                        monster.getPosX() * Room.TILE_WIDTH,
+                        monster.getPosY() * Room.TILE_HEIGHT, null);
+            }
+            else{
+                crayon.drawImage(TileFactory.instance().getMonsterDead(),
+                        monster.getPosX() * Room.TILE_WIDTH,
+                        monster.getPosY() * Room.TILE_HEIGHT, null);
+            }
         }
+    }
+
+    private void printInfo(Graphics2D crayon) {
+        Room currentRoom = game.currentRoom();
+        Character hero = game.getHero();
+
+        int lastCaseX = currentRoom.getWidth() - 1;
+        int lastCaseY = currentRoom.getHeight() - 1;
+
+        crayon.drawImage(TileFactory.instance().getHeart(),
+                lastCaseX * Room.TILE_WIDTH, lastCaseY * Room.TILE_HEIGHT, null);
+
+        String strHP = Integer.toString(hero.getHP());
+
+        if(hero.getHP() < 10) strHP = "0" + Integer.toString(hero.getHP());
+
+        crayon.setColor(Color.BLACK);
+        crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
+        crayon.drawString(strHP, lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
     }
 
     @Override
