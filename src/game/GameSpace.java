@@ -60,6 +60,33 @@ public class GameSpace {
      * @return
      */
     public Room currentRoom() {
-        return rooms.get(0);
+        return rooms.get(current_room);
+    }
+
+    public void goRoomLeft() {
+        Room current = rooms.get(current_room);
+        int index_room_left = current.getIndexRoomLeft();
+        current_room = index_room_left;
+    }
+
+    public void goRoomRight() {
+        Room current = rooms.get(current_room);
+        int index_room_right = current.getIndexRoomRight();
+        System.out.println("Current room is now " + index_room_right);
+        current_room = index_room_right;
+    }
+
+    public void goRoomUp() {
+        Room current = rooms.get(current_room);
+        int index_room_up = current.getIndexRoomUp();
+        current_room = index_room_up;
+    }
+
+    // TODO refactor avec une seule fonction !
+
+    public void goRoomBottom() {
+        Room current = rooms.get(current_room);
+        int index_room_bottom = current.getIndexRoomBottom();
+        current_room = index_room_bottom;
     }
 }

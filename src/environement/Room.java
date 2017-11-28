@@ -205,4 +205,20 @@ public class Room {
     public boolean hasBottomRoom() {
         return index_room_bottom != -1;
     }
+
+    public int getIndexRoomUp() {
+        return index_room_up;
+    }
+
+    public int getIndexRoomBottom() {
+        return index_room_bottom;
+    }
+
+    public int getIndexRoomLeft() {
+        return index_room_left;
+    }
+
+    public int getIndexRoomRight() {
+        return index_room_right;
+    }
 }

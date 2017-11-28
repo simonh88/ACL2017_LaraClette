@@ -86,6 +86,13 @@ public class Game implements engine.Game {
                 break;
         }
 
+        // Si le joeur est sur un bord il doit changer de map
+        if (playerOnBorder()) {
+            // TODO : implement
+            System.out.println("Player on border !");
+            changeRoom();
+        }
+
         //Fait bouger tous les monstres aléatoirement d'une case toutes les 1sec
 
         if (System.currentTimeMillis() - timeSinceStart > deltaTime ) {
@@ -191,6 +198,53 @@ public class Game implements engine.Game {
     private boolean isValidposition(int x, int y) {
 
         return gameSpace.isValidPosition(x, y);
+    }
+
+    /**
+     * Check si le joueur est sur le bord du plateau, utile pour savoir si on doit changer de map
+     * @return boolean
+     */
+    private boolean playerOnBorder() {
+        Character hero = getHero();
+        return hero.getPosX() == 0 || hero.getPosY() == 0 || hero.getPosX() == Room.SIZE-1 || hero.getPosY() == Room.SIZE-1;
+    }
+
+    /**
+     * On change de room
+     */
+    private void changeRoom() {
+        System.out.println("Changing room !");
+        Character hero = getHero();
+
+        // On détermine vers quelle room le joueur va
+
+        if (hero.getPosX() == 0) {
+            // On va à gauche
+            System.out.println("Loading room left");
+            gameSpace.goRoomLeft();
+
+        }
+
+        if (hero.getPosX() == Room.SIZE-1) {
+            // On va à droite
+            System.out.println("Loading room right");
+            gameSpace.goRoomRight();
+        }
+
+        if (hero.getPosY() == 0) {
+            // On va en haut
+            gameSpace.goRoomUp();
+        }
+
+        if (hero.getPosY() == Room.SIZE-1) {
+            // On va en bas
+            gameSpace.goRoomBottom();
+        }
+
+        // TODO Reset proprement la position
+        hero.setPosX(5);
+        hero.setPosY(5);
+
     }
 
 
