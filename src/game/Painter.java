@@ -31,11 +31,11 @@ public class Painter implements GamePainter {
         /* On dessine les mur */
             printWalls(crayon);
 
-        /* On dessine le hero */
-            printHero(crayon);
-
         /* On dessine les monstres */
             printMonsters(crayon);
+
+        /* On dessine le hero */
+            printHero(crayon);
 
         /* On dessine les infos du hero */
             printInfo(crayon);

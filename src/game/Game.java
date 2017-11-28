@@ -249,7 +249,7 @@ public class Game implements engine.Game {
     public boolean isValidPosition(int x, int y) {
         // Check monstres
         for (Character monster : monsters()) {
-            if (x == monster.getPosX() && y == monster.getPosY()) return false;
+            if (x == monster.getPosX() && y == monster.getPosY() && monster.isAlive()) return false;
         }
 
         // Check Hero
