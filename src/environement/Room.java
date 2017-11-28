@@ -40,6 +40,26 @@ public class Room {
         setupRoomAndBorder(room);
     }
 
+    public void setRoomUp(int index_room_up) {
+        this.index_room_up = index_room_up;
+        setupRoomAndBorder(room);
+    }
+
+    public void setRoomBottom(int index_room_bottom) {
+        this.index_room_bottom = index_room_bottom;
+        setupRoomAndBorder(room);
+    }
+
+    public void setRoomLeft(int index_room_left) {
+        this.index_room_left = index_room_left;
+        setupRoomAndBorder(room);
+    }
+
+    public void setRoomRight(int index_room_right) {
+        this.index_room_right = index_room_right;
+        setupRoomAndBorder(room);
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
 

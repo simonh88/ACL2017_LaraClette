@@ -8,11 +8,24 @@ import java.util.List;
 public class GameSpace {
 
     private final List<Room> rooms;
+    private int current_room;
 
     public GameSpace() {
         rooms = new ArrayList<>();
+        current_room = 0;
 
-        rooms.add(new Room(1, -1, -1, 1));
+        Room middle_room = new Room();
+        Room right_room = new Room();
+
+
+
+        rooms.add(middle_room);
+        rooms.add(right_room);
+
+        // TODO : Get les index proprement...
+        middle_room.setRoomRight(1);
+        right_room.setRoomLeft(0);
+
         placeChest();
     }
 
