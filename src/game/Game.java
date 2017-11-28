@@ -56,18 +56,13 @@ public class Game implements engine.Game {
             case LEFT://Gauche
                 int nextX = hero.getPosX() - 1;
                 int nextY = hero.getPosY();
-                if( nextY < 0){//Gauche
-                    //TODO Changement map
-                }
                 if (isValidPosition(nextX, nextY)) {
                     hero.setPosX(hero.getPosX() - 1);
                     hero.setPosY(hero.getPosY());
                 }
                 break;
             case DOWN:
-                if (hero.getPosX() >= Room.SIZE) { //Bas
-                //TODO Changement map
-                }
+
                 if (isValidPosition(hero.getPosX(), hero.getPosY() + 1)) {
                     hero.setPosX(hero.getPosX());
                     hero.setPosY(hero.getPosY() + 1);
@@ -75,9 +70,7 @@ public class Game implements engine.Game {
 
                 break;
             case RIGHT:
-                if( hero.getPosY() >= Room.SIZE){//Droite
-                    //TODO Changement map
-                }
+
                 if (isValidPosition(hero.getPosX() + 1, hero.getPosY())) {
                     hero.setPosX(hero.getPosX() + 1);
                     hero.setPosY(hero.getPosY());
@@ -85,9 +78,7 @@ public class Game implements engine.Game {
 
                 break;
             case UP:
-                if (hero.getPosX() < 0){//Haut
-                    //TODO Changement map
-                }
+
                 if (isValidPosition(hero.getPosX(), hero.getPosY() - 1)) {
                     hero.setPosX(hero.getPosX());
                     hero.setPosY(hero.getPosY() - 1);
@@ -278,8 +269,7 @@ public class Game implements engine.Game {
     }
 
     public Room currentRoom() {
-        int indexRoom = getHero().getCurrentRoom();
-        return gameSpace.currentRoom(indexRoom);
+        return gameSpace.currentRoom();
     }
 
     public Character getHero() {

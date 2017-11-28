@@ -36,27 +36,25 @@ public class GameSpace {
 
 
     public boolean isValidPosition(int x, int y) {
-        return rooms.get(0).isValidPosition(x, y);
+        return rooms.get(current_room).isValidPosition(x, y);
     }
 
 
     public String toString() {
-        return rooms.get(0).toString();
+        return rooms.get(current_room).toString();
     }
 
     public String toString(int posx, int posy) {
-        return rooms.get(0).toString(posx, posy);
+        return rooms.get(current_room).toString(posx, posy);
     }
 
 
     public boolean isChest(int posX, int posY) {
-        return rooms.get(0).hasChest(posX, posY);
+        return rooms.get(current_room).hasChest(posX, posY);
     }
 
 
-    public Room currentRoom() {
-        return rooms.get(current_room);
-    }
+
 
     public void goRoomLeft() {
         Room current = rooms.get(current_room);
@@ -88,7 +86,12 @@ public class GameSpace {
      * @param indexRoom
      * @return
      */
-    public Room currentRoom(int indexRoom) {
+    public Room getRoom(int indexRoom) {
         return rooms.get(indexRoom);
     }
+
+    public Room currentRoom() {
+        return rooms.get(current_room);
+    }
+
 }
