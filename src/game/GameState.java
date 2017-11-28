@@ -73,6 +73,10 @@ public class GameState {
         this.state = State.Victory;
     }
 
+    public void setLoss(){
+        this.state = State.Loss;
+    }
+
 
     public void setRunning(){
         this.state = State.Running;

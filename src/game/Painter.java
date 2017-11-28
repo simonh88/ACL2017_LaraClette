@@ -49,6 +49,7 @@ public class Painter implements GamePainter {
             crayon.setColor(Color.RED);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
             crayon.drawString("Loss ! ", 250, 300);
+            crayon.drawString("Press R to restart", 140, 350);
         }else if(game.getGameState().isVictory()){
             crayon.setColor(Color.RED);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
@@ -91,9 +92,17 @@ public class Painter implements GamePainter {
     private void printHero(Graphics2D crayon) {
         Character hero = game.getHero();
 
-        crayon.drawImage(TileFactory.instance().getGirl(),
-                hero.getPosX() * Room.TILE_WIDTH,
-                hero.getPosY() * Room.TILE_HEIGHT, null);
+        if(!game.heroIsOnAttack()){
+            crayon.drawImage(TileFactory.instance().getGirl(),
+                    hero.getPosX() * Room.TILE_WIDTH,
+                    hero.getPosY() * Room.TILE_HEIGHT, null);
+        }
+
+        else{
+            crayon.drawImage(TileFactory.instance().getGirlAttack(),
+                    hero.getPosX() * Room.TILE_WIDTH,
+                    hero.getPosY() * Room.TILE_HEIGHT, null);
+        }
     }
 
     private void printMonsters(Graphics2D crayon) {
@@ -122,9 +131,13 @@ public class Painter implements GamePainter {
         crayon.drawImage(TileFactory.instance().getHeart(),
                 lastCaseX * Room.TILE_WIDTH, lastCaseY * Room.TILE_HEIGHT, null);
 
+        String strHP = Integer.toString(hero.getHP());
+
+        if(hero.getHP() < 10) strHP = "0" + Integer.toString(hero.getHP());
+
         crayon.setColor(Color.BLACK);
         crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
-        crayon.drawString(Integer.toString(hero.getHP()), lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
+        crayon.drawString(strHP, lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
     }
 
     @Override

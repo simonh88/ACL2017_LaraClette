@@ -18,16 +18,21 @@ public class Game implements engine.Game {
     private GameState gameState;
 
     private long deltaTime;
+    private long deltaTimeAttack;
     private long timeSinceStart;
+    private long timeSinceStartAttack;
 
     private boolean isFinished;
+    private boolean heroOnAttack;
 
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
         isFinished = false;
+        heroOnAttack = false;
         generateHero();
         deltaTime = 1000;
+        deltaTimeAttack = 100;
         timeSinceStart = System.currentTimeMillis();
         SoundFactory.instance().playBackground();
     }
@@ -102,6 +107,7 @@ public class Game implements engine.Game {
             case ATTACK:
                 SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
                 attackHero();
+
                 //TODO L'ATTAQUE
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
@@ -114,7 +120,15 @@ public class Game implements engine.Game {
 
         if (System.currentTimeMillis() - timeSinceStart > deltaTime ) {
             mooveMonsters();
+            attackMonster();
             timeSinceStart = System.currentTimeMillis();
+        }
+
+
+        //Fait l'animation de l'attaque du hero
+
+        if (System.currentTimeMillis() - timeSinceStartAttack > deltaTimeAttack ) {
+            heroOnAttack = false;
         }
     }
 
@@ -193,6 +207,8 @@ public class Game implements engine.Game {
 
     private void attackHero() {
         Character hero = gameState.getHero();
+        this.heroOnAttack = true;
+        timeSinceStartAttack = System.currentTimeMillis();
 
         for (Character monster : monsters()) {
 
@@ -206,6 +222,26 @@ public class Game implements engine.Game {
                 monster.setHP(monster.getHP() - 5);
             }
 
+        }
+    }
+
+    private void attackMonster() {
+        Character hero = gameState.getHero();
+
+        for (Character monster : monsters()) {
+
+            if(monster.isAlive()) {
+
+                int distanceX = monster.getPosX() - hero.getPosX();
+                int distanceY = monster.getPosY() - hero.getPosY();
+
+                if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
+                    hero.setHP(hero.getHP() - 1);
+                }
+
+                if (!hero.isAlive()) gameState.setLoss();
+
+            }
         }
     }
 
@@ -253,5 +289,7 @@ public class Game implements engine.Game {
         return gameSpace.isValidPosition(x, y);
     }
 
-
+    public boolean heroIsOnAttack(){
+        return this.heroOnAttack;
+    }
 }
