@@ -98,9 +98,17 @@ public class Painter implements GamePainter {
 
     private void printMonsters(Graphics2D crayon) {
         for (Character monster : game.monsters()) {
-            crayon.drawImage(TileFactory.instance().getMonster(),
-                    monster.getPosX() * Room.TILE_WIDTH,
-                    monster.getPosY() * Room.TILE_HEIGHT, null);
+
+            if(monster.isAlive()) {
+                crayon.drawImage(TileFactory.instance().getMonster(),
+                        monster.getPosX() * Room.TILE_WIDTH,
+                        monster.getPosY() * Room.TILE_HEIGHT, null);
+            }
+            else{
+                crayon.drawImage(TileFactory.instance().getMonsterDead(),
+                        monster.getPosX() * Room.TILE_WIDTH,
+                        monster.getPosY() * Room.TILE_HEIGHT, null);
+            }
         }
     }
 

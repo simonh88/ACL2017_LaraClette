@@ -15,6 +15,7 @@ public class TileFactory {
     private BufferedImage chestTile;
     private BufferedImage girl;
     private BufferedImage monster;
+    private BufferedImage monsterDead;
     private BufferedImage heart;
 
     private TileFactory() {
@@ -29,6 +30,13 @@ public class TileFactory {
             monster = ImageIO.read(new File("res/img/monster.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/monster.png");
+            System.exit(-1);
+        }
+
+        try {
+            monsterDead = ImageIO.read(new File("res/img/monster_dead.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/monster_dead.png");
             System.exit(-1);
         }
 
@@ -87,6 +95,10 @@ public class TileFactory {
 
     public Image getMonster() {
         return monster;
+    }
+
+    public Image getMonsterDead() {
+        return monsterDead;
     }
 
     public Image getHeart() {

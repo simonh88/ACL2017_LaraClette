@@ -101,6 +101,7 @@ public class Game implements engine.Game {
                 break;
             case ATTACK:
                 SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                attackHero();
                 //TODO L'ATTAQUE
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
@@ -129,49 +130,50 @@ public class Game implements engine.Game {
     /**
      * Fait bouger tous les monstres vers le héro.
      */
-    public void mooveMonsters() {
+    private void mooveMonsters() {
         Character monster;
         Character h = gameState.getHero();
 
-        System.out.println("A");
         int posX;
         int posY;
         for (int i = 0; i < gameState.sizeMonsters(); i++) {
             monster = gameState.getMonster(i);
 
-            //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
-            //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
+            if(monster.isAlive()) {
+
+                //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
+                //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
 
 
-
-            if(monster.getPosX() > h.getPosX()){
-                // DROITE
-                if (isValidPosition(monster.getPosX() - 1, monster.getPosY())) {
-                    monster.setPosX(monster.getPosX() - 1);
+                if (monster.getPosX() > h.getPosX()) {
+                    // DROITE
+                    if (isValidPosition(monster.getPosX() - 1, monster.getPosY())) {
+                        monster.setPosX(monster.getPosX() - 1);
+                    }
                 }
-            }
 
-            if(monster.getPosX() < h.getPosX()){
-                // GAUCHE
-                if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
-                    monster.setPosX(monster.getPosX() + 1);
+                if (monster.getPosX() < h.getPosX()) {
+                    // GAUCHE
+                    if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
+                        monster.setPosX(monster.getPosX() + 1);
+                    }
                 }
-            }
 
-            if(monster.getPosY() > h.getPosY()){
-                // BAS
-                if (isValidPosition(monster.getPosX(), monster.getPosY() - 1)) {
-                    monster.setPosY(monster.getPosY() - 1);
+                if (monster.getPosY() > h.getPosY()) {
+                    // BAS
+                    if (isValidPosition(monster.getPosX(), monster.getPosY() - 1)) {
+                        monster.setPosY(monster.getPosY() - 1);
+                    }
                 }
-            }
 
-            if(monster.getPosY() < h.getPosY()){
-                // HAUT
-                if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
-                    monster.setPosY(monster.getPosY() + 1);
+                if (monster.getPosY() < h.getPosY()) {
+                    // HAUT
+                    if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
+                        monster.setPosY(monster.getPosY() + 1);
+                    }
                 }
-            }
 
+            }
 
         }
 
@@ -187,6 +189,24 @@ public class Game implements engine.Game {
         }
         gameState.setHero(x, y);
 
+    }
+
+    private void attackHero() {
+        Character hero = gameState.getHero();
+
+        for (Character monster : monsters()) {
+
+            int distanceX = monster.getPosX() - hero.getPosX();
+            int distanceY = monster.getPosY() - hero.getPosY();
+
+            //System.out.println("\n\ndistanceX  : " + distanceX);
+            //System.out.println("distanceY  : " + distanceY);
+
+            if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1){
+                monster.setHP(monster.getHP() - 5);
+            }
+
+        }
     }
 
 
