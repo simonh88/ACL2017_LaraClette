@@ -109,8 +109,6 @@ public class Game implements engine.Game {
 
         // Si le joeur est sur un bord il doit changer de map
         if (playerOnBorder()) {
-            // TODO : implement
-            System.out.println("Player on border !");
             changeRoom();
         }
 
@@ -292,44 +290,40 @@ public class Game implements engine.Game {
      */
     private boolean playerOnBorder() {
         Character hero = getHero();
-        return hero.getPosX() == 0 || hero.getPosY() == 0 || hero.getPosX() == Room.SIZE-1 || hero.getPosY() == Room.SIZE-1;
+        return hero.getPosX() == -1 || hero.getPosY() == -1 || hero.getPosX() == Room.SIZE || hero.getPosY() == Room.SIZE;
     }
 
     /**
      * On change de room
      */
     private void changeRoom() {
-        System.out.println("Changing room !");
         Character hero = getHero();
 
         // On détermine vers quelle room le joueur va
 
-        if (hero.getPosX() == 0) {
+        if (hero.getPosX() == -1) {
             // On va à gauche
-            System.out.println("Loading room left");
             gameSpace.goRoomLeft();
-
+            hero.setPosX(Room.SIZE-1);
         }
 
-        if (hero.getPosX() == Room.SIZE-1) {
+        if (hero.getPosX() == Room.SIZE) {
             // On va à droite
-            System.out.println("Loading room right");
             gameSpace.goRoomRight();
+            hero.setPosX(0);
         }
 
-        if (hero.getPosY() == 0) {
+        if (hero.getPosY() == -1) {
             // On va en haut
             gameSpace.goRoomUp();
+            hero.setPosY(Room.SIZE-1);
         }
 
-        if (hero.getPosY() == Room.SIZE-1) {
+        if (hero.getPosY() == Room.SIZE) {
             // On va en bas
             gameSpace.goRoomBottom();
+            hero.setPosY(0);
         }
-
-        // TODO Reset proprement la position
-        hero.setPosX(5);
-        hero.setPosY(5);
 
     }
 

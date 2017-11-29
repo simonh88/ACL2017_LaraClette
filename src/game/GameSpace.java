@@ -65,7 +65,6 @@ public class GameSpace {
     public void goRoomRight() {
         Room current = rooms.get(current_room);
         int index_room_right = current.getIndexRoomRight();
-        System.out.println("Current room is now " + index_room_right);
         current_room = index_room_right;
     }
 
