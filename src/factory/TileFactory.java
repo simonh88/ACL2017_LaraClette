@@ -12,6 +12,7 @@ public class TileFactory {
 
     public static TileFactory instance;
 
+    private BufferedImage menuTile;
     private BufferedImage[] grassTiles;
     private BufferedImage wallTile;
     private BufferedImage chestTile;
@@ -19,9 +20,18 @@ public class TileFactory {
     private BufferedImage girlAttack;
     private BufferedImage monster;
     private BufferedImage monsterDead;
+    private BufferedImage monsterAttack;
     private BufferedImage heart;
 
     private TileFactory() {
+
+        try {
+            menuTile = ImageIO.read(new File("res/img/menu.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/menu.png");
+            System.exit(-1);
+        }
+
         try {
             grassTiles = new BufferedImage[4];
             grassTiles[0] = ImageIO.read(new File("res/img/grass_tile1.png"));
@@ -44,6 +54,13 @@ public class TileFactory {
             monsterDead = ImageIO.read(new File("res/img/monster_dead.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/monster_dead.png");
+            System.exit(-1);
+        }
+
+        try {
+            monsterAttack = ImageIO.read(new File("res/img/monster_attack.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/monster_attack.png");
             System.exit(-1);
         }
 
@@ -91,6 +108,9 @@ public class TileFactory {
         return instance;
     }
 
+    public Image getMenuTile(){ return  menuTile; }
+
+
     public Image getGrassTile(GrassType grassType) {
         switch (grassType) {
             case SIMPLE:
@@ -128,6 +148,10 @@ public class TileFactory {
 
     public Image getMonsterDead() {
         return monsterDead;
+    }
+
+    public Image getMonsterAttack() {
+        return monsterAttack;
     }
 
     public Image getHeart() {

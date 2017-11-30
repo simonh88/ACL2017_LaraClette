@@ -1,5 +1,7 @@
 package environement;
 
+import characters.Character;
+
 import java.util.Random;
 
 public class Room {
@@ -175,6 +177,8 @@ public class Room {
     }
 
 
+
+
     /**
      *
      * @param x position abscisse
@@ -197,6 +201,10 @@ public class Room {
         if (x < 0 || y < 0) return true;
         if (x >= SIZE || y >= SIZE) return true;
         return ! (room[y][x].getType() == Decor.WALL);
+    }
+
+    public int getType (int x, int y){
+        return room[x][y].getType();
     }
 
     public int getWidth() {

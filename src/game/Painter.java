@@ -31,7 +31,11 @@ public class Painter implements GamePainter {
     public void draw(BufferedImage image) {
         Graphics2D crayon = (Graphics2D) image.getGraphics();
 
-        if (game.getGameState().isRunning()) {
+
+        if (game.getGameState().isMenu()){
+        /* On dessine le menu */
+            printMenu(crayon);
+        } else if (game.getGameState().isRunning()) {
         /* On dessine les mur */
             printWalls(crayon);
 
@@ -98,7 +102,7 @@ public class Painter implements GamePainter {
     private void printHero(Graphics2D crayon) {
         Character hero = game.getHero();
 
-        if(!game.heroIsOnAttack()){
+        if(!hero.isOnAttack()){
             crayon.drawImage(TileFactory.instance().getGirl(),
                     hero.getPosX() * Room.TILE_WIDTH,
                     hero.getPosY() * Room.TILE_HEIGHT, null);
@@ -115,9 +119,18 @@ public class Painter implements GamePainter {
         for (Character monster : game.monsters()) {
             if(monster.getCurrentRoom() == game.indexCurrentRoom()) {
                 if (monster.isAlive()) {
-                    crayon.drawImage(TileFactory.instance().getMonster(),
-                            monster.getPosX() * Room.TILE_WIDTH,
-                            monster.getPosY() * Room.TILE_HEIGHT, null);
+
+                    if(monster.isOnAttack()){
+                        crayon.drawImage(TileFactory.instance().getMonsterAttack(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT, null);
+                    }
+
+                    else {
+                        crayon.drawImage(TileFactory.instance().getMonster(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT, null);
+                    }
                 } else {
                     crayon.drawImage(TileFactory.instance().getMonsterDead(),
                             monster.getPosX() * Room.TILE_WIDTH,
@@ -144,6 +157,11 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.BLACK);
         crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
         crayon.drawString(strHP, lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
+    }
+
+
+    private void printMenu(Graphics2D crayon){
+        crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
     }
 
     @Override

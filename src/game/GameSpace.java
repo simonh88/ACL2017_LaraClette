@@ -1,5 +1,8 @@
 package game;
 
+import characters.Character;
+import environement.Chest;
+import environement.Decor;
 import environement.Room;
 
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ public class GameSpace {
         current_room = 0;
 
         generateRandomRooms();
+
         placeChest();
     }
 
@@ -46,8 +50,6 @@ public class GameSpace {
     }
 
 
-
-
     public void goRoomLeft() {
         Room current = rooms.get(current_room);
         int index_room_left = current.getIndexRoomLeft();
@@ -74,6 +76,7 @@ public class GameSpace {
 
     /**
      * Renvoie la room correspondante à l'index
+     *
      * @param indexRoom
      * @return
      */
@@ -85,7 +88,7 @@ public class GameSpace {
         return rooms.get(current_room);
     }
 
-    public int indexCurrentRoom(){
+    public int indexCurrentRoom() {
         return current_room;
     }
 
@@ -180,7 +183,29 @@ public class GameSpace {
                 }
             }
         }
+    }
 
+    public void generateMonsters(GameState gameState) {
+        int x = 0;
+        int y = 0;
+        int indexRoom = 0;
+
+        Random rand = new Random();
+
+        for (Room room : rooms) {
+            for (int i = 0; i < Math.abs(rand.nextInt()) % (8); i++) {
+                x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
+                y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
+                while (room.getType(x, y) != Decor.GRASS) {
+                    x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
+                    y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
+                }
+                indexRoom = Math.abs(rand.nextInt()) % (rooms.size());
+
+
+                gameState.addMonster(new Character(x, y, indexRoom));
+            }
+        }
     }
 
 }
