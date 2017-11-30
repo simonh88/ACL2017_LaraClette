@@ -138,6 +138,7 @@ public class Game implements engine.Game {
     private void restart() {
         gameState = new GameState();
         gameSpace = new GameSpace();
+        gameSpace.generateMonsters(gameState);
         generateHero();
         SoundFactory.instance().playBackground();
 
