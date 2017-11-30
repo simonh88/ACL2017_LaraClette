@@ -131,6 +131,18 @@ public class Painter implements GamePainter {
                                 monster.getPosX() * Room.TILE_WIDTH,
                                 monster.getPosY() * Room.TILE_HEIGHT, null);
                     }
+
+                    if (monster.getHP() > 5){
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT, null);
+                    }
+
+                    else{
+                        crayon.drawImage(TileFactory.instance().getHP1(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT, null);
+                    }
                 } else {
                     crayon.drawImage(TileFactory.instance().getMonsterDead(),
                             monster.getPosX() * Room.TILE_WIDTH,
