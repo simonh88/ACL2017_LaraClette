@@ -28,7 +28,11 @@ public class Painter implements GamePainter {
     public void draw(BufferedImage image) {
         Graphics2D crayon = (Graphics2D) image.getGraphics();
 
-        if (game.getGameState().isRunning()) {
+
+        if (game.getGameState().isMenu()){
+        /* On dessine le menu */
+            printMenu(crayon);
+        } else if (game.getGameState().isRunning()) {
         /* On dessine les mur */
             printWalls(crayon);
 
@@ -140,6 +144,11 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.BLACK);
         crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
         crayon.drawString(strHP, lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
+    }
+
+
+    private void printMenu(Graphics2D crayon){
+        crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
     }
 
     @Override

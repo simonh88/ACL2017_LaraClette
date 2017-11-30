@@ -10,6 +10,7 @@ public class TileFactory {
 
     public static TileFactory instance;
 
+    private BufferedImage menuTile;
     private BufferedImage grassTile;
     private BufferedImage wallTile;
     private BufferedImage chestTile;
@@ -20,6 +21,14 @@ public class TileFactory {
     private BufferedImage heart;
 
     private TileFactory() {
+
+        try {
+            menuTile = ImageIO.read(new File("res/img/menu.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/menu.png");
+            System.exit(-1);
+        }
+
         try {
             grassTile = ImageIO.read(new File("res/img/grass_tile.png"));
         } catch (IOException ioe) {
@@ -84,6 +93,8 @@ public class TileFactory {
 
         return instance;
     }
+
+    public Image getMenuTile(){ return  menuTile; }
 
     public Image getGrassTile() {
         return grassTile;

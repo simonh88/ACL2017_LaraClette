@@ -105,6 +105,11 @@ public class Game implements engine.Game {
                     restart();
                 }
                 break;
+
+            case ENTER:
+                gameState.setRunning();
+
+                break;
         }
 
         // Si le joeur est sur un bord il doit changer de map
