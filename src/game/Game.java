@@ -23,13 +23,11 @@ public class Game implements engine.Game {
     private long timeSinceStartAttack;
 
     private boolean isFinished;
-    private boolean heroOnAttack;
 
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
         isFinished = false;
-        heroOnAttack = false;
         generateHero();
         deltaTime = 1000;
         deltaTimeAttack = 100;
@@ -125,11 +123,19 @@ public class Game implements engine.Game {
             timeSinceStart = System.currentTimeMillis();
         }
 
+        if (System.currentTimeMillis() - timeSinceStart > deltaTimeAttack ) {
+            for (int i = 0; i < gameState.sizeMonsters(); i++) {
+                Character monster = gameState.getMonster(i);
+
+                monster.setOnAttack(false);
+            }
+        }
+
 
         //Fait l'animation de l'attaque du hero
 
         if (System.currentTimeMillis() - timeSinceStartAttack > deltaTimeAttack ) {
-            heroOnAttack = false;
+            hero.setOnAttack(false);
         }
     }
 
@@ -208,7 +214,7 @@ public class Game implements engine.Game {
 
     private void attackHero() {
         Character hero = gameState.getHero();
-        this.heroOnAttack = true;
+        hero.setOnAttack(true);
         timeSinceStartAttack = System.currentTimeMillis();
 
         for (Character monster : monsters()) {
@@ -237,6 +243,7 @@ public class Game implements engine.Game {
                 int distanceY = monster.getPosY() - hero.getPosY();
 
                 if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
+                    monster.setOnAttack(true);
                     hero.setHP(hero.getHP() - 1);
                 }
 
@@ -338,8 +345,4 @@ public class Game implements engine.Game {
 
     }
 
-
-    public boolean heroIsOnAttack(){
-        return this.heroOnAttack;
-    }
 }

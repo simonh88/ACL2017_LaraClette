@@ -102,7 +102,7 @@ public class Painter implements GamePainter {
     private void printHero(Graphics2D crayon) {
         Character hero = game.getHero();
 
-        if(!game.heroIsOnAttack()){
+        if(!hero.isOnAttack()){
             crayon.drawImage(TileFactory.instance().getGirl(),
                     hero.getPosX() * Room.TILE_WIDTH,
                     hero.getPosY() * Room.TILE_HEIGHT, null);
@@ -119,9 +119,18 @@ public class Painter implements GamePainter {
         for (Character monster : game.monsters()) {
             if(monster.getCurrentRoom() == game.indexCurrentRoom()) {
                 if (monster.isAlive()) {
-                    crayon.drawImage(TileFactory.instance().getMonster(),
-                            monster.getPosX() * Room.TILE_WIDTH,
-                            monster.getPosY() * Room.TILE_HEIGHT, null);
+
+                    if(monster.isOnAttack()){
+                        crayon.drawImage(TileFactory.instance().getMonsterAttack(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT, null);
+                    }
+
+                    else {
+                        crayon.drawImage(TileFactory.instance().getMonster(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT, null);
+                    }
                 } else {
                     crayon.drawImage(TileFactory.instance().getMonsterDead(),
                             monster.getPosX() * Room.TILE_WIDTH,
