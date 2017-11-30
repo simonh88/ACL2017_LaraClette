@@ -7,14 +7,15 @@ public class Character {
     private int posX;
     private int posY;
     private int currentRoom;
-    private boolean alive;
+    private boolean onAttack;
+
 
     public Character(int x, int y, int currentRoom){
         this.hp = 10;
         this.posX = x;
         this.posY = y;
         this.currentRoom = currentRoom;
-        this.alive = true;
+        this.onAttack = false;
     }
 
     public int getCurrentRoom(){
@@ -38,13 +39,15 @@ public class Character {
     }
 
     public boolean isAlive() {
-        return this.alive;
+        return this.hp > 0;
     }
+
+    public boolean isOnAttack() { return this.onAttack; }
+
+    public void setOnAttack(boolean onAttack) { this.onAttack = onAttack; }
 
     public void setHP(int hp) {
         this.hp = hp;
-
-        if(this.hp <= 0 ) this.alive = false;
     }
 
     public void setPosX(int posX) {

@@ -24,9 +24,9 @@ public class GameState {
         lMonsters = new ArrayList<>();
         hero = new Character(4,4, 0);
         state = State.Menu;
-        lMonsters.add(new Character(2,2, 1));
-        lMonsters.add(new Character(5,5, 0));
     }
+
+
 
 
     public Character getHero(){
@@ -95,6 +95,10 @@ public class GameState {
     public void setRunning(){
         this.state = State.Running;
 
+    }
+
+    public void addMonster(Character c){
+        lMonsters.add(c);
     }
 
     public List<Character> monsters() {
