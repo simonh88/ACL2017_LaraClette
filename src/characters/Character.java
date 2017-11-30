@@ -9,11 +9,11 @@ public class Character {
     private int currentRoom;
     private boolean alive;
 
-    public Character(int x, int y){
+    public Character(int x, int y, int currentRoom){
         this.hp = 10;
         this.posX = x;
         this.posY = y;
-        this.currentRoom = 0;
+        this.currentRoom = currentRoom;
         this.alive = true;
     }
 

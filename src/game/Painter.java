@@ -3,6 +3,7 @@ package game;
 import characters.Character;
 import engine.GamePainter;
 import environement.Room;
+import factory.SoundFactory;
 import factory.TileFactory;
 
 import java.awt.*;
@@ -46,6 +47,7 @@ public class Painter implements GamePainter {
             crayon.drawString("LEFT: q | RIGHT: d | UP: z | DOWN: s", 30, 580);
             crayon.drawString("ACTION: e", 30, 595);
         }else if(game.getGameState().isLoss()){
+            SoundFactory.instance().stopBackground();
             crayon.setColor(Color.RED);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
             crayon.drawString("Loss ! ", 250, 300);
@@ -107,16 +109,16 @@ public class Painter implements GamePainter {
 
     private void printMonsters(Graphics2D crayon) {
         for (Character monster : game.monsters()) {
-
-            if(monster.isAlive()) {
-                crayon.drawImage(TileFactory.instance().getMonster(),
-                        monster.getPosX() * Room.TILE_WIDTH,
-                        monster.getPosY() * Room.TILE_HEIGHT, null);
-            }
-            else{
-                crayon.drawImage(TileFactory.instance().getMonsterDead(),
-                        monster.getPosX() * Room.TILE_WIDTH,
-                        monster.getPosY() * Room.TILE_HEIGHT, null);
+            if(monster.getCurrentRoom() == game.indexCurrentRoom()) {
+                if (monster.isAlive()) {
+                    crayon.drawImage(TileFactory.instance().getMonster(),
+                            monster.getPosX() * Room.TILE_WIDTH,
+                            monster.getPosY() * Room.TILE_HEIGHT, null);
+                } else {
+                    crayon.drawImage(TileFactory.instance().getMonsterDead(),
+                            monster.getPosX() * Room.TILE_WIDTH,
+                            monster.getPosY() * Room.TILE_HEIGHT, null);
+                }
             }
         }
     }
