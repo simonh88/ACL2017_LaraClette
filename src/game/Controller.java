@@ -73,6 +73,12 @@ public class Controller implements GameController {
 
         }
 
+        switch (e.getKeyCode()){
+            case KeyEvent.VK_ENTER:
+                this.commandeEnCours = Cmd.ENTER;
+                break;
+        }
+
     }
 
     @Override

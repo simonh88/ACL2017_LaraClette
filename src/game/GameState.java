@@ -14,6 +14,7 @@ public class GameState {
     private List<Character> lMonsters;
 
     private static enum State {
+        Menu,
         Running,
         Victory,
         Loss
@@ -24,8 +25,7 @@ public class GameState {
     public GameState(){
         lMonsters = new ArrayList<>();
         hero = new Character(4,4, 0);
-        state = State.Running;
-
+        state = State.Menu;
     }
 
 
@@ -73,6 +73,10 @@ public class GameState {
         return this.state == State.Loss;
     }
 
+    public boolean isMenu(){
+        return this.state == State.Menu;
+    }
+
     public void setVictory(){
         this.state = State.Victory;
     }
@@ -80,6 +84,8 @@ public class GameState {
     public void setLoss(){
         this.state = State.Loss;
     }
+
+    public void setMenu(){ this.state = State.Menu;}
 
 
     public void setRunning(){
