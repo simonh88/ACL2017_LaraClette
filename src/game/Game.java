@@ -27,6 +27,7 @@ public class Game implements engine.Game {
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
+        gameSpace.generateMonsters(gameState);
         isFinished = false;
         generateHero();
         deltaTime = 1000;
@@ -89,24 +90,24 @@ public class Game implements engine.Game {
                 if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
                     // Alors on win
                     //isFinished = true;
+                    SoundFactory.instance().playSound("res/sound/Victory.wav");
                     SoundFactory.instance().stopBackground();
                     gameState.setVictory();
+
                 }
                 break;
             case ATTACK:
                 SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
                 attackHero();
 
-
+                break;
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
                     restart();
                 }
                 break;
-
             case ENTER:
                 gameState.setRunning();
-
                 break;
         }
 
@@ -247,7 +248,9 @@ public class Game implements engine.Game {
                     hero.setHP(hero.getHP() - 1);
                 }
 
-                if (!hero.isAlive()) gameState.setLoss();
+                if (!hero.isAlive()){
+                    gameState.setLoss();
+                }
 
             }
         }
