@@ -117,13 +117,13 @@ public class Game implements engine.Game {
 
         //Fait bouger tous les monstres aléatoirement d'une case toutes les 1sec
 
-        if (gameState.isRunning() && (System.currentTimeMillis() - timeSinceStart > deltaTime)  ) {
+        if (gameState.isRunning() && (System.currentTimeMillis() - timeSinceStart > deltaTime)) {
             attackMonster();
             mooveMonsters();
             timeSinceStart = System.currentTimeMillis();
         }
 
-        if (System.currentTimeMillis() - timeSinceStart > deltaTimeAttack ) {
+        if (System.currentTimeMillis() - timeSinceStart > deltaTimeAttack) {
             for (int i = 0; i < gameState.sizeMonsters(); i++) {
                 Character monster = gameState.getMonster(i);
 
@@ -134,7 +134,7 @@ public class Game implements engine.Game {
 
         //Fait l'animation de l'attaque du hero
 
-        if (System.currentTimeMillis() - timeSinceStartAttack > deltaTimeAttack ) {
+        if (System.currentTimeMillis() - timeSinceStartAttack > deltaTimeAttack) {
             hero.setOnAttack(false);
         }
     }
@@ -161,7 +161,7 @@ public class Game implements engine.Game {
         for (int i = 0; i < gameState.sizeMonsters(); i++) {
             monster = gameState.getMonster(i);
 
-            if(monster.isAlive() && (monster.getCurrentRoom() == indexCurrentRoom())) {
+            if (monster.isAlive() && (monster.getCurrentRoom() == indexCurrentRoom())) {
                 //System.out.println(" m : "+ monster.getCurrentRoom() + " h : " + indexCurrentRoom());
                 //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
                 //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
@@ -220,14 +220,16 @@ public class Game implements engine.Game {
 
         for (Character monster : monsters()) {
 
-            int distanceX = monster.getPosX() - hero.getPosX();
-            int distanceY = monster.getPosY() - hero.getPosY();
+            if ((indexCurrentRoom() == monster.getCurrentRoom())) {
+                int distanceX = monster.getPosX() - hero.getPosX();
+                int distanceY = monster.getPosY() - hero.getPosY();
 
-            //System.out.println("\n\ndistanceX  : " + distanceX);
-            //System.out.println("distanceY  : " + distanceY);
+                //System.out.println("\n\ndistanceX  : " + distanceX);
+                //System.out.println("distanceY  : " + distanceY);
 
-            if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1){
-                monster.setHP(monster.getHP() - 5);
+                if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
+                    monster.setHP(monster.getHP() - 5);
+                }
             }
 
         }
@@ -238,7 +240,7 @@ public class Game implements engine.Game {
 
         for (Character monster : monsters()) {
 
-            if(monster.isAlive() && (indexCurrentRoom() == monster.getCurrentRoom())) {
+            if (monster.isAlive() && (indexCurrentRoom() == monster.getCurrentRoom())) {
 
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
@@ -248,7 +250,7 @@ public class Game implements engine.Game {
                     hero.setHP(hero.getHP() - 1);
                 }
 
-                if (!hero.isAlive()){
+                if (!hero.isAlive()) {
                     gameState.setLoss();
                 }
 
@@ -287,7 +289,7 @@ public class Game implements engine.Game {
         return gameSpace.currentRoom();
     }
 
-    public int indexCurrentRoom(){
+    public int indexCurrentRoom() {
         return gameSpace.indexCurrentRoom();
     }
 
@@ -307,6 +309,7 @@ public class Game implements engine.Game {
 
     /**
      * Check si le joueur est sur le bord du plateau, utile pour savoir si on doit changer de map
+     *
      * @return boolean
      */
     private boolean playerOnBorder() {
@@ -325,7 +328,7 @@ public class Game implements engine.Game {
         if (hero.getPosX() == -1) {
             // On va à gauche
             gameSpace.goRoomLeft();
-            hero.setPosX(Room.SIZE-1);
+            hero.setPosX(Room.SIZE - 1);
         }
 
         if (hero.getPosX() == Room.SIZE) {
@@ -337,7 +340,7 @@ public class Game implements engine.Game {
         if (hero.getPosY() == -1) {
             // On va en haut
             gameSpace.goRoomUp();
-            hero.setPosY(Room.SIZE-1);
+            hero.setPosY(Room.SIZE - 1);
         }
 
         if (hero.getPosY() == Room.SIZE) {
