@@ -93,4 +93,8 @@ public class GameSpace {
         return rooms.get(current_room);
     }
 
+    public int indexCurrentRoom(){
+        return current_room;
+    }
+
 }

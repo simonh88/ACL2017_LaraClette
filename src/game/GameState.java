@@ -20,10 +20,10 @@ public class GameState {
 
     public GameState(){
         lMonsters = new ArrayList<>();
-        hero = new Character(4,4);
+        hero = new Character(4,4, 0);
         state = State.Running;
-        lMonsters.add(new Character(2,2));
-        lMonsters.add(new Character(5,5));
+        lMonsters.add(new Character(2,2, 1));
+        lMonsters.add(new Character(5,5, 0));
     }
 
 
@@ -31,8 +31,8 @@ public class GameState {
         return hero;
     }
 
-    public void setHero(int x, int y){
-        hero = new Character(x,y);
+    public void setHero(int x, int y, int currentRoom){
+        hero = new Character(x,y, currentRoom);
     }
 
     public Character getMonster(int i){

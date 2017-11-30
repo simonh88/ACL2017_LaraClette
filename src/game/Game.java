@@ -99,7 +99,7 @@ public class Game implements engine.Game {
                 SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
                 attackHero();
 
-                //TODO L'ATTAQUE
+
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
                     restart();
@@ -115,8 +115,8 @@ public class Game implements engine.Game {
         //Fait bouger tous les monstres aléatoirement d'une case toutes les 1sec
 
         if (System.currentTimeMillis() - timeSinceStart > deltaTime ) {
-            mooveMonsters();
             attackMonster();
+            mooveMonsters();
             timeSinceStart = System.currentTimeMillis();
         }
 
@@ -149,8 +149,8 @@ public class Game implements engine.Game {
         for (int i = 0; i < gameState.sizeMonsters(); i++) {
             monster = gameState.getMonster(i);
 
-            if(monster.isAlive()) {
-
+            if(monster.isAlive() && (monster.getCurrentRoom() == indexCurrentRoom())) {
+                //System.out.println(" m : "+ monster.getCurrentRoom() + " h : " + indexCurrentRoom());
                 //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
                 //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
 
@@ -197,7 +197,7 @@ public class Game implements engine.Game {
             x = Math.abs(rand.nextInt()) % (10) + 1;
             y = Math.abs(rand.nextInt()) % (10) + 1;
         }
-        gameState.setHero(x, y);
+        gameState.setHero(x, y, 0);
 
     }
 
@@ -245,7 +245,9 @@ public class Game implements engine.Game {
     public boolean isValidPosition(int x, int y) {
         // Check monstres
         for (Character monster : monsters()) {
-            if (x == monster.getPosX() && y == monster.getPosY() && monster.isAlive()) return false;
+            if (monster.getCurrentRoom() == indexCurrentRoom()) {
+                if (x == monster.getPosX() && y == monster.getPosY() && monster.isAlive()) return false;
+            }
         }
 
         // Check Hero
@@ -268,6 +270,10 @@ public class Game implements engine.Game {
 
     public Room currentRoom() {
         return gameSpace.currentRoom();
+    }
+
+    public int indexCurrentRoom(){
+        return gameSpace.indexCurrentRoom();
     }
 
     public Character getHero() {
