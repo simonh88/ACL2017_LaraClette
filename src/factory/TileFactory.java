@@ -79,7 +79,7 @@ public class TileFactory {
         }
 
         try {
-            wallTile = ImageIO.read(new File("res/img/wall_tile.png"));
+            wallTile = ImageIO.read(new File("res/img/wall_tile_v2.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/wall_tile.png");
             System.exit(-1);
