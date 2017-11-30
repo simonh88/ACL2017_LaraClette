@@ -239,7 +239,7 @@ public class Game implements engine.Game {
 
         for (Character monster : monsters()) {
 
-            if(monster.isAlive()) {
+            if(monster.isAlive() && (indexCurrentRoom() == monster.getCurrentRoom())) {
 
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
