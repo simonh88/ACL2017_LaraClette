@@ -28,6 +28,7 @@ public class Game implements engine.Game {
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
+        gameSpace.generateMonsters(gameState);
         isFinished = false;
         heroOnAttack = false;
         generateHero();
