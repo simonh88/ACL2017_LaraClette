@@ -125,8 +125,12 @@ public class Room {
                     randGrass = new Grass(GrassType.FULL_DIRT);
                 } else if (randint < 8) {
                     randGrass = new Grass(GrassType.GRASS);
+                } else if (randint < 40) {
+                    randGrass = new Grass(GrassType.SIMPLE1);
+                } else if (randint < 75) {
+                    randGrass = new Grass(GrassType.SIMPLE2);
                 } else {
-                    randGrass = new Grass(GrassType.SIMPLE);
+                    randGrass = new Grass(GrassType.SIMPLE3);
                 }
 
                 room[j][i] = randGrass;

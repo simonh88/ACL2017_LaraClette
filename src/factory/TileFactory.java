@@ -1,5 +1,6 @@
 package factory;
 
+import environement.Grass;
 import environement.GrassType;
 
 import javax.imageio.ImageIO;
@@ -7,13 +8,22 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class TileFactory {
 
     public static TileFactory instance;
 
     private BufferedImage menuTile;
-    private BufferedImage[] grassTiles;
+
+    private BufferedImage grassTileSimple1;
+    private BufferedImage grassTileSimple2;
+    private BufferedImage grassTileSimple3;
+
+    private BufferedImage grassTileGrass;
+    private BufferedImage grassTileDirt;
+    private BufferedImage grassTileFullDirt;
+
     private BufferedImage wallTile;
     private BufferedImage chestTile;
     private BufferedImage girl;
@@ -35,11 +45,13 @@ public class TileFactory {
         }
 
         try {
-            grassTiles = new BufferedImage[4];
-            grassTiles[0] = ImageIO.read(new File("res/img/grass_tile1.png"));
-            grassTiles[1] = ImageIO.read(new File("res/img/grass_tile2.png"));
-            grassTiles[2] = ImageIO.read(new File("res/img/grass_tile3.png"));
-            grassTiles[3] = ImageIO.read(new File("res/img/grass_tile4.png"));
+            grassTileGrass = ImageIO.read(new File("res/img/grass_tile_grass.png"));
+            grassTileDirt = ImageIO.read(new File("res/img/grass_tile_dirt.png"));
+            grassTileFullDirt = ImageIO.read(new File("res/img/grass_tile_full_dirt.png"));
+
+            grassTileSimple1 = ImageIO.read(new File("res/img/grass_tile_simple_1.png"));
+            grassTileSimple2 = ImageIO.read(new File("res/img/grass_tile_simple_2.png"));
+            grassTileSimple3 = ImageIO.read(new File("res/img/grass_tile_simple_3.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/grass_tile.png");
             System.exit(-1);
@@ -74,7 +86,7 @@ public class TileFactory {
         }
 
         try {
-            chestTile = ImageIO.read(new File("res/img/chest_tile.png"));
+            chestTile = ImageIO.read(new File("res/img/chest_tile_v2.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/chest_tile.png");
             System.exit(-1);
@@ -129,16 +141,20 @@ public class TileFactory {
 
     public Image getGrassTile(GrassType grassType) {
         switch (grassType) {
-            case SIMPLE:
-                return grassTiles[0];
+            case SIMPLE1:
+                return grassTileSimple1;
+            case SIMPLE2:
+                return grassTileSimple2;
+            case SIMPLE3:
+                return grassTileSimple3;
             case GRASS:
-                return grassTiles[1];
+                return grassTileGrass;
             case DIRT:
-                return grassTiles[2];
+                return grassTileDirt;
             case FULL_DIRT:
-                return grassTiles[3];
+                return grassTileFullDirt;
             default:
-                return grassTiles[0];
+                return grassTileSimple1;
         }
     }
 
