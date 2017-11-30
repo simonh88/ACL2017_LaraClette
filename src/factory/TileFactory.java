@@ -100,12 +100,9 @@ public class TileFactory {
         return instance;
     }
 
-<<<<<<< HEAD
     public Image getMenuTile(){ return  menuTile; }
 
-    public Image getGrassTile() {
-        return grassTile;
-=======
+
     public Image getGrassTile(GrassType grassType) {
         switch (grassType) {
             case SIMPLE:
@@ -119,7 +116,6 @@ public class TileFactory {
             default:
                 return grassTiles[0];
         }
->>>>>>> 72f006fd507d33f2bc24d8b2460f5f9ffbacb532
     }
 
     public Image getWallTile() {
