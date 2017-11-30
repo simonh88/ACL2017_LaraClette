@@ -105,10 +105,29 @@ public class Room {
      */
     private void setupRoomAndBorder(Decor[][] room) {
 
+        Random rand = new Random();
+
+
+
         // Le vide central
         for (int j = 0; j < room.length; j++) {
             for (int i = 0; i < room[0].length; i++) {
-                room[j][i] = new Empty();
+
+                // Fond aléatoire
+
+                Decor randGrass;
+                int randint = Math.abs(rand.nextInt() % 100);
+                if (randint < 2) {
+                    randGrass = new Grass(GrassType.DIRT);
+                } else if (randint < 4) {
+                    randGrass = new Grass(GrassType.FULL_DIRT);
+                } else if (randint < 8) {
+                    randGrass = new Grass(GrassType.GRASS);
+                } else {
+                    randGrass = new Grass(GrassType.SIMPLE);
+                }
+
+                room[j][i] = randGrass;
             }
         }
 
@@ -147,7 +166,7 @@ public class Room {
 
         Random rand = new Random();
 
-        while (! (room[y][x] instanceof Empty)) {
+        while (room[y][x].getType() != Decor.GRASS) {
             x = Math.abs(rand.nextInt()) % (room[0].length - 2) + 1;
             y = Math.abs(rand.nextInt()) % (room.length - 2) + 1;
         }

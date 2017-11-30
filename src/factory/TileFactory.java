@@ -1,5 +1,7 @@
 package factory;
 
+import environement.GrassType;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,7 +13,7 @@ public class TileFactory {
     public static TileFactory instance;
 
     private BufferedImage menuTile;
-    private BufferedImage grassTile;
+    private BufferedImage[] grassTiles;
     private BufferedImage wallTile;
     private BufferedImage chestTile;
     private BufferedImage girl;
@@ -30,7 +32,11 @@ public class TileFactory {
         }
 
         try {
-            grassTile = ImageIO.read(new File("res/img/grass_tile.png"));
+            grassTiles = new BufferedImage[4];
+            grassTiles[0] = ImageIO.read(new File("res/img/grass_tile1.png"));
+            grassTiles[1] = ImageIO.read(new File("res/img/grass_tile2.png"));
+            grassTiles[2] = ImageIO.read(new File("res/img/grass_tile3.png"));
+            grassTiles[3] = ImageIO.read(new File("res/img/grass_tile4.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/grass_tile.png");
             System.exit(-1);
@@ -94,10 +100,26 @@ public class TileFactory {
         return instance;
     }
 
+<<<<<<< HEAD
     public Image getMenuTile(){ return  menuTile; }
 
     public Image getGrassTile() {
         return grassTile;
+=======
+    public Image getGrassTile(GrassType grassType) {
+        switch (grassType) {
+            case SIMPLE:
+                return grassTiles[0];
+            case GRASS:
+                return grassTiles[1];
+            case DIRT:
+                return grassTiles[2];
+            case FULL_DIRT:
+                return grassTiles[3];
+            default:
+                return grassTiles[0];
+        }
+>>>>>>> 72f006fd507d33f2bc24d8b2460f5f9ffbacb532
     }
 
     public Image getWallTile() {
