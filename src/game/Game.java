@@ -150,7 +150,7 @@ public class Game implements engine.Game {
             monster = gameState.getMonster(i);
 
             if(monster.isAlive() && (monster.getCurrentRoom() == indexCurrentRoom())) {
-                System.out.println(" m : "+ monster.getCurrentRoom() + " h : " + indexCurrentRoom());
+                //System.out.println(" m : "+ monster.getCurrentRoom() + " h : " + indexCurrentRoom());
                 //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
                 //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
 
