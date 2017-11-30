@@ -22,6 +22,11 @@ public class GameState {
         lMonsters = new ArrayList<>();
         hero = new Character(4,4, 0);
         state = State.Running;
+
+    }
+
+    private void generateMonsters(){
+        
         lMonsters.add(new Character(2,2, 1));
         lMonsters.add(new Character(5,5, 0));
     }
