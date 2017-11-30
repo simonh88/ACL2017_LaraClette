@@ -1,6 +1,7 @@
 package game;
 
 import characters.Character;
+import factory.SoundFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,11 +76,17 @@ public class GameState {
     }
 
     public void setVictory(){
-        this.state = State.Victory;
+        if (!isVictory()){
+            SoundFactory.instance().playSound("res/sound/Victory.wav");
+            this.state = State.Victory;
+        }
     }
 
     public void setLoss(){
-        this.state = State.Loss;
+        if (!isLoss() ){
+            SoundFactory.instance().playSound("res/sound/Lose.wav");
+            this.state = State.Loss;
+        }
     }
 
     public void setMenu(){ this.state = State.Menu;}
