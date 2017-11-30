@@ -120,7 +120,7 @@ public class Game implements engine.Game {
 
         //Fait bouger tous les monstres aléatoirement d'une case toutes les 1sec
 
-        if (System.currentTimeMillis() - timeSinceStart > deltaTime ) {
+        if (gameState.isRunning() && (System.currentTimeMillis() - timeSinceStart > deltaTime)  ) {
             attackMonster();
             mooveMonsters();
             timeSinceStart = System.currentTimeMillis();
