@@ -2,9 +2,7 @@ package game;
 
 import characters.Character;
 import engine.GamePainter;
-import environement.Decor;
 import environement.Grass;
-import environement.GrassType;
 import environement.Room;
 import factory.SoundFactory;
 import factory.TileFactory;
@@ -84,7 +82,7 @@ public class Painter implements GamePainter {
                         break;
                     case GRASS:
                         Grass grass = (Grass) currentRoom.get(i, j);
-                        Image grassTile = TileFactory.instance().getGrassTile(grass.getGrassType());
+                        Image grassTile = TileFactory.instance().getGroundTile(grass.getGroundType());
                         crayon.drawImage(grassTile,
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
 

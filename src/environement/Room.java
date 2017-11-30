@@ -1,7 +1,5 @@
 package environement;
 
-import characters.Character;
-
 import java.util.Random;
 
 public class Room {
@@ -117,22 +115,7 @@ public class Room {
 
                 // Fond aléatoire
 
-                Decor randGrass;
-                int randint = Math.abs(rand.nextInt() % 100);
-                if (randint < 2) {
-                    randGrass = new Grass(GrassType.DIRT);
-                } else if (randint < 4) {
-                    randGrass = new Grass(GrassType.FULL_DIRT);
-                } else if (randint < 8) {
-                    randGrass = new Grass(GrassType.GRASS);
-                } else if (randint < 40) {
-                    randGrass = new Grass(GrassType.SIMPLE1);
-                } else if (randint < 75) {
-                    randGrass = new Grass(GrassType.SIMPLE2);
-                } else {
-                    randGrass = new Grass(GrassType.SIMPLE3);
-                }
-
+                Decor randGrass = getRandomGround();
                 room[j][i] = randGrass;
             }
         }
@@ -253,5 +236,30 @@ public class Room {
 
     public int getIndexRoomRight() {
         return index_room_right;
+    }
+
+    private Grass getRandomGround() {
+        Random rand = new Random();
+        Grass randGrass;
+
+        int randint = Math.abs(rand.nextInt() % 100);
+        if (randint < 2) {
+            randGrass = new Grass(GroundType.DIRT);
+        } else if (randint < 4) {
+            randGrass = new Grass(GroundType.FULL_DIRT);
+        } else if (randint < 8) {
+            randGrass = new Grass(GroundType.GRASS);
+        } else if (randint < 40) {
+            randGrass = new Grass(GroundType.SIMPLE1);
+        } else if (randint < 75) {
+            randGrass = new Grass(GroundType.SIMPLE2);
+        } else if (randint < 77) {
+            randGrass = new Grass(GroundType.BONES1);
+        } else if (randint < 79) {
+            randGrass = new Grass(GroundType.BONES2);
+        } else {
+            randGrass = new Grass(GroundType.SIMPLE3);
+        }
+        return randGrass;
     }
 }

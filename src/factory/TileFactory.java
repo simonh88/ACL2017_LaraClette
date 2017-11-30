@@ -1,14 +1,13 @@
 package factory;
 
-import environement.Grass;
-import environement.GrassType;
+import environement.GroundType;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
+
 
 public class TileFactory {
 
@@ -19,6 +18,9 @@ public class TileFactory {
     private BufferedImage grassTileSimple1;
     private BufferedImage grassTileSimple2;
     private BufferedImage grassTileSimple3;
+
+    private BufferedImage bonesTile1;
+    private BufferedImage bonesTile2;
 
     private BufferedImage grassTileGrass;
     private BufferedImage grassTileDirt;
@@ -52,8 +54,12 @@ public class TileFactory {
             grassTileSimple1 = ImageIO.read(new File("res/img/grass_tile_simple_1.png"));
             grassTileSimple2 = ImageIO.read(new File("res/img/grass_tile_simple_2.png"));
             grassTileSimple3 = ImageIO.read(new File("res/img/grass_tile_simple_3.png"));
+
+            bonesTile1 = ImageIO.read(new File("res/img/bones_tile_1.png"));
+            bonesTile2 = ImageIO.read(new File("res/img/bones_tile_2.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/grass_tile.png");
+            System.out.println("Impossible de charger une des tile : ");
+            System.out.println(ioe.getMessage());
             System.exit(-1);
         }
 
@@ -139,8 +145,8 @@ public class TileFactory {
     public Image getMenuTile(){ return  menuTile; }
 
 
-    public Image getGrassTile(GrassType grassType) {
-        switch (grassType) {
+    public Image getGroundTile(GroundType groundType) {
+        switch (groundType) {
             case SIMPLE1:
                 return grassTileSimple1;
             case SIMPLE2:
@@ -153,6 +159,10 @@ public class TileFactory {
                 return grassTileDirt;
             case FULL_DIRT:
                 return grassTileFullDirt;
+            case BONES1:
+                return bonesTile1;
+            case BONES2:
+                return bonesTile2;
             default:
                 return grassTileSimple1;
         }

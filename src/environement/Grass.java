@@ -4,10 +4,10 @@ package environement;
 
 public class Grass implements Decor {
 
-    private GrassType grassType;
+    private GroundType groundType;
 
-    public Grass(GrassType type){
-        this.grassType = type;
+    public Grass(GroundType type){
+        this.groundType = type;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class Grass implements Decor {
         return "__";
     }
 
-    public GrassType getGrassType() {
-        return grassType;
+    public GroundType getGroundType() {
+        return groundType;
     }
 }
