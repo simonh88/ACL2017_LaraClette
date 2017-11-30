@@ -90,7 +90,6 @@ public class Game implements engine.Game {
                 if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
                     // Alors on win
                     //isFinished = true;
-                    SoundFactory.instance().playSound("res/sound/Victory.wav");
                     SoundFactory.instance().stopBackground();
                     gameState.setVictory();
 
@@ -144,6 +143,7 @@ public class Game implements engine.Game {
     private void restart() {
         gameState = new GameState();
         gameSpace = new GameSpace();
+        gameSpace.generateMonsters(gameState);
         generateHero();
         SoundFactory.instance().playBackground();
 
