@@ -11,8 +11,8 @@ public class Grass implements Decor {
     }
 
     @Override
-    public int getType() {
-        return Decor.GRASS;
+    public DecorType getType() {
+        return DecorType.GRASS;
     }
 
     @Override
@@ -22,5 +22,10 @@ public class Grass implements Decor {
 
     public GroundType getGroundType() {
         return groundType;
+    }
+
+    @Override
+    public boolean isTraversable() {
+        return true;
     }
 }

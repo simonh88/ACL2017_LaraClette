@@ -1,9 +1,10 @@
 package environement;
 
 public interface Decor {
-    public static final int EMPTY = 0, CHEST = 1, WALL = 2, LAVA = 3, GRASS = 4, TREE = 5;
 
-    public int getType();
+    DecorType getType();
 
-    public String toString();
+    String toString();
+
+    boolean isTraversable();
 }

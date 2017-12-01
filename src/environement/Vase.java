@@ -1,15 +1,15 @@
 package environement;
 
-public class Lava implements Decor {
+public class Vase implements Decor {
 
     @Override
     public DecorType getType() {
-        return DecorType.LAVA;
+        return DecorType.VASE;
     }
 
     @Override
     public String toString() {
-        return "LL";
+        return "TT";
     }
 
     @Override

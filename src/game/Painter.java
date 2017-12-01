@@ -10,8 +10,6 @@ import factory.TileFactory;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static environement.Decor.*;
-
 public class Painter implements GamePainter {
 
 
@@ -43,6 +41,9 @@ public class Painter implements GamePainter {
         /* On dessine le hero */
             printHero(crayon);
 
+        // On dessine les objets
+            printObjects(crayon);
+
         /* On dessine les infos du hero */
             printInfo(crayon);
 
@@ -67,6 +68,41 @@ public class Painter implements GamePainter {
 
     }
 
+    /**
+     * Dessine les arbres, les pots, les coffres
+     * @param crayon
+     */
+    private void printObjects(Graphics2D crayon) {
+        Room currentRoom = game.currentRoom();
+
+        for (int j = 0; j < currentRoom.getHeight(); j++) {
+            for (int i = 0; i < currentRoom.getWidth(); i++) {
+                switch (currentRoom.get(i, j).getType()) {
+                    case VASE:
+                        crayon.drawImage(TileFactory.instance().getVaseTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
+                        break;
+
+                    case TREE:
+                        // Le -37 est là car la tile de l'abre est plus haute que large (87 de hauteur)
+                        // La position d'affichage est donc légerement modifiée (87 - 37 = 50 = la taille des tile)
+                        crayon.drawImage(TileFactory.instance().getTreeTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT - (87 - Room.TILE_HEIGHT), null);
+                        break;
+                    case CHEST:
+                        crayon.drawImage(TileFactory.instance().getChestTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
+                        break;
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Dessine le sol et les murs
+     * @param crayon
+     */
     private void printWalls(Graphics2D crayon) {
         Room currentRoom = game.currentRoom();
 
@@ -81,14 +117,6 @@ public class Painter implements GamePainter {
 
                         break;
 
-                    case TREE:
-
-                        // Le -37 est là car la tile de l'abre est plus haute que large (87 de hauteur)
-                        // La position d'affichage est donc légerement modifiée (87 - 37 = 50 = la taille des tile)
-                        crayon.drawImage(TileFactory.instance().getTreeTile(),
-                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT - (87 - Room.TILE_HEIGHT), null);
-
-                        break;
                     case GRASS:
                         Grass grass = (Grass) currentRoom.get(i, j);
                         Image grassTile = TileFactory.instance().getGroundTile(grass.getGroundType());
@@ -96,11 +124,7 @@ public class Painter implements GamePainter {
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
 
                         break;
-                    case CHEST:
 
-                        crayon.drawImage(TileFactory.instance().getChestTile(),
-                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
-                        break;
                 }
             }
         }

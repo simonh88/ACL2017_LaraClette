@@ -2,17 +2,18 @@ package environement;
 
 public class Wall implements Decor {
 
-    public Wall(){
-
-    }
-
     @Override
-    public int getType() {
-        return Decor.WALL;
+    public DecorType getType() {
+        return DecorType.WALL;
     }
 
     @Override
     public String toString() {
         return "WW";
+    }
+
+    @Override
+    public boolean isTraversable() {
+        return false;
     }
 }

@@ -3,6 +3,7 @@ package game;
 import characters.Character;
 import environement.Chest;
 import environement.Decor;
+import environement.DecorType;
 import environement.Room;
 
 import java.util.ArrayList;
@@ -198,7 +199,7 @@ public class GameSpace {
             for (int i = 0; i < Math.abs(rand.nextInt()) % (8); i++) {
                 x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
-                while (room.getType(x, y) != Decor.GRASS) {
+                while (room.getType(x, y) != DecorType.GRASS) {
                     x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                     y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 }

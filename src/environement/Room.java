@@ -145,7 +145,10 @@ public class Room {
         }
 
         // Place un (plusieurs?) arbre aléatoirement (il peut y en avoir 0
-        placeTreeOrNot();
+        placeObjectOrNot(DecorType.TREE);
+
+        // Pareil pour les pots
+        placeObjectOrNot(DecorType.VASE);
     }
 
 
@@ -158,7 +161,7 @@ public class Room {
 
         Random rand = new Random();
 
-        while (room[y][x].getType() != Decor.GRASS) {
+        while (room[y][x].getType() != DecorType.GRASS) {
             x = Math.abs(rand.nextInt()) % (room[0].length - 2) + 1;
             y = Math.abs(rand.nextInt()) % (room.length - 2) + 1;
         }
@@ -178,7 +181,7 @@ public class Room {
     public boolean hasChest(int x, int y){
         boolean chest = false;
 
-        if ( room[y][x].getType() == Decor.CHEST ){
+        if ( room[y][x].getType() == DecorType.CHEST ){
             chest = true;
         }
 
@@ -190,10 +193,10 @@ public class Room {
         // (Utile pour le changement de map, dès qu'on sors du plateau on change de map)
         if (x < 0 || y < 0) return true;
         if (x >= SIZE || y >= SIZE) return true;
-        return ! (room[y][x].getType() == Decor.WALL || room[y][x].getType() == Decor.TREE);
+        return room[y][x].isTraversable();
     }
 
-    public int getType (int x, int y){
+    public DecorType getType (int x, int y){
         return room[x][y].getType();
     }
 
@@ -266,16 +269,30 @@ public class Room {
         return randGrass;
     }
 
-    private void placeTreeOrNot() {
+    private void placeObjectOrNot(DecorType decorType) {
         Random rand = new Random();
         int randint = Math.abs(rand.nextInt()) % 2;
 
+        // Une chance sur deux
         if (randint == 0) return;
 
+        // TODO : ne pas hardcoder
         int randx = (Math.abs(rand.nextInt()) % 6) + 3;
         int randy = (Math.abs(rand.nextInt()) % 6) + 3;
 
-        room[randy][randx] = new Tree();
+        Decor c;
+        switch (decorType) {
+            case TREE:
+                c = new Tree();
+                break;
+            case VASE:
+                c = new Vase();
+                break;
+            default:
+                c = new Vase();
+        }
+
+        room[randy][randx] = c;
 
     }
 }

@@ -2,17 +2,18 @@ package environement;
 
 public class Chest implements Decor {
 
-    public Chest(){
-
-    }
-
     @Override
-    public int getType() {
-        return Decor.CHEST;
+    public DecorType getType() {
+        return DecorType.CHEST;
     }
 
     @Override
     public String toString() {
         return "_C";
+    }
+
+    @Override
+    public boolean isTraversable() {
+        return false;
     }
 }

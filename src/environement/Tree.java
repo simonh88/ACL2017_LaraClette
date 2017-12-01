@@ -2,17 +2,18 @@ package environement;
 
 public class Tree implements Decor {
 
-    public Tree(){
-
-    }
-
     @Override
-    public int getType() {
-        return Decor.TREE;
+    public DecorType getType() {
+        return DecorType.TREE;
     }
 
     @Override
     public String toString() {
         return "TT";
+    }
+
+    @Override
+    public boolean isTraversable() {
+        return false;
     }
 }
