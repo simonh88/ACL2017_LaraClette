@@ -80,6 +80,15 @@ public class Painter implements GamePainter {
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
 
                         break;
+
+                    case TREE:
+
+                        // Le -37 est là car la tile de l'abre est plus haute que large (87 de hauteur)
+                        // La position d'affichage est donc légerement modifiée (87 - 37 = 50 = la taille des tile)
+                        crayon.drawImage(TileFactory.instance().getTreeTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT - (87 - Room.TILE_HEIGHT), null);
+
+                        break;
                     case GRASS:
                         Grass grass = (Grass) currentRoom.get(i, j);
                         Image grassTile = TileFactory.instance().getGroundTile(grass.getGroundType());

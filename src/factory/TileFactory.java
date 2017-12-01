@@ -19,6 +19,8 @@ public class TileFactory {
     private BufferedImage grassTileSimple2;
     private BufferedImage grassTileSimple3;
 
+    private BufferedImage treeTile;
+
     private BufferedImage bonesTile1;
     private BufferedImage bonesTile2;
 
@@ -57,6 +59,8 @@ public class TileFactory {
 
             bonesTile1 = ImageIO.read(new File("res/img/bones_tile_1.png"));
             bonesTile2 = ImageIO.read(new File("res/img/bones_tile_2.png"));
+
+            treeTile = ImageIO.read(new File("res/img/tree_tile_1.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger une des tile : ");
             System.out.println(ioe.getMessage());
@@ -206,5 +210,9 @@ public class TileFactory {
 
     public Image getHP2() {
         return hp_2;
+    }
+
+    public Image getTreeTile() {
+        return treeTile;
     }
 }

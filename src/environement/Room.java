@@ -143,6 +143,9 @@ public class Room {
             if ( i != 5 || !hasBottomRoom())
                 room[room.length - 1][i] = new Wall();
         }
+
+        // Place un (plusieurs?) arbre aléatoirement (il peut y en avoir 0
+        placeTreeOrNot();
     }
 
 
@@ -187,7 +190,7 @@ public class Room {
         // (Utile pour le changement de map, dès qu'on sors du plateau on change de map)
         if (x < 0 || y < 0) return true;
         if (x >= SIZE || y >= SIZE) return true;
-        return ! (room[y][x].getType() == Decor.WALL);
+        return ! (room[y][x].getType() == Decor.WALL || room[y][x].getType() == Decor.TREE);
     }
 
     public int getType (int x, int y){
@@ -261,5 +264,18 @@ public class Room {
             randGrass = new Grass(GroundType.SIMPLE3);
         }
         return randGrass;
+    }
+
+    private void placeTreeOrNot() {
+        Random rand = new Random();
+        int randint = Math.abs(rand.nextInt()) % 2;
+
+        if (randint == 0) return;
+
+        int randx = (Math.abs(rand.nextInt()) % 6) + 3;
+        int randy = (Math.abs(rand.nextInt()) % 6) + 3;
+
+        room[randy][randx] = new Tree();
+
     }
 }

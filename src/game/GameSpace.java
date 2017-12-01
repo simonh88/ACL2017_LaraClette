@@ -23,6 +23,8 @@ public class GameSpace {
         generateRandomRooms();
 
         placeChest();
+
+        System.out.println(rooms.get(0).toString());
     }
 
     public void placeChest() {
