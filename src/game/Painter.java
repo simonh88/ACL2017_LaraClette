@@ -138,17 +138,38 @@ public class Painter implements GamePainter {
     private void printHero(Graphics2D crayon) {
         Character hero = game.getHero();
 
-        if(!hero.isOnAttack()){
-            crayon.drawImage(TileFactory.instance().getHero(hero),
-                    hero.getPosX() * Room.TILE_WIDTH,
-                    hero.getPosY() * Room.TILE_HEIGHT, null);
+        crayon.drawImage(TileFactory.instance().getHero(hero),
+                hero.getPosX() * Room.TILE_WIDTH,
+                hero.getPosY() * Room.TILE_HEIGHT, null);
+
+
+        if(hero.isOnAttack()){
+
+            if(hero.getLastMove() == "S"){
+                crayon.drawImage(TileFactory.instance().getAttack(hero),
+                        hero.getPosX() * Room.TILE_WIDTH,
+                        (hero.getPosY()+1) * Room.TILE_HEIGHT, null);
+            }
+
+            if(hero.getLastMove() == "Z"){
+                crayon.drawImage(TileFactory.instance().getAttack(hero),
+                        hero.getPosX() * Room.TILE_WIDTH,
+                        (hero.getPosY()-1) * Room.TILE_HEIGHT, null);
+            }
+
+            if(hero.getLastMove() == "Q"){
+                crayon.drawImage(TileFactory.instance().getAttack(hero),
+                        (hero.getPosX()-1) * Room.TILE_WIDTH,
+                        hero.getPosY() * Room.TILE_HEIGHT, null);
+            }
+
+            if(hero.getLastMove() == "D"){
+                crayon.drawImage(TileFactory.instance().getAttack(hero),
+                        (hero.getPosX()+1) * Room.TILE_WIDTH,
+                        hero.getPosY() * Room.TILE_HEIGHT, null);
+            }
         }
 
-        else{
-            crayon.drawImage(TileFactory.instance().getHeroAttack(),
-                    hero.getPosX() * Room.TILE_WIDTH,
-                    hero.getPosY() * Room.TILE_HEIGHT, null);
-        }
     }
 
     private void printMonsters(Graphics2D crayon) {

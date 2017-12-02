@@ -107,8 +107,11 @@ public class Game implements engine.Game {
                 }
                 break;
             case ATTACK:
-                SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
-                attackHero();
+
+                if(!hero.isOnAttack()) {
+                    SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                    attackHero();
+                }
 
                 break;
             case RESTART:
@@ -242,6 +245,8 @@ public class Game implements engine.Game {
         hero.setOnAttack(true);
         timeSinceStartAttack = System.currentTimeMillis();
 
+        int forceAttack = 5;
+
         // Attaque vers pots
         Room currentRoom = currentRoom();
         int posX = hero.getPosX();
@@ -260,9 +265,37 @@ public class Game implements engine.Game {
                 //System.out.println("\n\ndistanceX  : " + distanceX);
                 //System.out.println("distanceY  : " + distanceY);
 
-                if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
-                    monster.setHP(monster.getHP() - 5);
+
+                // MONSTRE A GAUCHE
+                if(distanceX == -1 && distanceY == 0 && hero.getLastMove()=="Q"){
+                    monster.setHP(monster.getHP() - forceAttack);
                 }
+
+                // MONSTRE A DROITE
+                if(distanceX == 1 && distanceY == 0 && hero.getLastMove()=="D"){
+                    monster.setHP(monster.getHP() - forceAttack);
+                }
+
+
+                // MONSTRE EN HAUT
+                if(distanceX == 0 && distanceY == -1 && hero.getLastMove()=="Z"){
+                    monster.setHP(monster.getHP() - forceAttack);
+                }
+
+                // MONSTRE EN BAS
+                if(distanceX == 0 && distanceY == 1 && hero.getLastMove()=="S"){
+                    monster.setHP(monster.getHP() - forceAttack);
+                }
+
+                // MONSTRE EN HAUT
+                if(distanceX == 0 && distanceY == 1 && hero.getLastMove()=="Z"){
+                    monster.setHP(monster.getHP() - forceAttack);
+                }
+
+
+                /*if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
+                    monster.setHP(monster.getHP() - 5);
+                }*/
             }
 
         }

@@ -34,7 +34,7 @@ public class TileFactory {
     private BufferedImage wallTile;
     private BufferedImage chestTile;
     private BufferedImage[] hero;
-    private BufferedImage heroAttack;
+    private BufferedImage[] attack;
     private BufferedImage[] monster;
     private BufferedImage monsterDead;
     private BufferedImage monsterAttack;
@@ -184,10 +184,38 @@ public class TileFactory {
             System.exit(-1);
         }
 
+
+        //**********************************************************************
+        //**                       PARTIE HERO                                **
+        //**********************************************************************
+
+        attack = new BufferedImage[4];
+
         try {
-            heroAttack = ImageIO.read(new File("res/img/girl_attack.png"));
+            attack[0] = ImageIO.read(new File("res/img/attack_S.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/girl_attack.png");
+            System.out.println("Impossible de charger res/img/attack_S.png");
+            System.exit(-1);
+        }
+
+        try {
+            attack[1] = ImageIO.read(new File("res/img/attack_Z.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/attack_Z.png");
+            System.exit(-1);
+        }
+
+        try {
+            attack[2] = ImageIO.read(new File("res/img/attack_Q.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/attack_Q.png");
+            System.exit(-1);
+        }
+
+        try {
+            attack[3] = ImageIO.read(new File("res/img/attack_D.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/attack_D.png");
             System.exit(-1);
         }
 
@@ -271,8 +299,13 @@ public class TileFactory {
         return hero[0];
     }
 
-    public Image getHeroAttack() {
-        return heroAttack;
+    public Image getAttack(Character c) {
+        if(c.getLastMove() == "S") return attack[0];
+        if(c.getLastMove() == "Z") return attack[1];
+        if(c.getLastMove() == "Q") return attack[2];
+        if(c.getLastMove() == "D") return attack[3];
+
+        return attack[0];
     }
 
     public Image getMonster(Character m) {
