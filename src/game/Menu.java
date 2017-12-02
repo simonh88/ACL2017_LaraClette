@@ -51,7 +51,7 @@ public class Menu {
             alpha = 1f + diff;
         }
 
-        System.out.println(alpha);
+
         for (int i = 0; i < menu.length; i++){
             if (i == indiceEnCours){
                 Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);

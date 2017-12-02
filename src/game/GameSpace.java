@@ -24,8 +24,6 @@ public class GameSpace {
         generateRandomRooms();
 
         placeChest();
-
-        System.out.println(rooms.get(0).toString());
     }
 
     public void placeChest() {
@@ -47,10 +45,6 @@ public class GameSpace {
         return rooms.get(current_room).toString(posx, posy);
     }
 
-
-    public boolean isChest(int posX, int posY) {
-        return rooms.get(current_room).hasChest(posX, posY);
-    }
 
 
     public void goRoomLeft() {
@@ -105,7 +99,7 @@ public class GameSpace {
         Room r = new Room();
         rooms.add(r);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
 
             // La room i
             Room current_room = rooms.get(i);
