@@ -11,6 +11,9 @@ public class Menu {
     private Game game;
     private boolean menuCmd;
 
+    private float alpha = 1f;
+    private float diff = -0.02f;
+
     public Menu(Game game){
         this.indiceEnCours = 0;
         this.game = game;
@@ -35,12 +38,29 @@ public class Menu {
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
         crayon.setFont(new Font(" Serif ",Font.PLAIN,25));
 
+        // save le composite de base
+        Composite composite = crayon.getComposite();
 
+        // update l'opacite
+        alpha += 4 * diff;
+        if (alpha < 0) {
+            diff *= -1;
+            alpha = diff;
+        } else if (alpha > 1f) {
+            diff *= -1;
+            alpha = 1f + diff;
+        }
+
+        System.out.println(alpha);
         for (int i = 0; i < menu.length; i++){
             if (i == indiceEnCours){
+                Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+                crayon.setComposite(c);
                 crayon.setColor(Color.BLUE);
 
             } else {
+                // restore le composite
+                crayon.setComposite(composite);
                 crayon.setColor(Color.WHITE);
             }
             crayon.drawString(menu[i], Painter.WIN_WIDTH/2 - 50, Painter.WIN_HEIGHT/2 + i * 50);
