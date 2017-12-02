@@ -116,6 +116,9 @@ public class Game implements engine.Game {
             case ARROW_DOWN:
                 menu.setIndiceVersBas();
                 break;
+            case ECHAP:
+                menu.setMenuCmd(false);
+                break;
         }
 
         // Si le joeur est sur un bord il doit changer de map

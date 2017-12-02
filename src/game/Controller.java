@@ -83,6 +83,9 @@ public class Controller implements GameController {
             case KeyEvent.VK_DOWN:
                 this.commandeEnCours = Cmd.ARROW_DOWN;
                 break;
+            case KeyEvent.VK_ESCAPE:
+                this.commandeEnCours = Cmd.ECHAP;
+                break;
 
         }
 

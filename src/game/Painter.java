@@ -30,8 +30,10 @@ public class Painter implements GamePainter {
 
         if (game.getGameState().isMenu()){
         /* On dessine le menu */
-            game.getMenu().printMenu(crayon);
-            //printMenu(crayon);
+            if (!game.getMenu().isMenuCmd())
+                game.getMenu().printMenu(crayon);
+            else
+                game.getMenu().printCommandes(crayon);
         } else if (game.getGameState().isRunning()) {
         /* On dessine les mur */
             printWalls(crayon);
