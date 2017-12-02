@@ -191,6 +191,7 @@ public class Game implements engine.Game {
                     // DROITE
                     if (isValidPosition(monster.getPosX() - 1, monster.getPosY())) {
                         monster.setPosX(monster.getPosX() - 1);
+                        monster.setLastMove("Q");
                     }
                 }
 
@@ -198,6 +199,7 @@ public class Game implements engine.Game {
                     // GAUCHE
                     if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
                         monster.setPosX(monster.getPosX() + 1);
+                        monster.setLastMove("D");
                     }
                 }
 
@@ -205,6 +207,7 @@ public class Game implements engine.Game {
                     // BAS
                     if (isValidPosition(monster.getPosX(), monster.getPosY() - 1)) {
                         monster.setPosY(monster.getPosY() - 1);
+                        monster.setLastMove("Z");
                     }
                 }
 
@@ -212,6 +215,7 @@ public class Game implements engine.Game {
                     // HAUT
                     if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
                         monster.setPosY(monster.getPosY() + 1);
+                        monster.setLastMove("S");
                     }
                 }
 

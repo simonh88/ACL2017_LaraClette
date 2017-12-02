@@ -145,7 +145,7 @@ public class Painter implements GamePainter {
         }
 
         else{
-            crayon.drawImage(TileFactory.instance().getGirlAttack(),
+            crayon.drawImage(TileFactory.instance().getHeroAttack(),
                     hero.getPosX() * Room.TILE_WIDTH,
                     hero.getPosY() * Room.TILE_HEIGHT, null);
         }
@@ -163,7 +163,7 @@ public class Painter implements GamePainter {
                     }
 
                     else {
-                        crayon.drawImage(TileFactory.instance().getMonster(),
+                        crayon.drawImage(TileFactory.instance().getMonster(monster),
                                 monster.getPosX() * Room.TILE_WIDTH,
                                 monster.getPosY() * Room.TILE_HEIGHT, null);
                     }
