@@ -94,8 +94,6 @@ public class Game implements engine.Game {
                 int posX = hero.getPosX();
                 int posY = hero.getPosY();
 
-                System.out.println("ACTION");
-
                 // TODO : Modifier ça quand on aura une orientation du personnage
                 // Pour l'instant on 'action' de tous les cotés
                 loot = currentRoom.heroUse(posX + 1, posY);
@@ -415,7 +413,6 @@ public class Game implements engine.Game {
                 hero.setHP(hero.getHP() - 1);
                 break;
             case VICTORY:
-                System.out.println("VICTORY in handleLoot");
                 SoundFactory.instance().stopBackground();
                 gameState.setVictory();
                 break;
