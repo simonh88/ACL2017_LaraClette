@@ -18,7 +18,7 @@ public class Chest implements Decor {
 
     @Override
     public boolean isTraversable() {
-        return false;
+        return true;
     }
 
     @Override
