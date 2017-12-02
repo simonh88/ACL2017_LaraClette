@@ -79,11 +79,7 @@ public class Painter implements GamePainter {
                         if (!currentRoom.get(i, j).hasBeenUsed()) {
                             crayon.drawImage(TileFactory.instance().getVaseTile(),
                                     i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
-                        } else {
-                            crayon.drawImage(TileFactory.instance().getBrokenVaseTile(),
-                                    i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
                         }
-
                         break;
 
                     case TREE:
@@ -127,6 +123,12 @@ public class Painter implements GamePainter {
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
 
                         break;
+
+                    case VASE:
+                        if (currentRoom.get(i, j).hasBeenUsed()) {
+                            crayon.drawImage(TileFactory.instance().getBrokenVaseTile(),
+                                    i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
+                        }
 
                 }
             }
