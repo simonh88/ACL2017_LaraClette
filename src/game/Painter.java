@@ -57,15 +57,9 @@ public class Painter implements GamePainter {
             crayon.drawString("ACTION: e", 30, 595);
         }else if(game.getGameState().isLoss()){
             SoundFactory.instance().stopBackground();
-            crayon.setColor(Color.RED);
-            crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
-            crayon.drawString("Loss ! ", 250, 300);
-            crayon.drawString("Press R to restart", 140, 350);
+            printLoss(crayon);
         }else if(game.getGameState().isVictory()){
-            crayon.setColor(Color.RED);
-            crayon.setFont(new Font(" TimesRoman ",Font.BOLD,30));
-            crayon.drawString("Win ! ", 250, 300);
-            crayon.drawString("Press R to restart", 140, 350);
+            printVictory(crayon);
 
         }
 
@@ -211,6 +205,23 @@ public class Painter implements GamePainter {
         crayon.drawString(strHP, lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
     }
 
+
+    private void printLoss(Graphics2D crayon){
+        crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
+        crayon.setFont(new Font(" Serif ",Font.BOLD,25));
+        crayon.setColor(Color.RED);
+        crayon.drawString("You have lost ! ", getWidth()/3 , getHeight()/2);
+        crayon.drawString("Press R to restart", getWidth()/3 - 30, getHeight()/2 - 50);
+    }
+
+
+    private void printVictory(Graphics2D crayon){
+        crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
+        crayon.setFont(new Font(" Serif ",Font.BOLD,25));
+        crayon.setColor(Color.RED);
+        crayon.drawString("Win ! ", getWidth()/3 , getHeight()/2);
+        crayon.drawString("Press R to restart", getWidth()/3 - 30, getHeight()/2 - 50);
+    }
 
     @Override
     public int getWidth() {

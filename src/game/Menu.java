@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Menu {
 
-    private String[] menu = {"Jouer","Commandes", "Quitter"};
+    private String[] menu = {"Play","Commands", "Left"};
     private int indiceEnCours;
     private Game game;
     private boolean menuCmd;
@@ -39,6 +39,7 @@ public class Menu {
         for (int i = 0; i < menu.length; i++){
             if (i == indiceEnCours){
                 crayon.setColor(Color.BLUE);
+
             } else {
                 crayon.setColor(Color.WHITE);
             }
@@ -52,7 +53,7 @@ public class Menu {
 
 
     public void printCommandes(Graphics2D crayon){
-        String[] cmd = {"LEFT: q | RIGHT: d | UP: z | DOWN: s", "ACTION: e", "Retour avec ECHAP"};
+        String[] cmd = {"LEFT: q | RIGHT: d | UP: z | DOWN: s", "ACTION: e | ATTACK: spacebar", "Return with ESC"};
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
         crayon.setFont(new Font(" Serif ",Font.PLAIN,20));
 
@@ -64,13 +65,13 @@ public class Menu {
 
     public void action(){
         switch (menu[indiceEnCours]){
-            case "Jouer":
+            case "Play":
                 game.getGameState().setRunning();
                 break;
-            case "Commandes":
+            case "Commands":
                 menuCmd = true;
                 break;
-            case "Quitter":
+            case "Left":
                 System.exit(0);
                 break;
         }
