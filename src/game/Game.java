@@ -3,6 +3,7 @@ package game;
 
 import characters.Character;
 import engine.Cmd;
+import environement.Loot;
 import environement.Room;
 import factory.SoundFactory;
 
@@ -89,14 +90,24 @@ public class Game implements engine.Game {
             case ACTION:
                 //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
 
-                if (gameSpace.isChest(hero.getPosX(), hero.getPosY())) {
-                    // Alors on win
-                    //isFinished = true;
-                    SoundFactory.instance().stopBackground();
-                    gameState.setVictory();
+                Loot loot;
+                int posX = hero.getPosX();
+                int posY = hero.getPosY();
 
-                }
+                System.out.println("ACTION");
+
+                // TODO : Modifier ça quand on aura une orientation du personnage
+                // Pour l'instant on 'action' de tous les cotés
+                loot = currentRoom.heroUse(posX + 1, posY);
+                handleLoot(loot);
+                loot = currentRoom.heroUse(posX - 1, posY);
+                handleLoot(loot);
+                loot = currentRoom.heroUse(posX, posY + 1);
+                handleLoot(loot);
+                loot = currentRoom.heroUse(posX, posY - 1);
+                handleLoot(loot);
                 break;
+
             case ATTACK:
                 SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
                 attackHero();
@@ -233,9 +244,18 @@ public class Game implements engine.Game {
         Room currentRoom = currentRoom();
         int posX = hero.getPosX();
         int posY = hero.getPosY();
+        Loot loot;
 
-
-        currentRoom.heroUse(posX, posY);
+        // TODO : Modifier ça quand on aura une orientation du personnage
+        // Pour l'instant on attaque de tous les cotés
+        loot = currentRoom.heroUse(posX + 1, posY);
+        handleLoot(loot);
+        loot = currentRoom.heroUse(posX - 1, posY);
+        handleLoot(loot);
+        loot = currentRoom.heroUse(posX, posY + 1);
+        handleLoot(loot);
+        loot = currentRoom.heroUse(posX, posY - 1);
+        handleLoot(loot);
 
         // Attaque vers monstres
         for (Character monster : monsters()) {
@@ -252,6 +272,12 @@ public class Game implements engine.Game {
                 }
             }
 
+        }
+
+        // Le fait de casser un pot peut tuer le joueur (Cas du loot POISON)
+        // On check si le hero est toujours en vie
+        if (!hero.isAlive()) {
+            gameState.setLoss();
         }
     }
 
@@ -374,5 +400,26 @@ public class Game implements engine.Game {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    private void handleLoot(Loot loot) {
+        Character hero = getHero();
+
+        switch (loot) {
+            case HEART:
+                // Ajouter une vie
+                hero.setHP(hero.getHP() + 1);
+                break;
+            case POISON:
+                // Enlever une vie
+                hero.setHP(hero.getHP() - 1);
+                break;
+            case VICTORY:
+                System.out.println("VICTORY in handleLoot");
+                SoundFactory.instance().stopBackground();
+                gameState.setVictory();
+                break;
+
+        }
     }
 }

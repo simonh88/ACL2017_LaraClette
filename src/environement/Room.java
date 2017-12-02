@@ -172,21 +172,6 @@ public class Room {
 
 
 
-    /**
-     *
-     * @param x position abscisse
-     * @param y position ordonnee
-     * @return si la case a un chest
-     */
-    public boolean hasChest(int x, int y){
-        boolean chest = false;
-
-        if ( room[y][x].getType() == DecorType.CHEST ){
-            chest = true;
-        }
-
-        return chest;
-    }
 
     public boolean isValidPosition(int x, int y) {
         // On peut aller en dehors du plateau
@@ -296,23 +281,55 @@ public class Room {
 
     }
 
-    public void heroUse(int posX, int posY) {
-        if (posX > 0) {
-            room[posY][posX-1].setUsed();
+    /**
+     * Retourne vrai si il y a un vase non cassé à la pos (X,Y)
+     * @param posX
+     * @param posY
+     * @return
+     */
+    private boolean hasVase(int posX, int posY) {
+        if (posX < 0 || posX >= SIZE || posY < 0 || posY >= SIZE) return false;
+        return room[posY][posX].getType() == DecorType.VASE && ! room[posY][posX].hasBeenUsed();
+    }
+
+    /**
+     *
+     * @param posX position abscisse
+     * @param posY position ordonnee
+     * @return si la case a un chest
+     */
+    private boolean hasChest(int posX, int posY){
+        if (posX < 0 || posX >= SIZE || posY < 0 || posY >= SIZE) return false;
+        return room[posY][posX].getType() == DecorType.CHEST;
+    }
+
+
+    private Loot heroUseChest(int posX, int posY) {
+        if (!hasChest(posX, posY)) return Loot.NONE;
+        return Loot.VICTORY;
+    }
+
+        private Loot heroUseVase(int posX, int posY) {
+        if (!hasVase(posX, posY)) return Loot.NONE;
+
+        Random rand = new Random();
+
+        room[posY][posX].setUsed();
+
+        int randint = Math.abs(rand.nextInt()) % 2;
+
+        if (randint == 0) {
+            return Loot.HEART;
+        } else {
+            return Loot.POISON;
         }
+    }
 
-        if (posX < Room.SIZE-1) {
-            room[posY][posX+1].setUsed();
-        }
+    public Loot heroUse(int posX, int posY) {
+        Loot lootSiVase = heroUseVase(posX, posY);
+        if (lootSiVase != Loot.NONE) return lootSiVase;
 
-        if (posY > 0) {
-            room[posY-1][posX].setUsed();
-        }
-
-        if (posY < Room.SIZE-1) {
-            room[posY+1][posX].setUsed();
-        }
-
-
+        Loot lootSiChest = heroUseChest(posX, posY);
+        return lootSiChest;
     }
 }
