@@ -1,5 +1,9 @@
 package environement;
 
+import utils.Position;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Room {
@@ -44,22 +48,22 @@ public class Room {
 
     public void setRoomUp(int index_room_up) {
         this.index_room_up = index_room_up;
-        room[0][SIZE/2 +1] = getRandomGround();
+        room[0][SIZE/2] = getRandomGround();
     }
 
     public void setRoomBottom(int index_room_bottom) {
         this.index_room_bottom = index_room_bottom;
-        room[SIZE-1][SIZE/2 +1] = getRandomGround();
+        room[SIZE-1][SIZE/2] = getRandomGround();
     }
 
     public void setRoomLeft(int index_room_left) {
         this.index_room_left = index_room_left;
-        room[SIZE/2 +1][0] = getRandomGround();
+        room[SIZE/2][0] = getRandomGround();
     }
 
     public void setRoomRight(int index_room_right) {
         this.index_room_right = index_room_right;
-        room[SIZE/2 +1][SIZE-1] = getRandomGround();
+        room[SIZE/2][SIZE-1] = getRandomGround();
     }
 
     public String toString() {
@@ -339,6 +343,13 @@ public class Room {
         // Si le coin A est le même que le coin B, on fait un petit point d'eau au point A
         if (coinA == coinB) {
             placeLake(coinA);
+            return;
+        }
+
+        // On détermine un chemin entre le coin A et le coin B
+        List<Position> path = getPathBetween(coinA, coinB);
+        for (Position p : path) {
+            room[p.getY()][p.getX()] = new Water();
         }
     }
 
@@ -384,12 +395,128 @@ public class Room {
             }
         }
     }
+
+    private List<Position> getPathBetween(Corner coinA, Corner coinB) {
+        // Une river passe toujours par le centre
+        List<Position> res = getPathBetweenHelper(coinA, Corner.CENTER);
+        res.addAll(getPathBetweenHelper(Corner.CENTER, coinB));
+        return res;
+    }
+
+    private List<Position> getPathBetweenHelper(Corner coinA, Corner coinB) {
+        Random rand = new Random();
+        List<Position> res = new ArrayList<>();
+
+        // On détermine les positions de départ et d'arrivé
+        int startX = 1, startY = 1, endX = 1, endY = 1;
+
+        switch (coinA) {
+            case TOP_LEFT:
+                startX = 1;
+                endX = 1;
+                break;
+            case TOP_RIGHT:
+                startX = SIZE - 2;
+                startY = 1;
+                break;
+            case BOTTOM_LEFT:
+                startX = 1;
+                startY = SIZE - 2;
+                break;
+            case BOTTOM_RIGHT:
+                startX = SIZE - 2;
+                startY = SIZE - 2;
+                break;
+            case CENTER:
+                startX = SIZE / 2 ;
+                startY = SIZE / 2 ;
+                break;
+        }
+
+        switch (coinB) {
+            case TOP_LEFT:
+                endX = 1;
+                endY = 1;
+                break;
+            case TOP_RIGHT:
+                endX = SIZE - 2;
+                endY = 1;
+                break;
+            case BOTTOM_LEFT:
+                endX = 1;
+                endY = SIZE - 2;
+                break;
+            case BOTTOM_RIGHT:
+                endX = SIZE - 2;
+                endY = SIZE - 2;
+                break;
+            case CENTER:
+                endX = SIZE / 2;
+                endY = SIZE / 2;
+                break;
+        }
+
+        // On ajoute la première position
+        res.add(new Position(startX, startY));
+
+
+        // Pour aller de A à B, il n'y a que deux directions qui permettent de réduire la distance
+        // 1 ou 0 parmis G / D
+        // 1 ou 0 parmis H / B
+
+        int diffX, diffY, currentX, currentY;
+        boolean go_right, go_left, go_up, go_down;
+
+        currentX = startX;
+        currentY = startY;
+
+        diffX = endX - startX;
+        diffY = endY - startY;
+
+        while (Math.abs(diffX) + Math.abs(diffY) != 0) {
+            // Mouvement horizontal ou vertical
+            if (rand.nextBoolean()) {
+                if (diffX == 0) continue;
+                else if (diffX > 0 ) {
+                    // On va à droite
+                    currentX++;
+                } else {
+                    // On va à gauche
+                    currentX--;
+                }
+            } else {
+                if (diffY == 0) continue;
+                else if (diffY > 0 ) {
+                    // On va en bas
+                    currentY++;
+                } else {
+                    // On va en haut
+                    currentY--;
+                }
+            }
+
+            diffX = endX - currentX;
+            diffY = endY - currentY;
+
+            res.add(new Position(currentX, currentY));
+        }
+
+        return res;
+    }
 }
 
 enum Corner {
     TOP_LEFT,
     TOP_RIGHT,
     BOTTOM_LEFT,
-    BOTTOM_RIGHT
+    BOTTOM_RIGHT,
+    CENTER // Pas vraiment un coin mais utile pour getPathBetween
+}
+
+enum Direction {
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT
 }
 
