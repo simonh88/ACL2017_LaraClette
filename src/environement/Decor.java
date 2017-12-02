@@ -7,4 +7,8 @@ public interface Decor {
     String toString();
 
     boolean isTraversable();
+
+    boolean hasBeenUsed();
+
+    void setUsed();
 }
