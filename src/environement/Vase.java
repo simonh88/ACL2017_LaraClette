@@ -21,7 +21,7 @@ public class Vase implements Decor {
 
     @Override
     public boolean isTraversable() {
-        return false;
+        return used;
     }
 
     @Override

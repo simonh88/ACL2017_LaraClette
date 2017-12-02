@@ -295,4 +295,24 @@ public class Room {
         room[randy][randx] = c;
 
     }
+
+    public void heroUse(int posX, int posY) {
+        if (posX > 0) {
+            room[posY][posX-1].setUsed();
+        }
+
+        if (posX < Room.SIZE-1) {
+            room[posY][posX+1].setUsed();
+        }
+
+        if (posY > 0) {
+            room[posY-1][posX].setUsed();
+        }
+
+        if (posY < Room.SIZE-1) {
+            room[posY+1][posX].setUsed();
+        }
+
+
+    }
 }
