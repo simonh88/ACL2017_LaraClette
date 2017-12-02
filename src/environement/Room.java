@@ -8,6 +8,11 @@ public class Room {
     public static final int TILE_WIDTH = 50;
     public static final int SIZE = 11;
 
+    private static final int NB_CHANCE_RIVER = 1;
+    private static final int NB_CHANCE_OBJECT = 2;
+
+    private static final int LAKE_SIZE = 1;
+
     private final Decor[][] room;
 
     private int index_room_up;
@@ -26,38 +31,35 @@ public class Room {
         room = new Decor[SIZE][SIZE];
 
         setupRoomAndBorder(room);
-    }
 
-    public Room(int index_room_up, int index_room_bottom, int index_room_left, int index_room_right) {
+        // Place un (plusieurs?) arbre aléatoirement (il peut y en avoir 0
+        placeObjectOrNot(DecorType.TREE);
 
-        this.index_room_bottom = index_room_bottom;
-        this.index_room_up = index_room_up;
-        this.index_room_left = index_room_left;
-        this.index_room_right = index_room_right;
+        // Pareil pour les pots
+        placeObjectOrNot(DecorType.VASE);
 
-        room = new Decor[SIZE][SIZE];
-
-        setupRoomAndBorder(room);
+        // Rivière
+        placeRiverOrNot();
     }
 
     public void setRoomUp(int index_room_up) {
         this.index_room_up = index_room_up;
-        setupRoomAndBorder(room);
+        room[0][SIZE/2 +1] = getRandomGround();
     }
 
     public void setRoomBottom(int index_room_bottom) {
         this.index_room_bottom = index_room_bottom;
-        setupRoomAndBorder(room);
+        room[SIZE-1][SIZE/2 +1] = getRandomGround();
     }
 
     public void setRoomLeft(int index_room_left) {
         this.index_room_left = index_room_left;
-        setupRoomAndBorder(room);
+        room[SIZE/2 +1][0] = getRandomGround();
     }
 
     public void setRoomRight(int index_room_right) {
         this.index_room_right = index_room_right;
-        setupRoomAndBorder(room);
+        room[SIZE/2 +1][SIZE-1] = getRandomGround();
     }
 
     public String toString() {
@@ -104,17 +106,10 @@ public class Room {
      * @param room
      */
     private void setupRoomAndBorder(Decor[][] room) {
-
-        Random rand = new Random();
-
-
-
         // Le vide central
         for (int j = 0; j < room.length; j++) {
             for (int i = 0; i < room[0].length; i++) {
-
                 // Fond aléatoire
-
                 Decor randGrass = getRandomGround();
                 room[j][i] = randGrass;
             }
@@ -122,33 +117,23 @@ public class Room {
 
         // Mur à gauche
         for (int j = 0; j < room.length; j++) {
-            if ( j != 5 || !hasLeftRoom())
-                room[j][0] = new Wall();
+            room[j][0] = new Wall();
         }
 
         // Mur à droite
         for (int j = 0; j < room.length; j++) {
-            if ( j != 5 || !hasRightRoom())
-                room[j][room[0].length-1] = new Wall();
+            room[j][room[0].length-1] = new Wall();
         }
 
         // Mur en haut
         for (int i = 0; i < room[0].length; i++) {
-            if ( i != 5 || !hasUpRoom())
-                room[0][i] = new Wall();
+            room[0][i] = new Wall();
         }
 
         // Mur en bas
         for (int i = 0; i < room.length; i++) {
-            if ( i != 5 || !hasBottomRoom())
-                room[room.length - 1][i] = new Wall();
+            room[room.length - 1][i] = new Wall();
         }
-
-        // Place un (plusieurs?) arbre aléatoirement (il peut y en avoir 0
-        placeObjectOrNot(DecorType.TREE);
-
-        // Pareil pour les pots
-        placeObjectOrNot(DecorType.VASE);
     }
 
 
@@ -162,8 +147,8 @@ public class Room {
         Random rand = new Random();
 
         while (room[y][x].getType() != DecorType.GRASS) {
-            x = Math.abs(rand.nextInt()) % (room[0].length - 2) + 1;
-            y = Math.abs(rand.nextInt()) % (room.length - 2) + 1;
+            x = Math.abs(rand.nextInt()) % (SIZE - 4) + 2;
+            y = Math.abs(rand.nextInt()) % (SIZE - 4) + 2;
         }
 
         room[y][x] = new Chest();
@@ -256,14 +241,13 @@ public class Room {
 
     private void placeObjectOrNot(DecorType decorType) {
         Random rand = new Random();
-        int randint = Math.abs(rand.nextInt()) % 2;
+        int randint = Math.abs(rand.nextInt()) % NB_CHANCE_OBJECT;
 
         // Une chance sur deux
         if (randint == 0) return;
 
-        // TODO : ne pas hardcoder
-        int randx = (Math.abs(rand.nextInt()) % 6) + 3;
-        int randy = (Math.abs(rand.nextInt()) % 6) + 3;
+        int randx = (Math.abs(rand.nextInt()) % (SIZE-4)) + 2;
+        int randy = (Math.abs(rand.nextInt()) % (SIZE-4)) + 2;
 
         Decor c;
         switch (decorType) {
@@ -332,4 +316,80 @@ public class Room {
         Loot lootSiChest = heroUseChest(posX, posY);
         return lootSiChest;
     }
+
+    private void placeRiverOrNot() {
+        Random rand = new Random();
+
+        int randint = Math.abs(rand.nextInt()) % NB_CHANCE_RIVER;
+
+        if (randint == 0) placeRiver();
+    }
+
+    private void placeRiver() {
+        // Une rivière ira d'un coin A à un coin B
+
+        // On choisit le coin A aléatoirement
+        Random rand = new Random();
+
+        final Corner coinA = Corner.values()[Math.abs(rand.nextInt()) % 4];
+
+        // On choisit le coin B
+        final Corner coinB = Corner.values()[Math.abs(rand.nextInt()) % 4];
+
+        // Si le coin A est le même que le coin B, on fait un petit point d'eau au point A
+        if (coinA == coinB) {
+            placeLake(coinA);
+        }
+    }
+
+    private void placeLake(Corner corner) {
+        // On détermine les positions des coins haut-gauche et bas-droit pour pouvoir dessiner le petit lac
+
+        int startX, startY,  endX, endY = 0;
+
+        switch (corner) {
+            case TOP_LEFT:
+                startX = 1;
+                startY = 1;
+
+                break;
+
+            case TOP_RIGHT:
+                startX = SIZE - 2 - LAKE_SIZE;
+                startY = 1;
+                break;
+
+            case BOTTOM_LEFT:
+                startX = 1;
+                startY = SIZE - 2 - LAKE_SIZE;
+                break;
+
+            case BOTTOM_RIGHT:
+                startX = SIZE - 2 - LAKE_SIZE;
+                startY = SIZE - 2 - LAKE_SIZE;
+                break;
+
+            default:
+                startX = 1;
+                startY = 1;
+        }
+
+        endX = startX + LAKE_SIZE;
+        endY = startY + LAKE_SIZE;
+
+
+        for (int j = startY; j <= endY; j++) {
+            for (int i = startX; i <= endX; i++) {
+                room[j][i] = new Water();
+            }
+        }
+    }
 }
+
+enum Corner {
+    TOP_LEFT,
+    TOP_RIGHT,
+    BOTTOM_LEFT,
+    BOTTOM_RIGHT
+}
+

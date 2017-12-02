@@ -7,5 +7,6 @@ public enum DecorType {
     GRASS,
     TREE,
     VASE,
-    LAVA
+    LAVA,
+    WATER
 }

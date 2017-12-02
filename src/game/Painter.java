@@ -35,19 +35,19 @@ public class Painter implements GamePainter {
             else
                 game.getMenu().printCommandes(crayon);
         } else if (game.getGameState().isRunning()) {
-        /* On dessine les mur */
+            /* On dessine les mur et le sol */
             printWalls(crayon);
 
-        /* On dessine les monstres */
+            /* On dessine les monstres */
             printMonsters(crayon);
 
-        /* On dessine le hero */
+            /* On dessine le hero */
             printHero(crayon);
 
-        // On dessine les objets
+            // On dessine les objets
             printObjects(crayon);
 
-        /* On dessine les infos du hero */
+            /* On dessine les infos du hero */
             printInfo(crayon);
 
             crayon.setColor(Color.WHITE);
@@ -110,10 +110,13 @@ public class Painter implements GamePainter {
             for (int i = 0; i < currentRoom.getWidth(); i++) {
                 switch (currentRoom.get(i, j).getType()) {
                     case WALL:
-
                         crayon.drawImage(TileFactory.instance().getWallTile(),
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
+                        break;
 
+                    case WATER:
+                        crayon.drawImage(TileFactory.instance().getWaterTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
                         break;
 
                     case GRASS:
@@ -121,7 +124,6 @@ public class Painter implements GamePainter {
                         Image grassTile = TileFactory.instance().getGroundTile(grass.getGroundType());
                         crayon.drawImage(grassTile,
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
-
                         break;
 
                     case VASE:
