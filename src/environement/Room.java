@@ -407,6 +407,12 @@ public class Room {
         Random rand = new Random();
         List<Position> res = new ArrayList<>();
 
+        List<Position> forbiddenPosition = new ArrayList<>();
+        forbiddenPosition.add(new Position(SIZE / 2, 1));
+        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2));
+        forbiddenPosition.add(new Position(1, SIZE -1));
+        forbiddenPosition.add(new Position(SIZE / 2, SIZE -2));
+
         // On détermine les positions de départ et d'arrivé
         int startX = 1, startY = 1, endX = 1, endY = 1;
 
@@ -479,18 +485,22 @@ public class Room {
                 if (diffX == 0) continue;
                 else if (diffX > 0 ) {
                     // On va à droite
-                    currentX++;
+                    if (! forbiddenPosition.contains(new Position(currentX + 1, currentY)))
+                        currentX++;
                 } else {
                     // On va à gauche
-                    currentX--;
+                    if (! forbiddenPosition.contains(new Position(currentX - 1, currentY)))
+                        currentX--;
                 }
             } else {
                 if (diffY == 0) continue;
                 else if (diffY > 0 ) {
                     // On va en bas
-                    currentY++;
+                    if (! forbiddenPosition.contains(new Position(currentX, currentY + 1)))
+                        currentY++;
                 } else {
                     // On va en haut
+                    if (! forbiddenPosition.contains(new Position(currentX, currentY - 1)))
                     currentY--;
                 }
             }
