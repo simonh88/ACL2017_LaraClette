@@ -226,6 +226,16 @@ public class Game implements engine.Game {
         hero.setOnAttack(true);
         timeSinceStartAttack = System.currentTimeMillis();
 
+        // Attaque vers pots
+        Room currentRoom = currentRoom();
+        int posX = hero.getPosX();
+        int posY = hero.getPosY();
+        currentRoom.get(posX + 1, posY).setUsed();
+        currentRoom.get(posX - 1, posY).setUsed();
+        currentRoom.get(posX , posY + 1).setUsed();
+        currentRoom.get(posX, posY - 1).setUsed();
+
+        // Attaque vers monstres
         for (Character monster : monsters()) {
 
             if ((indexCurrentRoom() == monster.getCurrentRoom())) {

@@ -28,4 +28,14 @@ public class Grass implements Decor {
     public boolean isTraversable() {
         return true;
     }
+
+    @Override
+    public boolean hasBeenUsed() {
+        return false;
+    }
+
+    @Override
+    public void setUsed() {
+
+    }
 }

@@ -2,6 +2,13 @@ package environement;
 
 public class Vase implements Decor {
 
+    // Utile pour savoir si le pot a été cassé
+    private boolean used;
+
+    public Vase() {
+        used = false;
+    }
+
     @Override
     public DecorType getType() {
         return DecorType.VASE;
@@ -15,5 +22,15 @@ public class Vase implements Decor {
     @Override
     public boolean isTraversable() {
         return false;
+    }
+
+    @Override
+    public boolean hasBeenUsed() {
+        return used;
+    }
+
+    @Override
+    public void setUsed() {
+        used = true;
     }
 }
