@@ -16,6 +16,7 @@ public class Game implements engine.Game {
      */
     private GameSpace gameSpace;
     private GameState gameState;
+    private Menu menu;
 
     private long deltaTime;
     private long deltaTimeAttack;
@@ -27,6 +28,7 @@ public class Game implements engine.Game {
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
+        this.menu = new Menu(this);
         gameSpace.generateMonsters(gameState);
         isFinished = false;
         generateHero();
@@ -106,7 +108,13 @@ public class Game implements engine.Game {
                 }
                 break;
             case ENTER:
-                gameState.setRunning();
+                menu.action();
+                break;
+            case ARROW_UP:
+                menu.setIndiceVersHaut();
+                break;
+            case ARROW_DOWN:
+                menu.setIndiceVersBas();
                 break;
         }
 
@@ -351,4 +359,8 @@ public class Game implements engine.Game {
 
     }
 
+
+    public Menu getMenu() {
+        return menu;
+    }
 }

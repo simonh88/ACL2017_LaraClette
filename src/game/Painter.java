@@ -14,8 +14,8 @@ public class Painter implements GamePainter {
 
 
     /* Taille de la fenetre */
-    private static final int WIN_WIDTH = Room.SIZE * Room.TILE_WIDTH;
-    private static final int WIN_HEIGHT = Room.SIZE * Room.TILE_HEIGHT;
+    public static final int WIN_WIDTH = Room.SIZE * Room.TILE_WIDTH;
+    public static final int WIN_HEIGHT = Room.SIZE * Room.TILE_HEIGHT;
 
     private Game game;
 
@@ -30,7 +30,8 @@ public class Painter implements GamePainter {
 
         if (game.getGameState().isMenu()){
         /* On dessine le menu */
-            printMenu(crayon);
+            game.getMenu().printMenu(crayon);
+            //printMenu(crayon);
         } else if (game.getGameState().isRunning()) {
         /* On dessine les mur */
             printWalls(crayon);
@@ -202,10 +203,6 @@ public class Painter implements GamePainter {
         crayon.drawString(strHP, lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
     }
 
-
-    private void printMenu(Graphics2D crayon){
-        crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
-    }
 
     @Override
     public int getWidth() {
