@@ -139,7 +139,7 @@ public class Painter implements GamePainter {
         Character hero = game.getHero();
 
         if(!hero.isOnAttack()){
-            crayon.drawImage(TileFactory.instance().getGirl(),
+            crayon.drawImage(TileFactory.instance().getHero(hero),
                     hero.getPosX() * Room.TILE_WIDTH,
                     hero.getPosY() * Room.TILE_HEIGHT, null);
         }

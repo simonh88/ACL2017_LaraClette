@@ -61,6 +61,9 @@ public class Game implements engine.Game {
                     hero.setPosX(hero.getPosX() - 1);
                     hero.setPosY(hero.getPosY());
                 }
+
+                hero.setLastMove("Q");
+
                 break;
             case DOWN:
 
@@ -68,6 +71,8 @@ public class Game implements engine.Game {
                     hero.setPosX(hero.getPosX());
                     hero.setPosY(hero.getPosY() + 1);
                 }
+
+                hero.setLastMove("S");
 
                 break;
             case RIGHT:
@@ -77,6 +82,8 @@ public class Game implements engine.Game {
                     hero.setPosY(hero.getPosY());
                 }
 
+                hero.setLastMove("D");
+
                 break;
             case UP:
 
@@ -84,6 +91,8 @@ public class Game implements engine.Game {
                     hero.setPosX(hero.getPosX());
                     hero.setPosY(hero.getPosY() - 1);
                 }
+
+                hero.setLastMove("Z");
 
                 break;
             case ACTION:

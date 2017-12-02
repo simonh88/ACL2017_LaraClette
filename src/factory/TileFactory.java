@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import characters.Character;
 
 
 public class TileFactory {
@@ -32,7 +33,7 @@ public class TileFactory {
 
     private BufferedImage wallTile;
     private BufferedImage chestTile;
-    private BufferedImage girl;
+    private BufferedImage hero[];
     private BufferedImage girlAttack;
     private BufferedImage monster;
     private BufferedImage monsterDead;
@@ -106,10 +107,35 @@ public class TileFactory {
             System.exit(-1);
         }
 
+        // PARTIE HERO
+
+        hero = new BufferedImage[8];
+
         try {
-            girl = ImageIO.read(new File("res/img/girl.png"));
+            hero[0] = ImageIO.read(new File("res/img/hero_0.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/girl.png");
+            System.out.println("Impossible de charger res/img/hero_0.png");
+            System.exit(-1);
+        }
+
+        try {
+            hero[1] = ImageIO.read(new File("res/img/hero_1.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/hero_1.png");
+            System.exit(-1);
+        }
+
+        try {
+            hero[2] = ImageIO.read(new File("res/img/hero_2.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/hero_2.png");
+            System.exit(-1);
+        }
+
+        try {
+            hero[3] = ImageIO.read(new File("res/img/hero_3.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/hero_3.png");
             System.exit(-1);
         }
 
@@ -184,8 +210,14 @@ public class TileFactory {
         return chestTile;
     }
 
-    public Image getGirl() {
-        return girl;
+    public Image getHero(Character h) {
+
+        if(h.getLastMove() == "S") return hero[0];
+        if(h.getLastMove() == "Z") return hero[1];
+        if(h.getLastMove() == "Q") return hero[2];
+        if(h.getLastMove() == "D") return hero[3];
+
+        return hero[0];
     }
 
     public Image getGirlAttack() {
@@ -227,4 +259,6 @@ public class TileFactory {
     public Image getBrokenVaseTile() {
         return brokenVaseTile;
     }
+
+
 }

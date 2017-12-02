@@ -8,6 +8,7 @@ public class Character {
     private int posY;
     private int currentRoom;
     private boolean onAttack;
+    private String lastMove;
 
 
     public Character(int x, int y, int currentRoom){
@@ -16,6 +17,7 @@ public class Character {
         this.posY = y;
         this.currentRoom = currentRoom;
         this.onAttack = false;
+        this.lastMove = "S";
     }
 
     public int getCurrentRoom(){
@@ -58,4 +60,11 @@ public class Character {
         this.posY = posY;
     }
 
+    public String getLastMove() {
+        return lastMove;
+    }
+
+    public void setLastMove(String lastMove) {
+        this.lastMove = lastMove;
+    }
 }
