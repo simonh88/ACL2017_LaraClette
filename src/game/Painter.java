@@ -119,6 +119,11 @@ public class Painter implements GamePainter {
                                 i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
                         break;
 
+                    case BRIDGE:
+                        crayon.drawImage(TileFactory.instance().getBridgeTile(),
+                                i * Room.TILE_WIDTH, j * Room.TILE_HEIGHT, null);
+                        break;
+
                     case GRASS:
                         Grass grass = (Grass) currentRoom.get(i, j);
                         Image grassTile = TileFactory.instance().getGroundTile(grass.getGroundType());

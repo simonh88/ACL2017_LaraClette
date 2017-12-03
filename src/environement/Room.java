@@ -1,5 +1,6 @@
 package environement;
 
+import javafx.geometry.Pos;
 import utils.Position;
 
 import java.util.ArrayList;
@@ -348,9 +349,31 @@ public class Room {
 
         // On détermine un chemin entre le coin A et le coin B
         List<Position> path = getPathBetween(coinA, coinB);
+
+        // On place l'eau
         for (Position p : path) {
             room[p.getY()][p.getX()] = new Water();
         }
+
+        // On place les bridges
+        // On doit trouver un moyen de placer des ponts correctement
+
+        // Il y a nbPos case de rivière
+        int nbPos = path.size();
+
+        // On va placer le pont dans le premier quart de la rivière
+        int maxPosIndex = nbPos / 4;
+
+        // L'index de la première tile du pont
+        int chosenPosIndex = Math.abs(rand.nextInt()) % maxPosIndex;
+
+        Position firstTilePos = path.get(chosenPosIndex);
+        Position secondTilePos = path.get(chosenPosIndex+1);
+        Position thirdTilePos = path.get(chosenPosIndex+2);
+
+        room[firstTilePos.getY()][firstTilePos.getX()] = new Bridge();
+        room[secondTilePos.getY()][secondTilePos.getX()] = new Bridge();
+        room[thirdTilePos.getY()][thirdTilePos.getX()] = new Bridge();
     }
 
     private void placeLake(Corner corner) {
@@ -408,10 +431,28 @@ public class Room {
         List<Position> res = new ArrayList<>();
 
         List<Position> forbiddenPosition = new ArrayList<>();
+        // Porte haute
         forbiddenPosition.add(new Position(SIZE / 2, 1));
-        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2));
-        forbiddenPosition.add(new Position(1, SIZE -1));
+        forbiddenPosition.add(new Position(SIZE / 2 + 1, 1));
+        forbiddenPosition.add(new Position(SIZE / 2 - 1, 1));
+
+        // Porte basse
         forbiddenPosition.add(new Position(SIZE / 2, SIZE -2));
+        forbiddenPosition.add(new Position(SIZE / 2, SIZE -2));
+        forbiddenPosition.add(new Position(SIZE / 2, SIZE -2));
+
+        // Porte droite
+        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2));
+        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2 + 1));
+        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2 - 1));
+
+        // Porte gauche
+        forbiddenPosition.add(new Position(1, SIZE / 2));
+        forbiddenPosition.add(new Position(1, SIZE / 2 + 1));
+        forbiddenPosition.add(new Position(1, SIZE / 2 - 1));
+
+
+
 
         // On détermine les positions de départ et d'arrivé
         int startX = 1, startY = 1, endX = 1, endY = 1;

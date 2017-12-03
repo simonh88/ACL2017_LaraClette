@@ -99,7 +99,7 @@ public class GameSpace {
         Room r = new Room();
         rooms.add(r);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10; i++) {
 
             // La room i
             Room current_room = rooms.get(i);
