@@ -13,7 +13,7 @@ public class Room {
     public static final int TILE_WIDTH = 50;
     public static final int SIZE = 11;
 
-    private static final int NB_CHANCE_RIVER = 1;
+    private static final int NB_CHANCE_RIVER = 5;
     private static final int NB_CHANCE_OBJECT = 2;
 
     private static final int LAKE_SIZE = 1;
