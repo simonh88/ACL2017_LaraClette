@@ -1,5 +1,10 @@
 package environement;
 
+import javafx.geometry.Pos;
+import utils.Position;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Room {
@@ -7,6 +12,11 @@ public class Room {
     public static final int TILE_HEIGHT = 50;
     public static final int TILE_WIDTH = 50;
     public static final int SIZE = 11;
+
+    private static final int NB_CHANCE_RIVER = 5;
+    private static final int NB_CHANCE_OBJECT = 2;
+
+    private static final int LAKE_SIZE = 1;
 
     private final Decor[][] room;
 
@@ -26,38 +36,35 @@ public class Room {
         room = new Decor[SIZE][SIZE];
 
         setupRoomAndBorder(room);
-    }
 
-    public Room(int index_room_up, int index_room_bottom, int index_room_left, int index_room_right) {
+        // Place un (plusieurs?) arbre aléatoirement (il peut y en avoir 0
+        placeObjectOrNot(DecorType.TREE);
 
-        this.index_room_bottom = index_room_bottom;
-        this.index_room_up = index_room_up;
-        this.index_room_left = index_room_left;
-        this.index_room_right = index_room_right;
+        // Pareil pour les pots
+        placeObjectOrNot(DecorType.VASE);
 
-        room = new Decor[SIZE][SIZE];
-
-        setupRoomAndBorder(room);
+        // Rivière
+        placeRiverOrNot();
     }
 
     public void setRoomUp(int index_room_up) {
         this.index_room_up = index_room_up;
-        setupRoomAndBorder(room);
+        room[0][SIZE/2] = getRandomGround();
     }
 
     public void setRoomBottom(int index_room_bottom) {
         this.index_room_bottom = index_room_bottom;
-        setupRoomAndBorder(room);
+        room[SIZE-1][SIZE/2] = getRandomGround();
     }
 
     public void setRoomLeft(int index_room_left) {
         this.index_room_left = index_room_left;
-        setupRoomAndBorder(room);
+        room[SIZE/2][0] = getRandomGround();
     }
 
     public void setRoomRight(int index_room_right) {
         this.index_room_right = index_room_right;
-        setupRoomAndBorder(room);
+        room[SIZE/2][SIZE-1] = getRandomGround();
     }
 
     public String toString() {
@@ -104,17 +111,10 @@ public class Room {
      * @param room
      */
     private void setupRoomAndBorder(Decor[][] room) {
-
-        Random rand = new Random();
-
-
-
         // Le vide central
         for (int j = 0; j < room.length; j++) {
             for (int i = 0; i < room[0].length; i++) {
-
                 // Fond aléatoire
-
                 Decor randGrass = getRandomGround();
                 room[j][i] = randGrass;
             }
@@ -122,33 +122,23 @@ public class Room {
 
         // Mur à gauche
         for (int j = 0; j < room.length; j++) {
-            if ( j != 5 || !hasLeftRoom())
-                room[j][0] = new Wall();
+            room[j][0] = new Wall();
         }
 
         // Mur à droite
         for (int j = 0; j < room.length; j++) {
-            if ( j != 5 || !hasRightRoom())
-                room[j][room[0].length-1] = new Wall();
+            room[j][room[0].length-1] = new Wall();
         }
 
         // Mur en haut
         for (int i = 0; i < room[0].length; i++) {
-            if ( i != 5 || !hasUpRoom())
-                room[0][i] = new Wall();
+            room[0][i] = new Wall();
         }
 
         // Mur en bas
         for (int i = 0; i < room.length; i++) {
-            if ( i != 5 || !hasBottomRoom())
-                room[room.length - 1][i] = new Wall();
+            room[room.length - 1][i] = new Wall();
         }
-
-        // Place un (plusieurs?) arbre aléatoirement (il peut y en avoir 0
-        placeObjectOrNot(DecorType.TREE);
-
-        // Pareil pour les pots
-        placeObjectOrNot(DecorType.VASE);
     }
 
 
@@ -162,8 +152,8 @@ public class Room {
         Random rand = new Random();
 
         while (room[y][x].getType() != DecorType.GRASS) {
-            x = Math.abs(rand.nextInt()) % (room[0].length - 2) + 1;
-            y = Math.abs(rand.nextInt()) % (room.length - 2) + 1;
+            x = Math.abs(rand.nextInt()) % (SIZE - 4) + 2;
+            y = Math.abs(rand.nextInt()) % (SIZE - 4) + 2;
         }
 
         room[y][x] = new Chest();
@@ -256,14 +246,13 @@ public class Room {
 
     private void placeObjectOrNot(DecorType decorType) {
         Random rand = new Random();
-        int randint = Math.abs(rand.nextInt()) % 2;
+        int randint = Math.abs(rand.nextInt()) % NB_CHANCE_OBJECT;
 
         // Une chance sur deux
         if (randint == 0) return;
 
-        // TODO : ne pas hardcoder
-        int randx = (Math.abs(rand.nextInt()) % 6) + 3;
-        int randy = (Math.abs(rand.nextInt()) % 6) + 3;
+        int randx = (Math.abs(rand.nextInt()) % (SIZE-4)) + 2;
+        int randy = (Math.abs(rand.nextInt()) % (SIZE-4)) + 2;
 
         Decor c;
         switch (decorType) {
@@ -332,4 +321,253 @@ public class Room {
         Loot lootSiChest = heroUseChest(posX, posY);
         return lootSiChest;
     }
+
+    private void placeRiverOrNot() {
+        Random rand = new Random();
+
+        int randint = Math.abs(rand.nextInt()) % NB_CHANCE_RIVER;
+
+        if (randint == 0) placeRiver();
+    }
+
+    private void placeRiver() {
+        // Une rivière ira d'un coin A à un coin B
+
+        // On choisit le coin A aléatoirement
+        Random rand = new Random();
+
+        final Corner coinA = Corner.values()[Math.abs(rand.nextInt()) % 4];
+
+        // On choisit le coin B
+        final Corner coinB = Corner.values()[Math.abs(rand.nextInt()) % 4];
+
+        // Si le coin A est le même que le coin B, on fait un petit point d'eau au point A
+        if (coinA == coinB) {
+            placeLake(coinA);
+            return;
+        }
+
+        // On détermine un chemin entre le coin A et le coin B
+        List<Position> path = getPathBetween(coinA, coinB);
+
+        // On place l'eau
+        for (Position p : path) {
+            room[p.getY()][p.getX()] = new Water();
+        }
+
+        // On place les bridges
+        // On doit trouver un moyen de placer des ponts correctement
+
+        // Il y a nbPos case de rivière
+        int nbPos = path.size();
+
+        // On va placer le pont dans le premier quart de la rivière
+        int maxPosIndex = nbPos / 4;
+
+        // L'index de la première tile du pont
+        int chosenPosIndex = Math.abs(rand.nextInt()) % maxPosIndex;
+
+        Position firstTilePos = path.get(chosenPosIndex);
+        Position secondTilePos = path.get(chosenPosIndex+1);
+        Position thirdTilePos = path.get(chosenPosIndex+2);
+
+        room[firstTilePos.getY()][firstTilePos.getX()] = new Bridge();
+        room[secondTilePos.getY()][secondTilePos.getX()] = new Bridge();
+        room[thirdTilePos.getY()][thirdTilePos.getX()] = new Bridge();
+    }
+
+    private void placeLake(Corner corner) {
+        // On détermine les positions des coins haut-gauche et bas-droit pour pouvoir dessiner le petit lac
+
+        int startX, startY,  endX, endY = 0;
+
+        switch (corner) {
+            case TOP_LEFT:
+                startX = 1;
+                startY = 1;
+
+                break;
+
+            case TOP_RIGHT:
+                startX = SIZE - 2 - LAKE_SIZE;
+                startY = 1;
+                break;
+
+            case BOTTOM_LEFT:
+                startX = 1;
+                startY = SIZE - 2 - LAKE_SIZE;
+                break;
+
+            case BOTTOM_RIGHT:
+                startX = SIZE - 2 - LAKE_SIZE;
+                startY = SIZE - 2 - LAKE_SIZE;
+                break;
+
+            default:
+                startX = 1;
+                startY = 1;
+        }
+
+        endX = startX + LAKE_SIZE;
+        endY = startY + LAKE_SIZE;
+
+
+        for (int j = startY; j <= endY; j++) {
+            for (int i = startX; i <= endX; i++) {
+                room[j][i] = new Water();
+            }
+        }
+    }
+
+    private List<Position> getPathBetween(Corner coinA, Corner coinB) {
+        // Une river passe toujours par le centre
+        List<Position> res = getPathBetweenHelper(coinA, Corner.CENTER);
+        res.addAll(getPathBetweenHelper(Corner.CENTER, coinB));
+        return res;
+    }
+
+    private List<Position> getPathBetweenHelper(Corner coinA, Corner coinB) {
+        Random rand = new Random();
+        List<Position> res = new ArrayList<>();
+
+        List<Position> forbiddenPosition = new ArrayList<>();
+        // Porte haute
+        forbiddenPosition.add(new Position(SIZE / 2, 1));
+        forbiddenPosition.add(new Position(SIZE / 2 + 1, 1));
+        forbiddenPosition.add(new Position(SIZE / 2 - 1, 1));
+
+        // Porte basse
+        forbiddenPosition.add(new Position(SIZE / 2, SIZE -2));
+        forbiddenPosition.add(new Position(SIZE / 2, SIZE -2));
+        forbiddenPosition.add(new Position(SIZE / 2, SIZE -2));
+
+        // Porte droite
+        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2));
+        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2 + 1));
+        forbiddenPosition.add(new Position(SIZE - 2, SIZE / 2 - 1));
+
+        // Porte gauche
+        forbiddenPosition.add(new Position(1, SIZE / 2));
+        forbiddenPosition.add(new Position(1, SIZE / 2 + 1));
+        forbiddenPosition.add(new Position(1, SIZE / 2 - 1));
+
+
+
+
+        // On détermine les positions de départ et d'arrivé
+        int startX = 1, startY = 1, endX = 1, endY = 1;
+
+        switch (coinA) {
+            case TOP_LEFT:
+                startX = 1;
+                endX = 1;
+                break;
+            case TOP_RIGHT:
+                startX = SIZE - 2;
+                startY = 1;
+                break;
+            case BOTTOM_LEFT:
+                startX = 1;
+                startY = SIZE - 2;
+                break;
+            case BOTTOM_RIGHT:
+                startX = SIZE - 2;
+                startY = SIZE - 2;
+                break;
+            case CENTER:
+                startX = SIZE / 2 ;
+                startY = SIZE / 2 ;
+                break;
+        }
+
+        switch (coinB) {
+            case TOP_LEFT:
+                endX = 1;
+                endY = 1;
+                break;
+            case TOP_RIGHT:
+                endX = SIZE - 2;
+                endY = 1;
+                break;
+            case BOTTOM_LEFT:
+                endX = 1;
+                endY = SIZE - 2;
+                break;
+            case BOTTOM_RIGHT:
+                endX = SIZE - 2;
+                endY = SIZE - 2;
+                break;
+            case CENTER:
+                endX = SIZE / 2;
+                endY = SIZE / 2;
+                break;
+        }
+
+        // On ajoute la première position
+        res.add(new Position(startX, startY));
+
+
+        // Pour aller de A à B, il n'y a que deux directions qui permettent de réduire la distance
+        // 1 ou 0 parmis G / D
+        // 1 ou 0 parmis H / B
+
+        int diffX, diffY, currentX, currentY;
+        boolean go_right, go_left, go_up, go_down;
+
+        currentX = startX;
+        currentY = startY;
+
+        diffX = endX - startX;
+        diffY = endY - startY;
+
+        while (Math.abs(diffX) + Math.abs(diffY) != 0) {
+            // Mouvement horizontal ou vertical
+            if (rand.nextBoolean()) {
+                if (diffX == 0) continue;
+                else if (diffX > 0 ) {
+                    // On va à droite
+                    if (! forbiddenPosition.contains(new Position(currentX + 1, currentY)))
+                        currentX++;
+                } else {
+                    // On va à gauche
+                    if (! forbiddenPosition.contains(new Position(currentX - 1, currentY)))
+                        currentX--;
+                }
+            } else {
+                if (diffY == 0) continue;
+                else if (diffY > 0 ) {
+                    // On va en bas
+                    if (! forbiddenPosition.contains(new Position(currentX, currentY + 1)))
+                        currentY++;
+                } else {
+                    // On va en haut
+                    if (! forbiddenPosition.contains(new Position(currentX, currentY - 1)))
+                    currentY--;
+                }
+            }
+
+            diffX = endX - currentX;
+            diffY = endY - currentY;
+
+            res.add(new Position(currentX, currentY));
+        }
+
+        return res;
+    }
 }
+
+enum Corner {
+    TOP_LEFT,
+    TOP_RIGHT,
+    BOTTOM_LEFT,
+    BOTTOM_RIGHT,
+    CENTER // Pas vraiment un coin mais utile pour getPathBetween
+}
+
+enum Direction {
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT
+}
+

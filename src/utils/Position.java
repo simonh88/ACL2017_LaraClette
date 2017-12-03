@@ -1,5 +1,6 @@
 package utils;
 
+
 public class Position {
 
     private final int x;
@@ -16,5 +17,15 @@ public class Position {
 
     public int getY() {
         return y;
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Position)) return false;
+        Position other = (Position) o;
+        return x == other.x && y == other.y;
     }
 }
