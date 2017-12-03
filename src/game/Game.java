@@ -305,11 +305,6 @@ public class Game implements engine.Game {
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
-                // MONSTRE EN HAUT
-                if(distanceX == 0 && distanceY == 1 && hero.getLastMove()=="Z"){
-                    monster.setHP(monster.getHP() - forceAttack);
-                }
-
 
                 /*if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
                     monster.setHP(monster.getHP() - 5);
@@ -328,6 +323,8 @@ public class Game implements engine.Game {
     private void attackMonster() {
         Character hero = gameState.getHero();
 
+        int forceAttack = 1;
+
         for (Character monster : monsters()) {
 
             if (monster.isAlive() && (indexCurrentRoom() == monster.getCurrentRoom())) {
@@ -335,9 +332,33 @@ public class Game implements engine.Game {
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
 
-                if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
+                // MONSTRE A GAUCHE
+                if(distanceX == -1 && distanceY == 0){
+                    hero.setHP(hero.getHP() - forceAttack);
+                    monster.setLastMove("D");
                     monster.setOnAttack(true);
-                    hero.setHP(hero.getHP() - 1);
+                }
+
+                // MONSTRE A DROITE
+                if(distanceX == 1 && distanceY == 0){
+                    hero.setHP(hero.getHP() - forceAttack);
+                    monster.setLastMove("Q");
+                    monster.setOnAttack(true);
+                }
+
+
+                // MONSTRE EN HAUT
+                if(distanceX == 0 && distanceY == -1){
+                    hero.setHP(hero.getHP() - forceAttack);
+                    monster.setLastMove("S");
+                    monster.setOnAttack(true);
+                }
+
+                // MONSTRE EN BAS
+                if(distanceX == 0 && distanceY == 1){
+                    hero.setHP(hero.getHP() - forceAttack);
+                    monster.setLastMove("Z");
+                    monster.setOnAttack(true);
                 }
 
                 if (!hero.isAlive()) {
