@@ -13,7 +13,7 @@ public class Room {
     public static final int TILE_WIDTH = 50;
     public static final int SIZE = 11;
 
-    private static final int NB_CHANCE_RIVER = 5;
+    private static final int NB_CHANCE_RIVER = 1;
     private static final int NB_CHANCE_OBJECT = 2;
 
     private static final int LAKE_SIZE = 1;
@@ -522,9 +522,8 @@ public class Room {
 
         while (Math.abs(diffX) + Math.abs(diffY) != 0) {
             // Mouvement horizontal ou vertical
-            if (rand.nextBoolean()) {
-                if (diffX == 0) continue;
-                else if (diffX > 0 ) {
+            if (rand.nextBoolean() && diffX != 0) {
+                if (diffX > 0 ) {
                     // On va à droite
                     if (! forbiddenPosition.contains(new Position(currentX + 1, currentY)))
                         currentX++;
@@ -533,9 +532,8 @@ public class Room {
                     if (! forbiddenPosition.contains(new Position(currentX - 1, currentY)))
                         currentX--;
                 }
-            } else {
-                if (diffY == 0) continue;
-                else if (diffY > 0 ) {
+            } else if (diffY != 0){
+                if (diffY > 0 ) {
                     // On va en bas
                     if (! forbiddenPosition.contains(new Position(currentX, currentY + 1)))
                         currentY++;
@@ -546,10 +544,12 @@ public class Room {
                 }
             }
 
-            diffX = endX - currentX;
-            diffY = endY - currentY;
+            if (!((diffX == (endX - currentX)) && diffY == (endY - currentY))) {
+                diffX = endX - currentX;
+                diffY = endY - currentY;
 
-            res.add(new Position(currentX, currentY));
+                res.add(new Position(currentX, currentY));
+            }
         }
 
         return res;
