@@ -51,6 +51,7 @@ public class TileFactory {
     private BufferedImage monsterDead;
     private BufferedImage monsterAttack;
     private BufferedImage heart;
+    private BufferedImage key;
     private BufferedImage little_heart;
     private BufferedImage hp_1;
     private BufferedImage hp_2;
@@ -331,6 +332,16 @@ public class TileFactory {
             System.out.println("Impossible de charger res/img/heart/hp_2.png");
             System.exit(-1);
         }
+
+        //**********************************************************************
+        //**                       PARTIE KEY                               **
+        //**********************************************************************
+        try {
+            key = ImageIO.read(new File("res/img/ressources/key.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/ressources/key.png");
+            System.exit(-1);
+        }
     }
 
 
@@ -450,4 +461,7 @@ public class TileFactory {
         return bossDead;
     }
 
+    public Image getKey() {
+        return key;
+    }
 }

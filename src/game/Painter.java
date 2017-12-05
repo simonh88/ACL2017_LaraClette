@@ -293,8 +293,15 @@ public class Painter implements GamePainter {
         Room currentRoom = game.currentRoom();
         Character hero = game.getHero();
 
+
+
+
         int lastCaseX = currentRoom.getWidth() - 1;
         int lastCaseY = currentRoom.getHeight() - 1;
+        //PRINT KEY DANS BARRE
+        if(hero.hasKey())
+        crayon.drawImage(TileFactory.instance().getKey(),
+                (lastCaseX-1) * Room.TILE_WIDTH, lastCaseY * Room.TILE_HEIGHT, null);
 
         crayon.drawImage(TileFactory.instance().getHeart(),
                 lastCaseX * Room.TILE_WIDTH, lastCaseY * Room.TILE_HEIGHT, null);
@@ -333,6 +340,10 @@ public class Painter implements GamePainter {
             switch (loot.getType()) {
                 case HEART:
                     crayon.drawImage(TileFactory.instance().getLittleHeart(),
+                            loot.getPosition().getX() * Room.TILE_WIDTH, loot.getPosition().getY() * Room.TILE_HEIGHT, null);
+                    break;
+                case KEY:
+                    crayon.drawImage(TileFactory.instance().getKey(),
                             loot.getPosition().getX() * Room.TILE_WIDTH, loot.getPosition().getY() * Room.TILE_HEIGHT, null);
                     break;
             }

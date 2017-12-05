@@ -10,6 +10,7 @@ public class Character {
     private boolean onAttack;
     private String lastMove;
     private int id;
+    private boolean key;
 
 
     public Character(int x, int y, int currentRoom){
@@ -20,6 +21,7 @@ public class Character {
         this.currentRoom = currentRoom;
         this.onAttack = false;
         this.lastMove = "S";
+        key = false;
     }
 
     public Character(int x, int y, int currentRoom, int hp, int id){
@@ -30,6 +32,7 @@ public class Character {
         this.currentRoom = currentRoom;
         this.onAttack = false;
         this.lastMove = "S";
+        key = false;
     }
 
     public int getCurrentRoom(){
@@ -78,5 +81,16 @@ public class Character {
 
     public void setLastMove(String lastMove) {
         this.lastMove = lastMove;
+    }
+
+    /**
+     * Sert a savoir si le héro à ramasser la key ou non
+     */
+    public void setKey() {
+        key = true;
+    }
+
+    public boolean hasKey() {
+        return key;
     }
 }

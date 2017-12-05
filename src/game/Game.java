@@ -263,7 +263,7 @@ public class Game implements engine.Game {
 
         // Attaque vers monstres
         for (Character monster : monsters()) {
-            if ((indexCurrentRoom() == monster.getCurrentRoom())) {
+            if ((indexCurrentRoom() == monster.getCurrentRoom()) && monster.isAlive()) {
 
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
@@ -294,6 +294,13 @@ public class Game implements engine.Game {
                 }
 
 
+                 //Placement de la clé à la mort du boss
+                if(monster.getHP() <= 0 && getBoss().equals(monster)){
+                    currentRoom().placeGroundLoot(monster.getPosX(), monster.getPosY(), Loot.KEY);
+                    // TODO A VOIR SI ON FAIT DROP UN COEUR OU NON
+                    //currentRoom().placeGroundLoot(monster.getPosX(), monster.getPosY(), Loot.HEART);
+
+                }
                 /*if (distanceX <= 1 && distanceX >= -1 && distanceY <= 1 && distanceY >= -1) {
                     monster.setHP(monster.getHP() - 5);
                 }*/
@@ -490,6 +497,10 @@ public class Game implements engine.Game {
             case HEART:
                 // Ajouter une vie
                 hero.setHP(hero.getHP() + 1);
+                break;
+            case KEY:
+                hero.setKey();
+                break;
 
         }
     }
