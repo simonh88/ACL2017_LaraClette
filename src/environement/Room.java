@@ -176,7 +176,7 @@ public class Room {
     }
 
     public DecorType getType (int x, int y){
-        return room[x][y].getType();
+        return room[y][x].getType();
     }
 
     public int getWidth() {
@@ -458,12 +458,12 @@ public class Room {
 
     private List<Position> getPathBetween(Corner coinA, Corner coinB) {
         // Une river passe toujours par le centre
-        List<Position> res = getPathBetweenHelper(coinA, Corner.CENTER);
-        res.addAll(getPathBetweenHelper(Corner.CENTER, coinB));
+        List<Position> res = getPathBetweenHelper(coinA, Corner.CENTER, null);
+        res.addAll(getPathBetweenHelper(Corner.CENTER, coinB, res));
         return res;
     }
 
-    private List<Position> getPathBetweenHelper(Corner coinA, Corner coinB) {
+    private List<Position> getPathBetweenHelper(Corner coinA, Corner coinB, List<Position> alreadyInList) {
         Random rand = new Random();
         List<Position> res = new ArrayList<>();
 
@@ -487,6 +487,11 @@ public class Room {
         forbiddenPosition.add(new Position(1, SIZE / 2));
         forbiddenPosition.add(new Position(1, SIZE / 2 + 1));
         forbiddenPosition.add(new Position(1, SIZE / 2 - 1));
+
+
+        if (alreadyInList != null) {
+            forbiddenPosition.addAll(alreadyInList);
+        }
 
 
 

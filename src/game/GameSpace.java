@@ -193,16 +193,21 @@ public class GameSpace {
 
         Random rand = new Random();
 
+        // Pour chaque room
         for (Room room : rooms) {
+
+            // On itère aléatoirement entre 0 et 8 fois
             for (int i = 0; i < Math.abs(rand.nextInt()) % (8); i++) {
+
                 x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 while (room.getType(x, y) != DecorType.GRASS) {
                     x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                     y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 }
-                indexRoom = Math.abs(rand.nextInt()) % (rooms.size());
 
+                //indexRoom = Math.abs(rand.nextInt()) % (rooms.size());
+                indexRoom = rooms.indexOf(room);
 
                 gameState.addMonster(new Character(x, y, indexRoom, 2, 0));
             }
