@@ -44,6 +44,10 @@ public class Painter implements GamePainter {
             /* On dessine le hero */
             printHero(crayon);
 
+            /* On dessine les animations d'attaque */
+            printAttack(crayon, game.getHero(), TileFactory.HERO_ATTACK);
+            for (Character monster : game.monsters()) printAttack(crayon, monster, TileFactory.MONSTER_ATTACK);
+
             // On dessine les objets
             printObjects(crayon);
 
@@ -145,37 +149,9 @@ public class Painter implements GamePainter {
     private void printHero(Graphics2D crayon) {
         Character hero = game.getHero();
 
-        crayon.drawImage(TileFactory.instance().getHero(hero),
+        crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(hero, TileFactory.HERO),
                 hero.getPosX() * Room.TILE_WIDTH,
                 hero.getPosY() * Room.TILE_HEIGHT, null);
-
-
-        if(hero.isOnAttack()){
-
-            if(hero.getLastMove() == "S"){
-                crayon.drawImage(TileFactory.instance().getAttack(hero),
-                        hero.getPosX() * Room.TILE_WIDTH,
-                        (hero.getPosY()+1) * Room.TILE_HEIGHT, null);
-            }
-
-            if(hero.getLastMove() == "Z"){
-                crayon.drawImage(TileFactory.instance().getAttack(hero),
-                        hero.getPosX() * Room.TILE_WIDTH,
-                        (hero.getPosY()-1) * Room.TILE_HEIGHT, null);
-            }
-
-            if(hero.getLastMove() == "Q"){
-                crayon.drawImage(TileFactory.instance().getAttack(hero),
-                        (hero.getPosX()-1) * Room.TILE_WIDTH,
-                        hero.getPosY() * Room.TILE_HEIGHT, null);
-            }
-
-            if(hero.getLastMove() == "D"){
-                crayon.drawImage(TileFactory.instance().getAttack(hero),
-                        (hero.getPosX()+1) * Room.TILE_WIDTH,
-                        hero.getPosY() * Room.TILE_HEIGHT, null);
-            }
-        }
 
     }
 
@@ -184,19 +160,11 @@ public class Painter implements GamePainter {
             if(monster.getCurrentRoom() == game.indexCurrentRoom()) {
                 if (monster.isAlive()) {
 
-                    if(monster.isOnAttack()){
-                        crayon.drawImage(TileFactory.instance().getMonsterAttack(),
-                                monster.getPosX() * Room.TILE_WIDTH,
-                                monster.getPosY() * Room.TILE_HEIGHT, null);
-                    }
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(monster, TileFactory.MONSTER),
+                            monster.getPosX() * Room.TILE_WIDTH,
+                            monster.getPosY() * Room.TILE_HEIGHT, null);
 
-                    else {
-                        crayon.drawImage(TileFactory.instance().getMonster(monster),
-                                monster.getPosX() * Room.TILE_WIDTH,
-                                monster.getPosY() * Room.TILE_HEIGHT, null);
-                    }
-
-                    if (monster.getHP() > 5){
+                    if (monster.getHP() > 1){
                         crayon.drawImage(TileFactory.instance().getHP2(),
                                 monster.getPosX() * Room.TILE_WIDTH,
                                 monster.getPosY() * Room.TILE_HEIGHT, null);
@@ -212,6 +180,35 @@ public class Painter implements GamePainter {
                             monster.getPosX() * Room.TILE_WIDTH,
                             monster.getPosY() * Room.TILE_HEIGHT, null);
                 }
+            }
+        }
+    }
+    
+    private void printAttack(Graphics2D crayon, Character c, int cas){
+        if(c.isOnAttack()){
+
+            if(c.getLastMove() == "S"){
+                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                        c.getPosX() * Room.TILE_WIDTH,
+                        (c.getPosY()+1) * Room.TILE_HEIGHT, null);
+            }
+
+            if(c.getLastMove() == "Z"){
+                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                        c.getPosX() * Room.TILE_WIDTH,
+                        (c.getPosY()-1) * Room.TILE_HEIGHT, null);
+            }
+
+            if(c.getLastMove() == "Q"){
+                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                        (c.getPosX()-1) * Room.TILE_WIDTH,
+                        c.getPosY() * Room.TILE_HEIGHT, null);
+            }
+
+            if(c.getLastMove() == "D"){
+                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                        (c.getPosX()+1) * Room.TILE_WIDTH,
+                        c.getPosY() * Room.TILE_HEIGHT, null);
             }
         }
     }

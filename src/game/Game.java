@@ -254,7 +254,7 @@ public class Game implements engine.Game {
         hero.setOnAttack(true);
         timeSinceStartAttack = System.currentTimeMillis();
 
-        int forceAttack = 5;
+        int forceAttack = 1;
 
         // Attaque vers pots
         Room currentRoom = currentRoom();

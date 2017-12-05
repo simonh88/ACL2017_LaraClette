@@ -20,6 +20,15 @@ public class Character {
         this.lastMove = "S";
     }
 
+    public Character(int x, int y, int currentRoom, int hp){
+        this.hp = hp;
+        this.posX = x;
+        this.posY = y;
+        this.currentRoom = currentRoom;
+        this.onAttack = false;
+        this.lastMove = "S";
+    }
+
     public int getCurrentRoom(){
         return currentRoom;
     }
