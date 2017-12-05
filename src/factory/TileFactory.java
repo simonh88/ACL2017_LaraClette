@@ -18,6 +18,8 @@ public class TileFactory {
     public static final int HERO_ATTACK = 2;
     public static final int MONSTER = 3;
     public static final int MONSTER_ATTACK = 4;
+    public static final int BOSS = 5;
+    private BufferedImage bossDead;
 
     private BufferedImage menuTile;
 
@@ -42,6 +44,7 @@ public class TileFactory {
     private BufferedImage wallTile;
     private BufferedImage chestTile;
     private BufferedImage[] hero;
+    private BufferedImage[] boss;
     private BufferedImage[] attack;
     private BufferedImage[] monster;
     private BufferedImage[] attackMonster;
@@ -190,6 +193,46 @@ public class TileFactory {
             System.exit(-1);
         }
 
+        //**********************************************************************
+        //**                       PARTIE BOSS                                **
+        //**********************************************************************
+
+        boss = new BufferedImage[8];
+
+        try {
+            boss[0] = ImageIO.read(new File("res/img/boss/boss_0.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/boss/boss_0.png");
+            System.exit(-1);
+        }
+
+        try {
+            boss[1] = ImageIO.read(new File("res/img/boss/boss_1.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/boss/boss_1.png");
+            System.exit(-1);
+        }
+
+        try {
+            boss[2] = ImageIO.read(new File("res/img/boss/boss_2.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/boss/boss_2.png");
+            System.exit(-1);
+        }
+
+        try {
+            boss[3] = ImageIO.read(new File("res/img/boss/boss_3.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/boss/boss_3.png");
+            System.exit(-1);
+        }
+
+        try {
+            bossDead = ImageIO.read(new File("res/img/boss/boss_dead.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/boss/boss_dead.png");
+            System.exit(-1);
+        }
 
         //**********************************************************************
         //**                       PARTIE ATTAQUE                             **
@@ -347,22 +390,19 @@ public class TileFactory {
 
     private Image getSpriteCharacterByCas(int cas, int orientation){
 
-        if(cas == HERO){
-            return hero[orientation];
-        }
+        switch (cas){
+            case HERO:
+                return hero[orientation];
+            case MONSTER:
+                return monster[orientation];
+            case HERO_ATTACK:
+                return attack[orientation];
+            case MONSTER_ATTACK:
+                return attackMonster[orientation];
+            case BOSS:
+                return boss[orientation];
 
-        if(cas == MONSTER){
-            return monster[orientation];
         }
-
-        if(cas == HERO_ATTACK){
-            return attack[orientation];
-        }
-
-        if(cas == MONSTER_ATTACK){
-            return attackMonster[orientation];
-        }
-
         return hero[0];
     }
 
@@ -404,6 +444,10 @@ public class TileFactory {
 
     public Image getBridgeTile() {
         return bridgeTile;
+    }
+
+    public Image getBossDead(){
+        return bossDead;
     }
 
 }

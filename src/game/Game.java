@@ -33,6 +33,7 @@ public class Game implements engine.Game {
         gameSpace.generateMonsters(gameState);
         isFinished = false;
         generateHero();
+        generateBoss();
         deltaTime = 1000;
         deltaTimeAttack = 100;
         timeSinceStart = System.currentTimeMillis();
@@ -144,8 +145,7 @@ public class Game implements engine.Game {
         }
 
         if (System.currentTimeMillis() - timeSinceStart > deltaTimeAttack) {
-            for (int i = 0; i < gameState.sizeMonsters(); i++) {
-                Character monster = gameState.getMonster(i);
+            for (Character monster : monsters()) {
 
                 monster.setOnAttack(false);
             }
@@ -165,6 +165,7 @@ public class Game implements engine.Game {
         gameSpace = new GameSpace();
         gameSpace.generateMonsters(gameState);
         generateHero();
+        generateBoss();
         SoundFactory.instance().playBackground();
 
     }
@@ -173,13 +174,10 @@ public class Game implements engine.Game {
      * Fait bouger tous les monstres vers le héro.
      */
     private void mooveMonsters() {
-        Character monster;
         Character h = gameState.getHero();
 
-        int posX;
-        int posY;
-        for (int i = 0; i < gameState.sizeMonsters(); i++) {
-            monster = gameState.getMonster(i);
+
+        for (Character monster : monsters()) {
 
             if (monster.isAlive() && (monster.getCurrentRoom() == indexCurrentRoom())) {
                 //System.out.println(" m : "+ monster.getCurrentRoom() + " h : " + indexCurrentRoom());
@@ -237,6 +235,21 @@ public class Game implements engine.Game {
 
     }
 
+    private void generateBoss() {
+        Random rand = new Random();
+        int x = 0;
+        int y = 0;
+        while (!(isValidPosition(x, y))) {
+            x = Math.abs(rand.nextInt()) % (10) + 1;
+            y = Math.abs(rand.nextInt()) % (10) + 1;
+        }
+        //Génération de la salle aléatoire
+        int indexRoom = Math.abs(rand.nextInt()) % (gameSpace.sizeRooms()) ;
+
+        gameState.setBoss(x, y, 0);
+
+    }
+
     private void attackHero() {
         Character hero = gameState.getHero();
         hero.setOnAttack(true);
@@ -250,8 +263,8 @@ public class Game implements engine.Game {
 
         // Attaque vers monstres
         for (Character monster : monsters()) {
-
             if ((indexCurrentRoom() == monster.getCurrentRoom())) {
+
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
 
@@ -299,10 +312,13 @@ public class Game implements engine.Game {
         Character hero = gameState.getHero();
 
         int forceAttack = 1;
+        //System.out.println(getBoss().getHP());
+
 
         for (Character monster : monsters()) {
 
             if (monster.isAlive() && (indexCurrentRoom() == monster.getCurrentRoom())) {
+                //System.out.println(monster.getHP());
 
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
@@ -381,6 +397,10 @@ public class Game implements engine.Game {
 
     public Character getHero() {
         return gameState.getHero();
+    }
+
+    public Character getBoss(){
+        return gameState.getBoss();
     }
 
 

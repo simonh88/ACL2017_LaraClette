@@ -31,6 +31,10 @@ public class GameSpace {
         rooms.get(choosedRoom).placeChestInRoom();
     }
 
+    public int sizeRooms(){
+        return rooms.size();
+    }
+
 
     public boolean isValidPosition(int x, int y) {
         return rooms.get(current_room).isValidPosition(x, y);

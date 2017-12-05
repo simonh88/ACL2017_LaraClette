@@ -64,6 +64,21 @@
 * Algo de validation des maps générées
 
 
+#####Bugs :
+* Les monstres peuvent apparemment apparaître dans les rivieres (pareil le boss du coup)
 
+* Je ne sais pas pourquoi il s'est produit :
+  * javax.sound.sampled.LineUnavailableException: line with format PCM_SIGNED 44100.0 Hz, 16 bit, stereo, 4 bytes/frame, little-endian not supported.
+Impossible de charger res/sound/Background_Retro.wav
 
+##### Pathfinder des monstres
+ * Leur ajouter le fait de contourner un obstacle ?
+ 
+#### Reste à faire
+ * Bruit attaque monstres 
+ * Bruit spécial boss ?
+ * Sprites boss
+ * Faire pop la clé à la mort du boss
+ * Ramasser la clé
+ * Checker si on ouvre coffre qu'on ai la clé
 

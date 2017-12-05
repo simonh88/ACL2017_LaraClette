@@ -9,7 +9,12 @@ import java.util.List;
 
 public class GameState {
     private Character hero;
+    private Character boss;
     private List<Character> lMonsters;
+
+    public Character getBoss() {
+        return boss;
+    }
 
     private static enum State {
         Menu,
@@ -35,6 +40,12 @@ public class GameState {
 
     public void setHero(int x, int y, int currentRoom){
         hero = new Character(x,y, currentRoom);
+    }
+    public void setBoss(int x, int y, int currentRoom){
+        boss = new Character(x,y, currentRoom);
+        boss.setHP(5);
+        addMonster(boss);
+
     }
 
     public Character getMonster(int i){

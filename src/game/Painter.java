@@ -48,6 +48,9 @@ public class Painter implements GamePainter {
             /* On dessine le hero */
             printHero(crayon);
 
+            /* On dessine le boss Bien garder après le print du héro*/
+            printBoss(crayon);
+
 
             /* On dessine les animations d'attaque */
             printAttack(crayon, game.getHero(), TileFactory.HERO_ATTACK);
@@ -158,6 +161,74 @@ public class Painter implements GamePainter {
                 hero.getPosX() * Room.TILE_WIDTH,
                 hero.getPosY() * Room.TILE_HEIGHT, null);
 
+    }
+
+    private void printBoss(Graphics2D crayon){
+        Character boss = game.getBoss();
+
+        //Si le monstre est dans la bonne room
+        if(boss.getCurrentRoom() == game.indexCurrentRoom()) {
+
+            if (boss.isAlive()) {
+                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(boss, TileFactory.BOSS),
+                        boss.getPosX() * Room.TILE_WIDTH,
+                        boss.getPosY() * Room.TILE_HEIGHT, null);
+                switch (boss.getHP()){
+                    case 1:
+                        crayon.drawImage(TileFactory.instance().getHP1(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT, null);
+                        break;
+                    case 2:
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT, null);
+                        break;
+                    case 3:
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT, null);
+                        crayon.drawImage(TileFactory.instance().getHP1(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT+25, null);
+                        break;
+                    case 4:
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT, null);
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT+25, null);
+                        break;
+                    case 5:
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT, null);
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                boss.getPosX() * Room.TILE_WIDTH,
+                                boss.getPosY() * Room.TILE_HEIGHT+25, null);
+                        crayon.drawImage(TileFactory.instance().getHP1(),
+                                boss.getPosX() * Room.TILE_WIDTH-15,
+                                boss.getPosY() * Room.TILE_HEIGHT, null);
+                        break;
+                }
+                if (boss.getHP() > 5){
+                    crayon.drawImage(TileFactory.instance().getHP2(),
+                            boss.getPosX() * Room.TILE_WIDTH,
+                            boss.getPosY() * Room.TILE_HEIGHT, null);
+                }
+
+                else{
+                    crayon.drawImage(TileFactory.instance().getHP1(),
+                            boss.getPosX() * Room.TILE_WIDTH,
+                            boss.getPosY() * Room.TILE_HEIGHT, null);
+                }
+            }else{
+                crayon.drawImage(TileFactory.instance().getBossDead(),
+                        boss.getPosX() * Room.TILE_WIDTH,
+                        boss.getPosY() * Room.TILE_HEIGHT, null);
+            }
+        }
     }
 
     private void printMonsters(Graphics2D crayon) {
