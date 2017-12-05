@@ -9,9 +9,11 @@ public class Character {
     private int currentRoom;
     private boolean onAttack;
     private String lastMove;
+    private int id;
 
 
     public Character(int x, int y, int currentRoom){
+        this.id = 0;
         this.hp = 10;
         this.posX = x;
         this.posY = y;
@@ -20,7 +22,8 @@ public class Character {
         this.lastMove = "S";
     }
 
-    public Character(int x, int y, int currentRoom, int hp){
+    public Character(int x, int y, int currentRoom, int hp, int id){
+        this.id = id;
         this.hp = hp;
         this.posX = x;
         this.posY = y;

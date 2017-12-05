@@ -200,7 +200,7 @@ public class GameSpace {
                 indexRoom = Math.abs(rand.nextInt()) % (rooms.size());
 
 
-                gameState.addMonster(new Character(x, y, indexRoom, 2));
+                gameState.addMonster(new Character(x, y, indexRoom, 2, 0));
             }
         }
     }
