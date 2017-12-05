@@ -14,6 +14,11 @@ public class TileFactory {
 
     public static TileFactory instance;
 
+    public static final int HERO = 1;
+    public static final int HERO_ATTACK = 2;
+    public static final int MONSTER = 3;
+    public static final int MONSTER_ATTACK = 4;
+
     private BufferedImage menuTile;
 
     private BufferedImage grassTileSimple1;
@@ -39,6 +44,7 @@ public class TileFactory {
     private BufferedImage[] hero;
     private BufferedImage[] attack;
     private BufferedImage[] monster;
+    private BufferedImage[] attackMonster;
     private BufferedImage monsterDead;
     private BufferedImage monsterAttack;
     private BufferedImage heart;
@@ -63,23 +69,23 @@ public class TileFactory {
         //**********************************************************************
 
         try {
-            grassTileGrass = ImageIO.read(new File("res/img/grass_tile_grass.png"));
-            grassTileDirt = ImageIO.read(new File("res/img/grass_tile_dirt.png"));
-            grassTileFullDirt = ImageIO.read(new File("res/img/grass_tile_full_dirt.png"));
+            grassTileGrass = ImageIO.read(new File("res/img/decor/grass_tile_grass.png"));
+            grassTileDirt = ImageIO.read(new File("res/img/decor/grass_tile_dirt.png"));
+            grassTileFullDirt = ImageIO.read(new File("res/img/decor/grass_tile_full_dirt.png"));
 
-            grassTileSimple1 = ImageIO.read(new File("res/img/grass_tile_simple_1.png"));
-            grassTileSimple2 = ImageIO.read(new File("res/img/grass_tile_simple_2.png"));
-            grassTileSimple3 = ImageIO.read(new File("res/img/grass_tile_simple_3.png"));
+            grassTileSimple1 = ImageIO.read(new File("res/img/decor/grass_tile_simple_1.png"));
+            grassTileSimple2 = ImageIO.read(new File("res/img/decor/grass_tile_simple_2.png"));
+            grassTileSimple3 = ImageIO.read(new File("res/img/decor/grass_tile_simple_3.png"));
 
-            bonesTile1 = ImageIO.read(new File("res/img/bones_tile_1.png"));
-            bonesTile2 = ImageIO.read(new File("res/img/bones_tile_2.png"));
+            bonesTile1 = ImageIO.read(new File("res/img/decor/bones_tile_1.png"));
+            bonesTile2 = ImageIO.read(new File("res/img/decor/bones_tile_2.png"));
 
-            treeTile = ImageIO.read(new File("res/img/tree_tile_1.png"));
-            vaseTile = ImageIO.read(new File("res/img/vase_tile.png"));
-            brokenVaseTile = ImageIO.read(new File("res/img/broken_vase_tile.png"));
+            treeTile = ImageIO.read(new File("res/img/decor/tree_tile_1.png"));
+            vaseTile = ImageIO.read(new File("res/img/decor/vase_tile.png"));
+            brokenVaseTile = ImageIO.read(new File("res/img/decor/broken_vase_tile.png"));
 
-            waterTile = ImageIO.read(new File("res/img/water_tile.png"));
-            bridgeTile = ImageIO.read(new File("res/img/bridge_tile.png"));
+            waterTile = ImageIO.read(new File("res/img/decor/water_tile.png"));
+            bridgeTile = ImageIO.read(new File("res/img/decor/bridge_tile.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger une des tile : ");
             System.out.println(ioe.getMessage());
@@ -93,55 +99,55 @@ public class TileFactory {
         monster = new BufferedImage[8];
 
         try {
-            monster[0] = ImageIO.read(new File("res/img/monster_0.png"));
+            monster[0] = ImageIO.read(new File("res/img/monsters/zombie_0.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/monster_0.png");
+            System.out.println("Impossible de charger res/img/monsters/zombie_0.png");
             System.exit(-1);
         }
 
         try {
-            monster[1] = ImageIO.read(new File("res/img/monster_1.png"));
+            monster[1] = ImageIO.read(new File("res/img/monsters/zombie_1.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/monster_1.png");
+            System.out.println("Impossible de charger res/img/monsters/zombie_1.png");
             System.exit(-1);
         }
 
         try {
-            monster[2] = ImageIO.read(new File("res/img/monster_2.png"));
+            monster[2] = ImageIO.read(new File("res/img/monsters/zombie_2.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/monster_2.png");
+            System.out.println("Impossible de charger res/img/monsters/zombie_2.png");
             System.exit(-1);
         }
 
         try {
-            monster[3] = ImageIO.read(new File("res/img/monster_3.png"));
+            monster[3] = ImageIO.read(new File("res/img/monsters/zombie_3.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/monster_3.png");
+            System.out.println("Impossible de charger res/img/monsters/zombie_3.png");
             System.exit(-1);
         }
 
         try {
-            monsterDead = ImageIO.read(new File("res/img/monster_dead.png"));
+            monsterDead = ImageIO.read(new File("res/img/monsters/zombie_dead.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/monster_dead.png");
+            System.out.println("Impossible de charger res/img/monsters/zombie_dead.png");
             System.exit(-1);
         }
 
-        try {
-            monsterAttack = ImageIO.read(new File("res/img/monster_attack.png"));
+        /*try {
+            monsterAttack = ImageIO.read(new File("res/img/monsters/zombie_attack.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/monster_attack.png");
+            System.out.println("Impossible de charger res/img/monsters/zombie_attack.png");
             System.exit(-1);
-        }
+        }*/
 
         //**********************************************************************
         //**                       PARTIE MUR                                 **
         //**********************************************************************
 
         try {
-            wallTile = ImageIO.read(new File("res/img/wall_tile_v2.png"));
+            wallTile = ImageIO.read(new File("res/img/decor/wall_tile_v2.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/wall_tile.png");
+            System.out.println("Impossible de charger res/img/decor/wall_tile.png");
             System.exit(-1);
         }
 
@@ -150,9 +156,9 @@ public class TileFactory {
         //**********************************************************************
 
         try {
-            chestTile = ImageIO.read(new File("res/img/chest_tile_v2.png"));
+            chestTile = ImageIO.read(new File("res/img/decor/chest_tile_v2.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/chest_tile.png");
+            System.out.println("Impossible de charger res/img/decor/chest_tile.png");
             System.exit(-1);
         }
 
@@ -163,65 +169,97 @@ public class TileFactory {
         hero = new BufferedImage[8];
 
         try {
-            hero[0] = ImageIO.read(new File("res/img/hero_0.png"));
+            hero[0] = ImageIO.read(new File("res/img/hero/hero_0.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/hero_0.png");
+            System.out.println("Impossible de charger res/img/hero/hero_0.png");
             System.exit(-1);
         }
 
         try {
-            hero[1] = ImageIO.read(new File("res/img/hero_1.png"));
+            hero[1] = ImageIO.read(new File("res/img/hero/hero_1.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/hero_1.png");
+            System.out.println("Impossible de charger res/img/hero/hero_1.png");
             System.exit(-1);
         }
 
         try {
-            hero[2] = ImageIO.read(new File("res/img/hero_2.png"));
+            hero[2] = ImageIO.read(new File("res/img/hero/hero_2.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/hero_2.png");
+            System.out.println("Impossible de charger res/img/hero/hero_2.png");
             System.exit(-1);
         }
 
         try {
-            hero[3] = ImageIO.read(new File("res/img/hero_3.png"));
+            hero[3] = ImageIO.read(new File("res/img/hero/hero_3.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/hero_3.png");
+            System.out.println("Impossible de charger res/img/hero/hero_3.png");
             System.exit(-1);
         }
 
 
         //**********************************************************************
-        //**                       PARTIE HERO                                **
+        //**                       PARTIE ATTAQUE                             **
         //**********************************************************************
 
         attack = new BufferedImage[4];
 
         try {
-            attack[0] = ImageIO.read(new File("res/img/attack_S.png"));
+            attack[0] = ImageIO.read(new File("res/img/attack/attack_S.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/attack_S.png");
+            System.out.println("Impossible de charger res/img/attack/attack_S.png");
             System.exit(-1);
         }
 
         try {
-            attack[1] = ImageIO.read(new File("res/img/attack_Z.png"));
+            attack[1] = ImageIO.read(new File("res/img/attack/attack_Z.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/attack_Z.png");
+            System.out.println("Impossible de charger res/img/attack/attack_Z.png");
             System.exit(-1);
         }
 
         try {
-            attack[2] = ImageIO.read(new File("res/img/attack_Q.png"));
+            attack[2] = ImageIO.read(new File("res/img/attack/attack_Q.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/attack_Q.png");
+            System.out.println("Impossible de charger res/img/attack/attack_Q.png");
             System.exit(-1);
         }
 
         try {
-            attack[3] = ImageIO.read(new File("res/img/attack_D.png"));
+            attack[3] = ImageIO.read(new File("res/img/attack/attack_D.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/attack_D.png");
+            System.out.println("Impossible de charger res/img/attack/attack_D.png");
+            System.exit(-1);
+        }
+
+
+
+        attackMonster = new BufferedImage[4];
+
+        try {
+            attackMonster[0] = ImageIO.read(new File("res/img/attack/attackMonster_S.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/attack/attackMonster_S.png");
+            System.exit(-1);
+        }
+
+        try {
+            attackMonster[1] = ImageIO.read(new File("res/img/attack/attackMonster_Z.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/attack/attackMonster_Z.png");
+            System.exit(-1);
+        }
+
+        try {
+            attackMonster[2] = ImageIO.read(new File("res/img/attack/attackMonster_Q.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/attack/attackMonster_Q.png");
+            System.exit(-1);
+        }
+
+        try {
+            attackMonster[3] = ImageIO.read(new File("res/img/attack/attackMonster_D.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/attack/attackMonster_D.png");
             System.exit(-1);
         }
 
@@ -230,23 +268,23 @@ public class TileFactory {
         //**********************************************************************
 
         try {
-            heart = ImageIO.read(new File("res/img/heart.png"));
+            heart = ImageIO.read(new File("res/img/heart/heart.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/heart.png");
+            System.out.println("Impossible de charger res/img/heart/heart.png");
             System.exit(-1);
         }
 
         try {
-            hp_1 = ImageIO.read(new File("res/img/hp_1.png"));
+            hp_1 = ImageIO.read(new File("res/img/heart/hp_1.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/hp_1.png");
+            System.out.println("Impossible de charger res/img/heart/hp_1.png");
             System.exit(-1);
         }
 
         try {
-            hp_2 = ImageIO.read(new File("res/img/hp_2.png"));
+            hp_2 = ImageIO.read(new File("res/img/heart/hp_2.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/hp_2.png");
+            System.out.println("Impossible de charger res/img/heart/hp_2.png");
             System.exit(-1);
         }
     }
@@ -295,40 +333,40 @@ public class TileFactory {
         return chestTile;
     }
 
-    public Image getHero(Character h) {
+    public Image getSpriteCharacterByOrientation(Character c, int cas){
 
-        if(h.getLastMove() == "S") return hero[0];
-        if(h.getLastMove() == "Z") return hero[1];
-        if(h.getLastMove() == "Q") return hero[2];
-        if(h.getLastMove() == "D") return hero[3];
+        if(c.getLastMove() == "S") return getSpriteCharacterByCas(cas, 0);
+        if(c.getLastMove() == "Z") return getSpriteCharacterByCas(cas, 1);
+        if(c.getLastMove() == "Q") return getSpriteCharacterByCas(cas, 2);
+        if(c.getLastMove() == "D") return getSpriteCharacterByCas(cas, 3);
+
+        return hero[0];
+
+    }
+
+    private Image getSpriteCharacterByCas(int cas, int orientation){
+
+        if(cas == HERO){
+            return hero[orientation];
+        }
+
+        if(cas == MONSTER){
+            return monster[orientation];
+        }
+
+        if(cas == HERO_ATTACK){
+            return attack[orientation];
+        }
+
+        if(cas == MONSTER_ATTACK){
+            return attackMonster[orientation];
+        }
 
         return hero[0];
     }
 
-    public Image getAttack(Character c) {
-        if(c.getLastMove() == "S") return attack[0];
-        if(c.getLastMove() == "Z") return attack[1];
-        if(c.getLastMove() == "Q") return attack[2];
-        if(c.getLastMove() == "D") return attack[3];
-
-        return attack[0];
-    }
-
-    public Image getMonster(Character m) {
-        if(m.getLastMove() == "S") return monster[0];
-        if(m.getLastMove() == "Z") return monster[1];
-        if(m.getLastMove() == "Q") return monster[2];
-        if(m.getLastMove() == "D") return monster[3];
-
-        return monster[0];
-    }
-
     public Image getMonsterDead() {
         return monsterDead;
-    }
-
-    public Image getMonsterAttack() {
-        return monsterAttack;
     }
 
     public Image getHeart() {
