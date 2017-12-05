@@ -507,22 +507,22 @@ public class Game implements engine.Game {
 
         switch (hero.getLastMove()) {
             case "Z":
-                loot = currentRoom.heroUse(posX, posY - 1);
+                loot = currentRoom.heroUse(posX, posY - 1, hero.hasKey());
                 break;
             case "Q":
-                loot = currentRoom.heroUse(posX - 1, posY);
+                loot = currentRoom.heroUse(posX - 1, posY,hero.hasKey());
                 break;
             case "S":
-                loot = currentRoom.heroUse(posX, posY + 1);
+                loot = currentRoom.heroUse(posX, posY + 1, hero.hasKey());
                 break;
             case "D":
-                loot = currentRoom.heroUse(posX + 1, posY);
+                loot = currentRoom.heroUse(posX + 1, posY, hero.hasKey());
                 break;
         }
 
         if (loot != Loot.NONE) return loot;
 
-        return currentRoom.heroUse(posX, posY);
+        return currentRoom.heroUse(posX, posY, false);
     }
 
     /**

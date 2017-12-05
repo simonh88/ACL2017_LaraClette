@@ -323,12 +323,15 @@ public class Room {
      * @param posY
      * @return
      */
-    public Loot heroUse(int posX, int posY) {
+    public Loot heroUse(int posX, int posY, boolean hasKey) {
         Loot loot = heroUseGroundObject(posX, posY);
         if (loot != Loot.NONE) return loot;
 
-        loot = heroUseChest(posX, posY);
-        if (loot != Loot.NONE) return loot;
+        //Il faut qu'il ai la clé pour ouvrir
+        if(hasKey) {
+            loot = heroUseChest(posX, posY);
+            if (loot != Loot.NONE) return loot;
+        }
 
 
 
