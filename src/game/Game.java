@@ -3,6 +3,7 @@ package game;
 
 import characters.Character;
 import engine.Cmd;
+import environement.DecorType;
 import environement.Loot;
 import environement.Room;
 import factory.SoundFactory;
@@ -237,14 +238,18 @@ public class Game implements engine.Game {
 
     private void generateBoss() {
         Random rand = new Random();
+
+        //Génération de la salle aléatoire
+        int indexRoom = Math.abs(rand.nextInt()) % (gameSpace.sizeRooms()) ;
+        Room room = gameSpace.getRoom(indexRoom);
+
         int x = 0;
         int y = 0;
-        while (!(isValidPosition(x, y))) {
+        while (room.getType(x, y) != DecorType.GRASS) {
             x = Math.abs(rand.nextInt()) % (10) + 1;
             y = Math.abs(rand.nextInt()) % (10) + 1;
         }
-        //Génération de la salle aléatoire
-        int indexRoom = Math.abs(rand.nextInt()) % (gameSpace.sizeRooms()) ;
+
 
         gameState.setBoss(x, y, indexRoom);
 
