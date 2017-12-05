@@ -302,25 +302,29 @@ public class Room {
         return Loot.VICTORY;
     }
 
-    private Loot heroUseVase(int posX, int posY) {
-        if (!hasVase(posX, posY)) return Loot.NONE;
-
+    /**
+     * Met la pot dans l'état cassé (setUsed) et place un coeur sur le sol
+     * @param posX
+     * @param posY
+     */
+    private void heroAttackVase(int posX, int posY) {
+        if (!hasVase(posX, posY)) return;
         // Refactoring : le loot quand on casse le vase est nul
         // Remplacé par un coeur qui tombe sur le sol qui, une fois ramassé dornera un loot de type HEART (+1PV)
-
 
         placeGroundLoot(posX, posY, Loot.HEART);
 
         room[posY][posX].setUsed();
-
-        return Loot.NONE;
     }
 
+    /**
+     * Gère la touche ACTION
+     * @param posX
+     * @param posY
+     * @return
+     */
     public Loot heroUse(int posX, int posY) {
         Loot loot = heroUseGroundObject(posX, posY);
-        if (loot != Loot.NONE) return loot;
-
-        loot = heroUseVase(posX, posY);
         if (loot != Loot.NONE) return loot;
 
         loot = heroUseChest(posX, posY);
@@ -329,6 +333,15 @@ public class Room {
 
 
         return loot;
+    }
+
+    /**
+     * Gère l'attaque sur pot
+     * @param posX
+     * @param posY
+     */
+    public void heroAttack(int posX, int posY) {
+        heroAttackVase(posX, posY);
     }
 
     private Loot heroUseGroundObject(int posX, int posY) {

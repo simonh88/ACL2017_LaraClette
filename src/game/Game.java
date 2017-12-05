@@ -258,8 +258,7 @@ public class Game implements engine.Game {
         int forceAttack = 1;
 
         // Attaque vers pots
-        Loot loot = heroUse();
-        handleAttackLoot(loot);
+        heroAttackObject();
 
         // Attaque vers monstres
         for (Character monster : monsters()) {
@@ -469,22 +468,15 @@ public class Game implements engine.Game {
         return menu;
     }
 
-    private void handleAttackLoot(Loot loot) {
+    /*private void handleAttackLoot(Loot loot) {
         // TODO : plus nécessaire actuellement -> remove ?
 
         Character hero = getHero();
 
         switch (loot) {
-            case HEART:
-                // Ajouter une vie
-                hero.setHP(hero.getHP() + 1);
-                break;
-            case POISON:
-                // Enlever une vie
-                hero.setHP(hero.getHP() - 1);
-                break;
+
         }
-    }
+    }*/
 
     private void handleActionLoot(Loot loot) {
         Character hero = getHero();
@@ -531,5 +523,31 @@ public class Game implements engine.Game {
         if (loot != Loot.NONE) return loot;
 
         return currentRoom.heroUse(posX, posY);
+    }
+
+    /**
+     * Gere les attaques vers les pots
+     * @return
+     */
+    private void heroAttackObject() {
+        Character hero = getHero();
+        Room currentRoom = currentRoom();
+        int posX = hero.getPosX();
+        int posY = hero.getPosY();
+
+        switch (hero.getLastMove()) {
+            case "Z":
+                currentRoom.heroAttack(posX, posY - 1);
+                break;
+            case "Q":
+                currentRoom.heroAttack(posX - 1, posY);
+                break;
+            case "S":
+                currentRoom.heroAttack(posX, posY + 1);
+                break;
+            case "D":
+                currentRoom.heroAttack(posX + 1, posY);
+                break;
+        }
     }
 }
