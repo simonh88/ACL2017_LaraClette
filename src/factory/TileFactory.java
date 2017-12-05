@@ -48,6 +48,7 @@ public class TileFactory {
     private BufferedImage monsterDead;
     private BufferedImage monsterAttack;
     private BufferedImage heart;
+    private BufferedImage little_heart;
     private BufferedImage hp_1;
     private BufferedImage hp_2;
 
@@ -275,6 +276,13 @@ public class TileFactory {
         }
 
         try {
+            little_heart = ImageIO.read(new File("res/img/heart/little_heart.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/heart/little_heart.png");
+            System.exit(-1);
+        }
+
+        try {
             hp_1 = ImageIO.read(new File("res/img/heart/hp_1.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/heart/hp_1.png");
@@ -371,6 +379,10 @@ public class TileFactory {
 
     public Image getHeart() {
         return heart;
+    }
+
+    public Image getLittleHeart() {
+        return little_heart;
     }
 
     public Image getHP1() {

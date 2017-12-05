@@ -3,6 +3,7 @@ package game;
 import characters.Character;
 import engine.GamePainter;
 import environement.Grass;
+import environement.GroundLoot;
 import environement.Room;
 import factory.SoundFactory;
 import factory.TileFactory;
@@ -41,8 +42,12 @@ public class Painter implements GamePainter {
             /* On dessine les monstres */
             printMonsters(crayon);
 
+            /* On dessine les loots sur le sol */
+            printGroundLoots(crayon);
+
             /* On dessine le hero */
             printHero(crayon);
+
 
             /* On dessine les animations d'attaque */
             printAttack(crayon, game.getHero(), TileFactory.HERO_ATTACK);
@@ -248,6 +253,19 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.RED);
         crayon.drawString("Win ! ", getWidth()/3 , getHeight()/2);
         crayon.drawString("Press R to restart", getWidth()/3 - 30, getHeight()/2 - 50);
+    }
+
+    private void printGroundLoots(Graphics2D crayon) {
+        Room currentRoom = game.currentRoom();
+
+        for (GroundLoot loot : currentRoom.getGroundLoots()) {
+            switch (loot.getType()) {
+                case HEART:
+                    crayon.drawImage(TileFactory.instance().getLittleHeart(),
+                            loot.getPosition().getX() * Room.TILE_WIDTH, loot.getPosition().getY() * Room.TILE_HEIGHT, null);
+                    break;
+            }
+        }
     }
 
     @Override

@@ -25,6 +25,8 @@ public class Room {
     private int index_room_left;
     private int index_room_right;
 
+    private List<GroundLoot> groundLoots;
+
 
     public Room() {
 
@@ -32,6 +34,8 @@ public class Room {
         index_room_up = -1;
         index_room_left = -1;
         index_room_right = -1;
+
+        groundLoots = new ArrayList<>();
 
         room = new Decor[SIZE][SIZE];
 
@@ -301,25 +305,40 @@ public class Room {
     private Loot heroUseVase(int posX, int posY) {
         if (!hasVase(posX, posY)) return Loot.NONE;
 
-        Random rand = new Random();
+        // Refactoring : le loot quand on casse le vase est nul
+        // Remplacé par un coeur qui tombe sur le sol qui, une fois ramassé dornera un loot de type HEART (+1PV)
+
+
+        placeGroundLoot(posX, posY, Loot.HEART);
 
         room[posY][posX].setUsed();
 
-        int randint = Math.abs(rand.nextInt()) % 2;
-
-        if (randint == 0) {
-            return Loot.HEART;
-        } else {
-            return Loot.POISON;
-        }
+        return Loot.NONE;
     }
 
     public Loot heroUse(int posX, int posY) {
-        Loot lootSiVase = heroUseVase(posX, posY);
-        if (lootSiVase != Loot.NONE) return lootSiVase;
+        Loot loot = heroUseGroundObject(posX, posY);
+        if (loot != Loot.NONE) return loot;
 
-        Loot lootSiChest = heroUseChest(posX, posY);
-        return lootSiChest;
+        loot = heroUseVase(posX, posY);
+        if (loot != Loot.NONE) return loot;
+
+        loot = heroUseChest(posX, posY);
+        if (loot != Loot.NONE) return loot;
+
+
+
+        return loot;
+    }
+
+    private Loot heroUseGroundObject(int posX, int posY) {
+        for (GroundLoot loot : groundLoots) {
+            if (loot.getPosition().getX() == posX && loot.getPosition().getY() == posY) {
+                groundLoots.remove(loot);
+                return loot.getType();
+            }
+        }
+        return Loot.NONE;
     }
 
     private void placeRiverOrNot() {
@@ -555,6 +574,14 @@ public class Room {
         }
 
         return res;
+    }
+
+    public void placeGroundLoot(int posX, int posY, Loot loot) {
+        groundLoots.add(new GroundLoot(posX, posY, loot));
+    }
+
+    public List<GroundLoot> getGroundLoots() {
+        return groundLoots;
     }
 }
 

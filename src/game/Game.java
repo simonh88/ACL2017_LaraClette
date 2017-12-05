@@ -443,6 +443,8 @@ public class Game implements engine.Game {
     }
 
     private void handleAttackLoot(Loot loot) {
+        // TODO : plus nécessaire actuellement -> remove ?
+
         Character hero = getHero();
 
         switch (loot) {
@@ -465,6 +467,9 @@ public class Game implements engine.Game {
                 SoundFactory.instance().stopBackground();
                 gameState.setVictory();
                 break;
+            case HEART:
+                // Ajouter une vie
+                hero.setHP(hero.getHP() + 1);
 
         }
     }
@@ -492,6 +497,8 @@ public class Game implements engine.Game {
                 break;
         }
 
-        return loot;
+        if (loot != Loot.NONE) return loot;
+
+        return currentRoom.heroUse(posX, posY);
     }
 }
