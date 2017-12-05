@@ -246,7 +246,7 @@ public class Game implements engine.Game {
         //Génération de la salle aléatoire
         int indexRoom = Math.abs(rand.nextInt()) % (gameSpace.sizeRooms()) ;
 
-        gameState.setBoss(x, y, 0);
+        gameState.setBoss(x, y, indexRoom);
 
     }
 
