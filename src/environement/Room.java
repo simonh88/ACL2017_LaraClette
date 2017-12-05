@@ -298,7 +298,7 @@ public class Room {
         return Loot.VICTORY;
     }
 
-        private Loot heroUseVase(int posX, int posY) {
+    private Loot heroUseVase(int posX, int posY) {
         if (!hasVase(posX, posY)) return Loot.NONE;
 
         Random rand = new Random();
@@ -361,19 +361,21 @@ public class Room {
         // Il y a nbPos case de rivière
         int nbPos = path.size();
 
-        // On va placer le pont dans le premier quart de la rivière
-        int maxPosIndex = nbPos / 4;
-
-        // L'index de la première tile du pont
-        int chosenPosIndex = Math.abs(rand.nextInt()) % maxPosIndex;
-
-        Position firstTilePos = path.get(chosenPosIndex);
-        Position secondTilePos = path.get(chosenPosIndex+1);
-        Position thirdTilePos = path.get(chosenPosIndex+2);
-
-        room[firstTilePos.getY()][firstTilePos.getX()] = new Bridge();
-        room[secondTilePos.getY()][secondTilePos.getX()] = new Bridge();
-        room[thirdTilePos.getY()][thirdTilePos.getX()] = new Bridge();
+        boolean bridgeOK = false;
+        while (!bridgeOK) {
+            int choosenIndex = Math.abs(rand.nextInt()) % nbPos;
+            Position pos = path.get(choosenIndex);
+            if (room[pos.getY() - 1][pos.getX()].getType() == DecorType.GRASS &&
+                    room[pos.getY() + 1][pos.getX()].getType() == DecorType.GRASS) {
+                bridgeOK = true;
+                room[pos.getY()][pos.getX()] = new Bridge();
+            }
+            if (room[pos.getY()][pos.getX() + 1].getType() == DecorType.GRASS &&
+                    room[pos.getY()][pos.getX() - 1].getType() == DecorType.GRASS) {
+                bridgeOK = true;
+                room[pos.getY()][pos.getX()] = new Bridge();
+            }
+        }
     }
 
     private void placeLake(Corner corner) {
