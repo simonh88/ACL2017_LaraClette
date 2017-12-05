@@ -133,13 +133,6 @@ public class TileFactory {
             System.exit(-1);
         }
 
-        /*try {
-            monsterAttack = ImageIO.read(new File("res/img/monsters/zombie_attack.png"));
-        } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/monsters/zombie_attack.png");
-            System.exit(-1);
-        }*/
-
         //**********************************************************************
         //**                       PARTIE MUR                                 **
         //**********************************************************************
