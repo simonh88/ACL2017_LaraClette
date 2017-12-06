@@ -318,10 +318,12 @@ public class Painter implements GamePainter {
 
     private void printLoss(Graphics2D crayon){
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
-        crayon.setFont(new Font(" Serif ",Font.BOLD,25));
-        crayon.setColor(Color.RED);
-        crayon.drawString("You have lost ! ", getWidth()/3 , getHeight()/2);
-        crayon.drawString("Press R to restart", getWidth()/3 - 30, getHeight()/2 - 50);
+        crayon.drawImage(TileFactory.instance().getSkull(), getWidth() / 2 - 30, getHeight() / 2 - 20, null);
+        crayon.setFont(new Font(" Serif ",Font.BOLD,18));
+        crayon.setColor(new Color(102, 51, 0));
+
+        crayon.drawString("Press R to restart", getWidth()/3 + 13, getHeight()/2 + 110);
+        crayon.drawString("You have lost :(", getWidth()/3 + 18, getHeight()/2 + 70);
     }
 
 

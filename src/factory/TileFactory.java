@@ -22,6 +22,7 @@ public class TileFactory {
     private BufferedImage bossDead;
 
     private BufferedImage menuTile;
+    private BufferedImage skull;
 
     private BufferedImage grassTileSimple1;
     private BufferedImage grassTileSimple2;
@@ -63,9 +64,16 @@ public class TileFactory {
         //**********************************************************************
 
         try {
-            menuTile = ImageIO.read(new File("res/img/menu.png"));
+            menuTile = ImageIO.read(new File("res/img/menu/menu.png"));
         } catch (IOException ioe) {
-            System.out.println("Impossible de charger res/img/menu.png");
+            System.out.println("Impossible de charger res/img/menu/menu.png");
+            System.exit(-1);
+        }
+
+        try {
+            skull = ImageIO.read(new File("res/img/menu/skull.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/menu/skull.png");
             System.exit(-1);
         }
 
@@ -463,5 +471,9 @@ public class TileFactory {
 
     public Image getKey() {
         return key;
+    }
+
+    public Image getSkull() {
+        return skull;
     }
 }
