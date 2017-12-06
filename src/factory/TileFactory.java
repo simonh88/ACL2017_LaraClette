@@ -23,6 +23,7 @@ public class TileFactory {
 
     private BufferedImage menuTile;
     private BufferedImage skull;
+    private BufferedImage crown;
 
     private BufferedImage grassTileSimple1;
     private BufferedImage grassTileSimple2;
@@ -74,6 +75,13 @@ public class TileFactory {
             skull = ImageIO.read(new File("res/img/menu/skull.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger res/img/menu/skull.png");
+            System.exit(-1);
+        }
+
+        try {
+            crown = ImageIO.read(new File("res/img/menu/crown.png"));
+        } catch (IOException ioe) {
+            System.out.println("Impossible de charger res/img/menu/crown.png");
             System.exit(-1);
         }
 
@@ -475,5 +483,9 @@ public class TileFactory {
 
     public Image getSkull() {
         return skull;
+    }
+
+    public Image getCrown() {
+        return crown;
     }
 }
