@@ -334,7 +334,7 @@ public class Painter implements GamePainter {
         crayon.setColor(new Color(102, 51, 0));
 
         crayon.drawString("Press R to restart", getWidth()/3 + 13, getHeight()/2 + 110);
-        crayon.drawString("You win !", getWidth()/3 + 25, getHeight()/2 + 70);
+        crayon.drawString("You win !", getWidth()/3 + 40, getHeight()/2 + 70);
     }
 
     private void printGroundLoots(Graphics2D crayon) {
