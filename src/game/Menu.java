@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Menu {
 
-    private String[] menu = {"Play","Commands", "Left"};
+    private String[] menu = {"Play","Commands", "Exit"};
     private int indiceEnCours;
     private Game game;
     private boolean menuCmd;
@@ -56,14 +56,14 @@ public class Menu {
             if (i == indiceEnCours){
                 Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
                 crayon.setComposite(c);
-                crayon.setColor(Color.BLUE);
+                crayon.setColor(new Color(102, 51, 0));
 
             } else {
                 // restore le composite
                 crayon.setComposite(composite);
                 crayon.setColor(Color.WHITE);
             }
-            crayon.drawString(menu[i], Painter.WIN_WIDTH/2 - 50, Painter.WIN_HEIGHT/2 + i * 50);
+            crayon.drawString(menu[i], Painter.WIN_WIDTH/2 - 40, Painter.WIN_HEIGHT/2 + 10+ i * 60);
         }
 
     }
@@ -73,12 +73,14 @@ public class Menu {
 
 
     public void printCommandes(Graphics2D crayon){
-        String[] cmd = {"LEFT: q | RIGHT: d | UP: z | DOWN: s", "ACTION: e | ATTACK: spacebar", "Return with ESC"};
+        //String[] cmd = {"LEFT: q | RIGHT: d | UP: z | DOWN: s", "ACTION: e | ATTACK: spacebar", "Return with ESC"};
+        String[] cmd = {"LEFT: q",  "RIGHT: d", "UP: z", "DOWN: s", "ACTION: e", "ATTACK: spacebar", "RETURN : esc"};
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
-        crayon.setFont(new Font(" Serif ",Font.PLAIN,20));
+        crayon.setFont(new Font(" Serif ",Font.BOLD,16));
+        crayon.setColor(new Color(102, 51, 0));
 
         for (int i = 0; i < cmd.length; i++){
-            crayon.drawString(cmd[i], Painter.WIN_WIDTH/3 - 70, Painter.WIN_HEIGHT/2 + i * 30);
+            crayon.drawString(cmd[i], Painter.WIN_WIDTH/3 + 40, Painter.WIN_HEIGHT/2 + i * 20);
         }
     }
 
