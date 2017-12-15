@@ -1,8 +1,6 @@
 package environement;
 
-import javafx.geometry.Pos;
 import utils.Position;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,7 +37,7 @@ public class Room {
 
         room = new Decor[SIZE][SIZE];
 
-        setupRoomAndBorder(room);
+        setupRoomAndBorder();
 
         // Place un (plusieurs?) arbre aléatoirement (il peut y en avoir 0
         placeObjectOrNot(DecorType.TREE);
@@ -78,12 +76,8 @@ public class Room {
         for (int j = 0; j < room.length; j++) {
             sb.append("|");
             for (int i = 0; i < room[0].length; i++) {
-
-
                 sb.append(room[j][i]);
                 sb.append("|");
-
-
             }
             sb.append("\n");
         }
@@ -92,12 +86,11 @@ public class Room {
 
     public String toString(int posx, int posy) {
         StringBuilder sb = new StringBuilder();
-
         sb.append("\n");
+
         for (int j = 0; j < room.length; j++) {
             sb.append("|");
             for (int i = 0; i < room[0].length; i++) {
-
                 if (j == posy && i == posx) {
                     sb.append("H_");
                 } else {
@@ -112,9 +105,8 @@ public class Room {
 
     /**
      * Place les murs sur le bord de la room
-     * @param room
      */
-    private void setupRoomAndBorder(Decor[][] room) {
+    private void setupRoomAndBorder() {
         // Le vide central
         for (int j = 0; j < room.length; j++) {
             for (int i = 0; i < room[0].length; i++) {
@@ -164,14 +156,12 @@ public class Room {
     }
 
 
-
-
-
     public boolean isValidPosition(int x, int y) {
         // On peut aller en dehors du plateau
         // (Utile pour le changement de map, dès qu'on sors du plateau on change de map)
         if (x < 0 || y < 0) return true;
         if (x >= SIZE || y >= SIZE) return true;
+        // Pour les cas in-map, la position est valide ssi le decor sur lequel on veut aller est traversable
         return room[y][x].isTraversable();
     }
 
@@ -276,9 +266,9 @@ public class Room {
 
     /**
      * Retourne vrai si il y a un vase non cassé à la pos (X,Y)
-     * @param posX
-     * @param posY
-     * @return
+     * @param posX position en X
+     * @param posY position en Y
+     * @return boolean
      */
     private boolean hasVase(int posX, int posY) {
         if (posX < 0 || posX >= SIZE || posY < 0 || posY >= SIZE) return false;
@@ -304,24 +294,23 @@ public class Room {
 
     /**
      * Met la pot dans l'état cassé (setUsed) et place un coeur sur le sol
-     * @param posX
-     * @param posY
+     * @param posX la position en X à laquelle on attaque
+     * @param posY la position en Y à laquelle on attaque
      */
     private void heroAttackVase(int posX, int posY) {
+        // Si il n'y a pas de vase, return
         if (!hasVase(posX, posY)) return;
-        // Refactoring : le loot quand on casse le vase est nul
-        // Remplacé par un coeur qui tombe sur le sol qui, une fois ramassé dornera un loot de type HEART (+1PV)
 
+        // Sinon, on place un coeur au sol et et met le vase dans l'état used
         placeGroundLoot(posX, posY, Loot.HEART);
-
         room[posY][posX].setUsed();
     }
 
     /**
      * Gère la touche ACTION
-     * @param posX
-     * @param posY
-     * @return
+     * @param posX la position en X à laquelle on "action"
+     * @param posY la position en X à laquelle on "action"
+     * @return Loot
      */
     public Loot heroUse(int posX, int posY, boolean hasKey) {
         Loot loot = heroUseGroundObject(posX, posY);
@@ -340,8 +329,8 @@ public class Room {
 
     /**
      * Gère l'attaque sur pot
-     * @param posX
-     * @param posY
+     * @param posX la position de l'attaque
+     * @param posY la position de l'attaque
      */
     public void heroAttack(int posX, int posY) {
         heroAttackVase(posX, posY);
@@ -416,7 +405,7 @@ public class Room {
     private void placeLake(Corner corner) {
         // On détermine les positions des coins haut-gauche et bas-droit pour pouvoir dessiner le petit lac
 
-        int startX, startY,  endX, endY = 0;
+        int startX, startY,  endX, endY;
 
         switch (corner) {
             case TOP_LEFT:
@@ -612,12 +601,5 @@ enum Corner {
     BOTTOM_LEFT,
     BOTTOM_RIGHT,
     CENTER // Pas vraiment un coin mais utile pour getPathBetween
-}
-
-enum Direction {
-    TOP,
-    BOTTOM,
-    LEFT,
-    RIGHT
 }
 
