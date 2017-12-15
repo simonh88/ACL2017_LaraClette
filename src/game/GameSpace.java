@@ -1,10 +1,9 @@
 package game;
 
 import characters.Character;
-import environement.Chest;
-import environement.Decor;
 import environement.DecorType;
 import environement.Room;
+import utils.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,25 +52,25 @@ public class GameSpace {
 
     public void goRoomLeft() {
         Room current = rooms.get(current_room);
-        int index_room_left = current.getIndexRoomLeft();
+        int index_room_left = current.getNeighborRoomIndex(Direction.LEFT);
         current_room = index_room_left;
     }
 
     public void goRoomRight() {
         Room current = rooms.get(current_room);
-        int index_room_right = current.getIndexRoomRight();
+        int index_room_right = current.getNeighborRoomIndex(Direction.RIGHT);
         current_room = index_room_right;
     }
 
     public void goRoomUp() {
         Room current = rooms.get(current_room);
-        int index_room_up = current.getIndexRoomUp();
+        int index_room_up = current.getNeighborRoomIndex(Direction.UP);
         current_room = index_room_up;
     }
 
     public void goRoomBottom() {
         Room current = rooms.get(current_room);
-        int index_room_bottom = current.getIndexRoomBottom();
+        int index_room_bottom = current.getNeighborRoomIndex(Direction.BOTTOM);
         current_room = index_room_bottom;
     }
 
@@ -143,40 +142,40 @@ public class GameSpace {
                     switch (direction) {
                         // Haut
                         case 0:
-                            if (!current_room.hasUpRoom()) {
+                            if (!current_room.hasNeighborRoom(Direction.UP)) {
                                 // On créé le lien
-                                current_room.setRoomUp(index_nouvelle_room);
-                                nouvelle_voisine.setRoomBottom(i);
+                                current_room.setNeighborRoom(Direction.UP, index_nouvelle_room);
+                                nouvelle_voisine.setNeighborRoom(Direction.BOTTOM, i);
                                 choiceOK = true;
                             }
                             break;
 
                         // Bas
                         case 1:
-                            if (!current_room.hasBottomRoom()) {
+                            if (!current_room.hasNeighborRoom(Direction.BOTTOM)) {
                                 // On créé le lien
-                                current_room.setRoomBottom(index_nouvelle_room);
-                                nouvelle_voisine.setRoomUp(i);
+                                current_room.setNeighborRoom(Direction.BOTTOM, index_nouvelle_room);
+                                nouvelle_voisine.setNeighborRoom(Direction.UP, i);
                                 choiceOK = true;
                             }
                             break;
 
                         // Gauche
                         case 2:
-                            if (!current_room.hasLeftRoom()) {
+                            if (!current_room.hasNeighborRoom(Direction.LEFT)) {
                                 // On créé le lien
-                                current_room.setRoomLeft(index_nouvelle_room);
-                                nouvelle_voisine.setRoomRight(i);
+                                current_room.setNeighborRoom(Direction.LEFT, index_nouvelle_room);
+                                nouvelle_voisine.setNeighborRoom(Direction.RIGHT, i);
                                 choiceOK = true;
                             }
                             break;
 
                         // Droite
                         case 3:
-                            if (!current_room.hasRightRoom()) {
+                            if (!current_room.hasNeighborRoom(Direction.RIGHT)) {
                                 // On créé le lien
-                                current_room.setRoomRight(index_nouvelle_room);
-                                nouvelle_voisine.setRoomLeft(i);
+                                current_room.setNeighborRoom(Direction.RIGHT, index_nouvelle_room);
+                                nouvelle_voisine.setNeighborRoom(Direction.LEFT, i);
                                 choiceOK = true;
                             }
                             break;

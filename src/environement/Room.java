@@ -1,6 +1,6 @@
 package environement;
 
-import utils.Position;
+import utils.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -49,24 +49,28 @@ public class Room {
         placeRiverOrNot();
     }
 
-    public void setRoomUp(int index_room_up) {
-        this.index_room_up = index_room_up;
-        room[0][SIZE/2] = getRandomGround();
-    }
+    public void setNeighborRoom(Direction direction, int index_room) {
+        switch (direction) {
+            case UP:
+                this.index_room_up = index_room;
+                room[0][SIZE/2] = getRandomGround();
+                break;
 
-    public void setRoomBottom(int index_room_bottom) {
-        this.index_room_bottom = index_room_bottom;
-        room[SIZE-1][SIZE/2] = getRandomGround();
-    }
+            case BOTTOM:
+                this.index_room_bottom = index_room;
+                room[SIZE-1][SIZE/2] = getRandomGround();
+                break;
 
-    public void setRoomLeft(int index_room_left) {
-        this.index_room_left = index_room_left;
-        room[SIZE/2][0] = getRandomGround();
-    }
+            case LEFT:
+                this.index_room_left = index_room;
+                room[SIZE/2][0] = getRandomGround();
+                break;
 
-    public void setRoomRight(int index_room_right) {
-        this.index_room_right = index_room_right;
-        room[SIZE/2][SIZE-1] = getRandomGround();
+            case RIGHT:
+                this.index_room_right = index_room;
+                room[SIZE/2][SIZE-1] = getRandomGround();
+
+        }
     }
 
     public String toString() {
@@ -170,47 +174,43 @@ public class Room {
     }
 
     public int getWidth() {
-        return room[0].length;
+        return SIZE;
     }
 
     public int getHeight() {
-        return room.length;
+        return SIZE;
     }
 
     public Decor get(int i, int j) {
         return room[j][i];
     }
 
-    public boolean hasLeftRoom() {
-        return index_room_left != -1;
+    public boolean hasNeighborRoom(Direction direction) {
+        switch (direction) {
+            case UP:
+                return index_room_up != -1;
+            case LEFT:
+                return index_room_left != -1;
+            case RIGHT:
+                return index_room_right != -1;
+            case BOTTOM:
+                return index_room_bottom != -1;
+        }
+        return true;
     }
 
-    public boolean hasRightRoom() {
-        return index_room_right != -1;
-    }
-
-    public boolean hasUpRoom() {
-        return index_room_up != -1;
-    }
-
-    public boolean hasBottomRoom() {
-        return index_room_bottom != -1;
-    }
-
-    public int getIndexRoomUp() {
-        return index_room_up;
-    }
-
-    public int getIndexRoomBottom() {
-        return index_room_bottom;
-    }
-
-    public int getIndexRoomLeft() {
-        return index_room_left;
-    }
-
-    public int getIndexRoomRight() {
-        return index_room_right;
+    public int getNeighborRoomIndex(Direction direction) {
+        switch (direction) {
+            case UP:
+                return index_room_up;
+            case LEFT:
+                return index_room_left;
+            case RIGHT:
+                return index_room_right;
+            case BOTTOM:
+                return index_room_bottom;
+        }
+        return 0;
     }
 
     private Grass getRandomGround() {
