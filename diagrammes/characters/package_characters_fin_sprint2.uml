@@ -1,0 +1,17 @@
+@startuml
+
+title Package characters à la fin du sprint 1
+
+package characters {
+    
+    class Character {
+        - int hp
+        - int posX
+        - int posY
+        - int currentRoom
+        - boolean onAttack
+        - String lastMove
+    }
+}
+
+@enduml

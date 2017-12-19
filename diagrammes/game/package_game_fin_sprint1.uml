@@ -1,0 +1,157 @@
+@startuml
+
+title Package game à la fin du sprint 1
+
+interface KeyListener {
+    + keyPressed(KeyEvent)
+    + keyReleased(KeyEvent)
+    + keyTyped(KeyEvent)
+}
+
+
+
+package engine {
+
+    
+    interface GameController {
+        + Cmd getCommand()
+    }
+    GameController ..> KeyListener
+
+    
+
+    
+    interface GamePainter {
+        + draw(BufferedImage image)
+        + int getWidth()
+        + int getHeight()
+    }
+
+
+    interface engine.Game {
+        + void evolve(Cmd userCmd)
+        + boolean isFinished()
+    }
+}
+
+
+
+
+
+
+
+
+
+package game {
+    
+    /' Classe Controller & co '/
+
+    class Controller {
+        - Cmd commandeEnCours
+    }
+    Controller ..> GameController
+
+    
+
+
+
+
+
+
+
+
+
+    /' Classe Painter & co '/
+
+    class Painter {
+        - printWalls(Graphics2D crayon)
+        - printHero(Graphics2D crayon)
+        - printMonsters(Graphics2D crayon)
+    }
+    Painter ..> GamePainter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /' Classe GameState & co '/
+
+    enum State {
+        RUNNING
+        VICTORY
+        LOSS
+    }
+
+    GameState --"1" State
+    GameState --"*" Monster
+    GameState --"1" Hero
+
+    GameState --"1" State
+
+    note top of Hero : Classe définie dans le\npackage characters
+    note bottom of Monster : Classe définie dans le\npackage characters
+
+    class GameState {
+        + boolean isRunning()
+        + boolean isVictory()
+        + boolean isLoss()
+        + void setVictory()
+        + void setRunning()
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /' Classe GameSpace & co '/
+    class GameSpace {
+        + placeChest()
+        + bool isValidPosition(int x, int y)
+        + bool isChest(int posX, int posY)
+        + Room currentRoom()
+    }
+    GameSpace --"1" Room
+    note top of Room : Classe définie dans le\npackage environnement
+
+
+
+
+
+
+
+
+
+
+
+    /' Classe Game & co '/
+    Game --"1" GameSpace
+    Game --"1" GameState
+    class Game {
+        + void mooveMonsters() 
+        + boolean isValidPosition(int x, int y) 
+        + Room currentRoom() 
+        + Hero getHero() 
+        + List<Monster> monsters() 
+        - void restart() 
+    }
+
+    Game ..> engine.Game
+}
+
+@enduml

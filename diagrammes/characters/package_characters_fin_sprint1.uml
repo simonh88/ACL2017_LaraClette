@@ -1,0 +1,29 @@
+@startuml
+
+title Package characters à la fin du sprint 1
+
+package characters {
+    
+    abstract class Character {
+        + {abstract} int getHP();
+        + {abstract} int getPosX();
+        + {abstract} int getPosY();
+        + {abstract} setHP(int hp);
+        + {abstract} setPosX(int x);
+        + {abstract} setPosY(int y);
+    }
+
+    class Hero {
+
+    }
+    Hero --> Character
+
+
+    class Monster {
+
+    }
+    Monster --> Character
+
+}
+
+@enduml
