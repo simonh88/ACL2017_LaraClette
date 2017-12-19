@@ -245,7 +245,7 @@ public class Game implements engine.Game {
 
         int x = 0;
         int y = 0;
-        while (room.getType(x, y) != DecorType.GRASS) {
+        while (room.get(x, y).getType() != DecorType.GRASS) {
             x = Math.abs(rand.nextInt()) % (10) + 1;
             y = Math.abs(rand.nextInt()) % (10) + 1;
         }

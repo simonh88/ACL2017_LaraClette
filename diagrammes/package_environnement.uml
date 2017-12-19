@@ -71,6 +71,8 @@ package environnement {
     Room --"*" GroundLoot
     Room --"*" Decor
 
+    Room -- "4" Room
+
     class Room {
         + static final int TILE_HEIGHT = 50;
         + static final int TILE_WIDTH = 50;
@@ -80,9 +82,6 @@ package environnement {
         + Room()
         + placeChestInRoom()
         + boolean isValidPosition(int x, int y)
-        + DecorType getType (int x, int y)
-        + int getWidth()
-        + int getHeight()
         + Decor get(int i, int j)
         + boolean hasNeighborRoom(Direction direction)
         + setNeighborRoom(Direction dir, int index)

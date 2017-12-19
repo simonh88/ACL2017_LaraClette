@@ -84,8 +84,8 @@ public class Painter implements GamePainter {
     private void printObjects(Graphics2D crayon) {
         Room currentRoom = game.currentRoom();
 
-        for (int j = 0; j < currentRoom.getHeight(); j++) {
-            for (int i = 0; i < currentRoom.getWidth(); i++) {
+        for (int j = 0; j < Room.SIZE; j++) {
+            for (int i = 0; i < Room.SIZE; i++) {
                 switch (currentRoom.get(i, j).getType()) {
                     case VASE:
                         if (!currentRoom.get(i, j).hasBeenUsed()) {
@@ -118,8 +118,8 @@ public class Painter implements GamePainter {
         Room currentRoom = game.currentRoom();
 
         /* On dessine les mur */
-        for (int j = 0; j < currentRoom.getHeight(); j++) {
-            for (int i = 0; i < currentRoom.getWidth(); i++) {
+        for (int j = 0; j < Room.SIZE; j++) {
+            for (int i = 0; i < Room.SIZE; i++) {
                 switch (currentRoom.get(i, j).getType()) {
                     case WALL:
                         crayon.drawImage(TileFactory.instance().getWallTile(),
@@ -296,8 +296,8 @@ public class Painter implements GamePainter {
 
 
 
-        int lastCaseX = currentRoom.getWidth() - 1;
-        int lastCaseY = currentRoom.getHeight() - 1;
+        int lastCaseX = Room.SIZE - 1;
+        int lastCaseY = Room.SIZE - 1;
         //PRINT KEY DANS BARRE
         if(hero.hasKey())
         crayon.drawImage(TileFactory.instance().getKey(),

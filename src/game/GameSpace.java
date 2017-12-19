@@ -200,7 +200,7 @@ public class GameSpace {
 
                 x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
-                while (room.getType(x, y) != DecorType.GRASS) {
+                while (room.get(x, y).getType() != DecorType.GRASS) {
                     x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                     y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 }

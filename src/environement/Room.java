@@ -169,18 +169,6 @@ public class Room {
         return room[y][x].isTraversable();
     }
 
-    public DecorType getType (int x, int y){
-        return room[y][x].getType();
-    }
-
-    public int getWidth() {
-        return SIZE;
-    }
-
-    public int getHeight() {
-        return SIZE;
-    }
-
     public Decor get(int i, int j) {
         return room[j][i];
     }
