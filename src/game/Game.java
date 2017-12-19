@@ -474,16 +474,6 @@ public class Game implements engine.Game {
         return menu;
     }
 
-    /*private void handleAttackLoot(Loot loot) {
-        // TODO : plus nécessaire actuellement -> remove ?
-
-        Character hero = getHero();
-
-        switch (loot) {
-
-        }
-    }*/
-
     private void handleActionLoot(Loot loot) {
         Character hero = getHero();
 
