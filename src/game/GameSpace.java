@@ -25,12 +25,12 @@ public class GameSpace {
         placeChest();
     }
 
-    public void placeChest() {
+    private void placeChest() {
         int choosedRoom = (int) (Math.random() * ((rooms.size() - 1) + 1));
         rooms.get(choosedRoom).placeChestInRoom();
     }
 
-    public int sizeRooms(){
+    int sizeRooms(){
         return rooms.size();
     }
 
@@ -49,46 +49,26 @@ public class GameSpace {
     }
 
 
-
-    public void goRoomLeft() {
+    void goRoom(Direction dir) {
         Room current = rooms.get(current_room);
-        int index_room_left = current.getNeighborRoomIndex(Direction.LEFT);
-        current_room = index_room_left;
-    }
-
-    public void goRoomRight() {
-        Room current = rooms.get(current_room);
-        int index_room_right = current.getNeighborRoomIndex(Direction.RIGHT);
-        current_room = index_room_right;
-    }
-
-    public void goRoomUp() {
-        Room current = rooms.get(current_room);
-        int index_room_up = current.getNeighborRoomIndex(Direction.UP);
-        current_room = index_room_up;
-    }
-
-    public void goRoomBottom() {
-        Room current = rooms.get(current_room);
-        int index_room_bottom = current.getNeighborRoomIndex(Direction.BOTTOM);
-        current_room = index_room_bottom;
+        current_room = current.getNeighborRoomIndex(dir);
     }
 
     /**
      * Renvoie la room correspondante à l'index
      *
-     * @param indexRoom
-     * @return
+     * @param indexRoom l'index de la room
+     * @return la room
      */
-    public Room getRoom(int indexRoom) {
+    Room getRoom(int indexRoom) {
         return rooms.get(indexRoom);
     }
 
-    public Room currentRoom() {
+    Room currentRoom() {
         return rooms.get(current_room);
     }
 
-    public int indexCurrentRoom() {
+    int indexCurrentRoom() {
         return current_room;
     }
 
@@ -185,10 +165,10 @@ public class GameSpace {
         }
     }
 
-    public void generateMonsters(GameState gameState) {
-        int x = 0;
-        int y = 0;
-        int indexRoom = 0;
+    void generateMonsters(GameState gameState) {
+        int x ;
+        int y ;
+        int indexRoom ;
 
         Random rand = new Random();
 

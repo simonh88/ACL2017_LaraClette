@@ -7,6 +7,7 @@ import environement.DecorType;
 import environement.Loot;
 import environement.Room;
 import factory.SoundFactory;
+import utils.Direction;
 
 import java.util.List;
 import java.util.Random;
@@ -444,25 +445,25 @@ public class Game implements engine.Game {
 
         if (hero.getPosX() == -1) {
             // On va à gauche
-            gameSpace.goRoomLeft();
+            gameSpace.goRoom(Direction.LEFT);
             hero.setPosX(Room.SIZE - 1);
         }
 
         if (hero.getPosX() == Room.SIZE) {
             // On va à droite
-            gameSpace.goRoomRight();
+            gameSpace.goRoom(Direction.RIGHT);
             hero.setPosX(0);
         }
 
         if (hero.getPosY() == -1) {
             // On va en haut
-            gameSpace.goRoomUp();
+            gameSpace.goRoom(Direction.UP);
             hero.setPosY(Room.SIZE - 1);
         }
 
         if (hero.getPosY() == Room.SIZE) {
             // On va en bas
-            gameSpace.goRoomBottom();
+            gameSpace.goRoom(Direction.BOTTOM);
             hero.setPosY(0);
         }
 
