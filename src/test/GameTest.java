@@ -1,10 +1,12 @@
 package test;
 
 import engine.Cmd;
+import environement.Room;
 import game.Game;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class GameTest {
 
@@ -17,8 +19,12 @@ public class GameTest {
             g.evolve(cmd);
         }
 
-        assertTrue(g.getHero().getPosX() < 20);
+        //System.out.println("wallOutRight : Pos X Hero : " + g.getHero().getPosX());
+
+        Assert.assertTrue(g.getHero().getPosX() < (Room.SIZE-1) );
     }
+
+
 
     @Test
     public void wallOutLeft() {
@@ -29,7 +35,10 @@ public class GameTest {
             g.evolve(cmd);
         }
 
-        assertTrue(g.getHero().getPosX() >= 0);
+        //System.out.println("wallOutLeft : Pos X Hero : " + g.getHero().getPosX());
+
+
+        Assert.assertTrue(g.getHero().getPosX() > 0);
     }
 
     @Test
@@ -41,7 +50,9 @@ public class GameTest {
             g.evolve(cmd);
         }
 
-        assertTrue(g.getHero().getPosY() >= 0);
+        //System.out.println("wallOutTop : Pos Y Hero : " + g.getHero().getPosY());
+
+        Assert.assertTrue(g.getHero().getPosY() > 0);
     }
 
     @Test
@@ -53,6 +64,11 @@ public class GameTest {
             g.evolve(cmd);
         }
 
-        assertTrue(g.getHero().getPosY() < 20);
+        //System.out.println("wallOutBottom : Pos Y Hero : " + g.getHero().getPosY());
+
+        Assert.assertTrue(g.getHero().getPosY() < (Room.SIZE-1));
     }
+
+
+
 }

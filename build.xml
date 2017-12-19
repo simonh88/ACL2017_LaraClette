@@ -12,12 +12,6 @@
         <delete dir="build"/>
     </target>
 
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <unzip src="dist/lib/junit-platform-console-standalone-1.0.2.jar" dest="build/classes" />
-        <javac srcdir="src" destdir="build/classes"/>
-    </target>
-
     <target name="jar">
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/ACL2017_LaraClette.jar" basedir="build/classes">
