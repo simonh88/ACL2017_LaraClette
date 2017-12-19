@@ -12,7 +12,7 @@ import characters.Character;
 
 public class TileFactory {
 
-    public static TileFactory instance;
+    private static TileFactory instance;
 
     public static final int HERO = 1;
     public static final int HERO_ATTACK = 2;
@@ -406,10 +406,10 @@ public class TileFactory {
 
     public Image getSpriteCharacterByOrientation(Character c, int cas){
 
-        if(c.getLastMove() == "S") return getSpriteCharacterByCas(cas, 0);
-        if(c.getLastMove() == "Z") return getSpriteCharacterByCas(cas, 1);
-        if(c.getLastMove() == "Q") return getSpriteCharacterByCas(cas, 2);
-        if(c.getLastMove() == "D") return getSpriteCharacterByCas(cas, 3);
+        if(c.getLastMove().equals("S")) return getSpriteCharacterByCas(cas, 0);
+        if(c.getLastMove().equals("Z")) return getSpriteCharacterByCas(cas, 1);
+        if(c.getLastMove().equals("Q")) return getSpriteCharacterByCas(cas, 2);
+        if(c.getLastMove().equals("D")) return getSpriteCharacterByCas(cas, 3);
 
         return hero[0];
 

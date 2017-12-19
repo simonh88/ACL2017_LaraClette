@@ -1,29 +1,15 @@
 package factory;
 
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
 
 public class SoundFactory {
 
-    public static SoundFactory instance;
+    private static SoundFactory instance;
 
     private Clip background;
-
-    private SoundFactory(){
-
-    }
-
-
 
     public static SoundFactory instance() {
         if (instance == null) {
@@ -57,7 +43,7 @@ public class SoundFactory {
             background.loop(Clip.LOOP_CONTINUOUSLY);
             background.start();
         }catch (Exception ex){
-            System.out.println(ex);
+            ex.printStackTrace();
             System.out.println("Impossible de charger res/sound/Background_Retro.wav");
             System.exit(-1);
         }
