@@ -1,0 +1,196 @@
+@startuml
+
+title Package game à la fin du sprint 2
+
+interface KeyListener {
+    + keyPressed(KeyEvent)
+    + keyReleased(KeyEvent)
+    + keyTyped(KeyEvent)
+}
+
+
+
+package engine {
+
+    
+    interface GameController {
+        + Cmd getCommand()
+    }
+    GameController ..> KeyListener
+
+    
+
+    
+    interface GamePainter {
+        + draw(BufferedImage image)
+        + int getWidth()
+        + int getHeight()
+    }
+
+
+    interface engine.Game {
+        + void evolve(Cmd userCmd)
+        + boolean isFinished()
+    }
+}
+
+
+
+
+
+
+
+
+
+package game {
+    
+    /' Classe Controller & co '/
+
+    class Controller {
+        - Cmd commandeEnCours
+    }
+    Controller ..> GameController
+
+    
+
+
+
+
+
+
+
+
+
+    /' Classe Painter & co '/
+
+    class Painter {
+        - printWalls(Graphics2D crayon)
+        - printHero(Graphics2D crayon)
+        - printMonsters(Graphics2D crayon)
+        - printObjects(Graphics2D crayon)
+        - printBoss(Graphics2D crayon)
+        - printAttack(Graphics2D crayon)
+        - printInfo(Graphics2D crayon)
+        - printLoss(Graphics2D crayon)
+        - printVictory(Graphics2D crayon)
+        - printGroundLoots(Graphics2D crayon)
+    }
+    Painter ..> GamePainter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /' Classe GameState & co '/
+
+    enum State {
+        MENU
+        RUNNING
+        VICTORY
+        LOSS
+    }
+
+    GameState --"1" Character : Hero
+    GameState --"*" Character : Monsters
+    GameState --"1" Character : Boss
+
+    GameState --"1" State
+
+    note bottom of Character : Classe définie dans le\npackage characters
+
+    class GameState {
+        + bool isRunning()
+        + bool isVictory()
+        + bool isLoss()
+        + bool isMenu()
+        + setVictory()
+        + setRunning()
+        + setLoss()
+        + setMenu()
+        + addMonster()
+        + killMonster(Character monster)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /' Classe GameSpace & co '/
+    class GameSpace {
+        + placeChest()
+        + bool isValidPosition(int x, int y)
+        + bool isChest(int posX, int posY)
+        + Room currentRoom()
+        + goRoom(Direction dir)
+        - generateRandomRooms()
+        - generateMonsters(GameState gameState)
+    }
+    GameSpace --"*" Room
+    note right of Room : Classe définie dans le\npackage environnement
+
+
+
+
+
+
+
+
+
+
+
+    /' Classe Game & co '/
+    Game --"1" GameSpace
+    Game --"1" GameState
+    Game --"1" Menu
+    class Game {
+        + void mooveMonsters() 
+        + boolean isValidPosition(int x, int y) 
+        + Room currentRoom() 
+        + Hero getHero() 
+        + List<Monster> monsters() 
+        - attackHero()
+        - attackMonster()
+        - changeRoom()
+        - heroUse()
+        - heroAttackObject()
+        - void restart() 
+    }
+
+    Game ..> engine.Game
+
+
+
+
+
+
+
+
+
+
+
+
+    /' Classe Menu '/
+    class Menu {
+        + printMenu(Graphics2D crayon)
+        + printCommandes(Graphics2D crayon)
+        + action()
+    }
+}
+
+@enduml

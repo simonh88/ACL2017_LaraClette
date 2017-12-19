@@ -1,0 +1,20 @@
+@startuml
+
+title Package utils à la fin du sprint 2
+
+package utils {
+    
+    enum Direction {
+        UP
+        BOTTOM
+        LEFT
+        RIGHT
+    }
+
+    class Position {
+        - int x
+        - int y
+    }
+}
+
+@enduml

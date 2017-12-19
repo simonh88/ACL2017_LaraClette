@@ -1,0 +1,68 @@
+@startuml
+
+title Package factory à la fin du sprint 2
+
+package factory {
+    
+    class TileFactory << (S,#FF7700) Singleton >>  {
+        + {static} int HERO = 1;
+        + {static}  int HERO_ATTACK = 2;
+        + {static}  int MONSTER = 3;
+        + {static}  int MONSTER_ATTACK = 4;
+        + {static}  int BOSS = 5;
+
+        - BufferedImage bossDead
+
+        - BufferedImage menuTile
+        - BufferedImage skull
+        - BufferedImage crown
+
+        - BufferedImage grassTileSimple1
+        - BufferedImage grassTileSimple2
+        - BufferedImage grassTileSimple3
+
+        - BufferedImage treeTile
+        - BufferedImage vaseTile
+        - BufferedImage brokenVaseTile
+
+        - BufferedImage bonesTile1
+        - BufferedImage bonesTile2
+
+        - BufferedImage grassTileGrass
+        - BufferedImage grassTileDirt
+        - BufferedImage grassTileFullDirt
+
+        - BufferedImage waterTile
+        - BufferedImage bridgeTile
+
+        - BufferedImage wallTile
+        - BufferedImage chestTile
+        - BufferedImage[] hero
+        - BufferedImage[] boss
+        - BufferedImage[] attack
+        - BufferedImage[] monster
+        - BufferedImage[] attackMonster
+        - BufferedImage monsterDead
+        - BufferedImage monsterAttack
+        - BufferedImage heart
+        - BufferedImage key
+        - BufferedImage little_heart
+        - BufferedImage hp_1
+        - BufferedImage hp_2
+
+        + {static} TileFactory instance()
+    }
+
+
+    class SoundFactory << (S,#FF7700) Singleton >>  {
+        - Clip background
+        + playSound(String filename)
+        + playBackground()
+        + stopBackground()
+
+        + {static} SoundFactory instance()
+    }
+
+}
+
+@enduml

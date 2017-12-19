@@ -1,0 +1,36 @@
+@startuml
+
+title Package environnement à la fin du sprint 1
+
+package environnement {
+    
+    interface Decor {
+        + int getType()
+    }
+
+    class Chest
+    Chest ..> Decor
+    
+    class Wall
+    Wall ..> Decor
+    
+    class Empty
+    Empty ..> Decor
+
+    Room --"11 x 11" Decor
+
+    class Room {
+        + {static} int TILE_HEIGHT = 50;
+        + {static} int TILE_WIDTH = 50;
+
+        + Room()
+        + placeChestInRoom()
+        + bool hasChest()
+
+        + int getWidth()
+        + int getHeight()
+        + Decor get(int i, int j)
+    }
+}
+
+@enduml

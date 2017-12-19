@@ -1,0 +1,19 @@
+@startuml
+
+title Package factory à la fin du sprint 1
+
+package factory {
+    
+    class TileFactory << (S,#FF7700) Singleton >>  {
+        - BufferedImage grassTile
+        - BufferedImage wallTile
+        - BufferedImage chestTile
+        - BufferedImage girl
+        - BufferedImage monster
+
+        + {static} TileFactory instance()
+    }
+
+}
+
+@enduml
