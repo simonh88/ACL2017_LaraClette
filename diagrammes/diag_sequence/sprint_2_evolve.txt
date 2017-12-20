@@ -1,5 +1,66 @@
 @startuml
 title Diagramme de séquence sprint 2 fonction evolve
 actor Joueur
+participant start.Main << (C,#ADD1B2) >>
+participant game.Game << (C,#ADD1B2) >>
+participant game.Controller << (C,#ADD1B2) >>
+participant game.Painter << (C,#ADD1B2) >>
+participant game.GameSpace << (C,#ADD1B2) >>
+participant environement.Room << (C,#ADD1B2) >>
+participant game.GameState << (C,#ADD1B2) >>
+participant engine.GameEngineGraphical << (C,#ADD1B2) >>
+participant engine.GraphicalInterface << (C,#ADD1B2) >>
+participant engine.GameController << (C,#ADD1B2) >>
+participant factory.SoundFactory << (S,#ADD1B2) >>
+
+
+loop !game.isFinished() #Sleep(100)
+    engine.GameEngineGraphical->engine.GraphicalInterface: gui = new GraphicalInterface() << create >
+    Joueur-[#0000FF]->engine.GameController: key = KeyDown
+    engine.GameController->engine.GameController: cmd = key (En correspondance avec constantes)
+    engine.GameEngineGraphical->engine.GameController: cmd = getCommand()
+    group fonction Game.evolve()
+        engine.GameEngineGraphical->game.Game: evolve(cmd)
+        game.Game->game.Game: switch(cmd)
+        note left
+            Switch sur LEFT, RIGHT, DOWN, UP, ACTION, ATTACK selon direction voulue
+        end note
+         game.Game->game.Game: hero = game.GameState.getHero()
+         alt LEFT|RIGHT|DOWN|UP
+            game.Game->game.GameSpace: isValidPosition(hero.x+1,hero.y)
+            game.GameSpace->environement.Room: isValidPosition(x,y)
+            environement.Room-[#red]-> game.GameSpace: True si pas mur false sinon
+            game.GameSpace-[#red]-> game.Game: True ou false
+            alt true
+                game.Game->game.Game: hero.setPosition(hero.x+1,hero.y) (C Character)
+            else false
+                game.Game->game.Game: #DoNothing
+            end
+            game.Game->game.Game: setLastMoove(cmd) (C Character)
+         else ACTION
+            game.Game->game.Game: loot= heroUse()
+            game.Game->game.Game: handleActionLoot(loot)
+         else ATTACK
+            alt !hero.isOnAttack()
+                game.Game->factory.SoundFactory: playSound(Sword_Swing)
+                game.Game->game.Game: attackHero()
+            else
+                game.Game->game.Game: #DoNothing
+            end
+         else RESTART
+            alt gameState.isVictory() || gameState.isLoss()
+            game.Game->game.Game: restart()
+         else TOUCHES POUR LE MENU
+         end
+         game.Game->game.Game: playerOnBorder()
+         alt true
+            game.Game->game.Game: changeRoom()
+         end
+         game.Game->game.Game: attackMonsters()
+         game.Game->game.Game: mooveMonsters()
+    end
+
+    engine.GameEngineGraphical->engine.GraphicalInterface: paint()
+end
 
 @enduml

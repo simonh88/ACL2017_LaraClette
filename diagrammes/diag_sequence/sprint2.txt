@@ -9,6 +9,8 @@ participant game.GameSpace << (C,#ADD1B2) >>
 participant environement.Room << (C,#ADD1B2) >>
 participant game.GameState << (C,#ADD1B2) >>
 participant engine.GameEngineGraphical << (C,#ADD1B2) >>
+participant engine.GraphicalInterface << (C,#ADD1B2) >>
+participant engine.GameController << (C,#ADD1B2) >>
 participant factory.TileFactory << (S,#ADD1B2) >>
 participant factory.SoundFactory << (S,#ADD1B2) >>
 
@@ -16,9 +18,9 @@ Joueur -> start.Main: Lancement
 autonumber
 activate start.Main
     start.Main->factory.TileFactory: getInstance() << static >>
+    factory.TileFactory->factory.TileFactory: new TileFactory << create >>
+            activate factory.TileFactory
     start.Main->factory.SoundFactory: getInstance() << static >>
-        factory.TileFactory->factory.TileFactory: new TileFactory << create >>
-        activate factory.TileFactory
         factory.SoundFactory->factory.SoundFactory: new SoundFactory << create >>
         activate factory.SoundFactory
     note over factory.TileFactory, factory.SoundFactory #FFAAAA
@@ -63,11 +65,11 @@ activate start.Main
                         loop !game.isFinished() #Sleep(100)
                             engine.GameEngineGraphical->engine.GraphicalInterface: gui = new GraphicalInterface() << create >
                             engine.GameEngineGraphical->engine.GameController: cmd = getCommand()
-                            note over game.Game #FFAAAA
+                            engine.GameEngineGraphical->game.Game: evolve(c)
+                            note over game.Controller #FFAAAA
                                 Details de la fonction evolve dans diagramme
                                 de séquence : sprint_2_evolve
                             end note
-                            engine.GameEngineGraphical->game.Game: evolve(c)
                             note over engine.GraphicalInterface #FFAAAA
                                   paint() va s'occuper des JFrame et de tout l'affichage
                                    en fonction de l'état du game.
