@@ -64,6 +64,21 @@
 * Algo de validation des maps générées
 
 
+### Sprint 3
+
+#### Séance finale
+
+* Ajouter un son pour la pièce du boss, attaque des monstres, clé qui tombe, ...
+* Améliorer l'IA des monstres
+* Ajout de niveau de difficulté (facile, moyen, difficile)
+* Ajout d'un système de temps avec score
+* Améliorations pour le Héro dans les jars (attaque x2, HP x2, ...)
+  avec durée (peut-être)
+* Pouvoir mettre le jeu en pause 
+* Correction bug son attaque qui veut pas se charger une fois dans la salle
+  du boss + son victoire (restart bug)
+* Ralentir Héro quand peu de vie
+
 #####Bugs :
 * Les monstres peuvent apparemment apparaître dans les rivieres (pareil le boss du coup)
 

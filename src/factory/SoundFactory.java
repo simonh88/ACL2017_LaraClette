@@ -29,7 +29,7 @@ public class SoundFactory {
             clip.start();
         }catch (Exception ex){
             System.out.println("Impossible de charger " + fichier);
-            System.exit(-1);
+            //System.exit(-1);
         }
     }
 

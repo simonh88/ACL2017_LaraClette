@@ -163,8 +163,11 @@ public class Room {
     public boolean isValidPosition(int x, int y) {
         // On peut aller en dehors du plateau
         // (Utile pour le changement de map, dès qu'on sors du plateau on change de map)
-        if (x < 0 || y < 0) return true;
-        if (x >= SIZE || y >= SIZE) return true;
+        if (x == -1 || y == -1) return true;
+        if (x == SIZE || y == SIZE) return true;
+
+        if (x < 0 || y < 0) return false;
+        if (x >= SIZE || y >= SIZE) return false;
         // Pour les cas in-map, la position est valide ssi le decor sur lequel on veut aller est traversable
         return room[y][x].isTraversable();
     }
