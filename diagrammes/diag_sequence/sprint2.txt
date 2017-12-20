@@ -8,25 +8,71 @@ participant game.Painter << (C,#ADD1B2) >>
 participant game.GameSpace << (C,#ADD1B2) >>
 participant environement.Room << (C,#ADD1B2) >>
 participant game.GameState << (C,#ADD1B2) >>
+participant engine.GameEngineGraphical << (C,#ADD1B2) >>
 participant factory.TileFactory << (S,#ADD1B2) >>
 participant factory.SoundFactory << (S,#ADD1B2) >>
 
 Joueur -> start.Main: Lancement
 autonumber
 activate start.Main
-    start.Main->factory.TileFactory: getInstance()
-    start.Main->factory.SoundFactory: getInstance()
-    activate factory.TileFactory
+    start.Main->factory.TileFactory: getInstance() << static >>
+    start.Main->factory.SoundFactory: getInstance() << static >>
         factory.TileFactory->factory.TileFactory: new TileFactory << create >>
-    activate factory.SoundFactory
+        activate factory.TileFactory
         factory.SoundFactory->factory.SoundFactory: new SoundFactory << create >>
+        activate factory.SoundFactory
     note over factory.TileFactory, factory.SoundFactory #FFAAAA
           Chargement des images pour
           la TileFactory
           (resp. Sons pour SoundFactory)
     end note
-    start.Main -> game.Game:   new Game() << create >>
+    start.Main -> game.Game:   game = new Game() << create >>
         activate game.Game
             game.Game -> game.GameSpace: new GameSpace() << create >>
                 activate game.GameSpace
+                    game.GameSpace->game.GameSpace: generateRandomRooms()
+                    game.GameSpace->environement.Room: new Room() << create >> (game.GameSpace.NBROOMS fois)
+                    game.GameSpace->game.GameSpace: placeChest()
+                    game.Game->game.Game: isFinished = false
+                    game.Game -> game.GameState: new GameState() << create >>
+                        activate game.GameState
+                        game.GameState -> game.GameState: hero = new Hero() << create >>
+                        game.GameState -> game.GameState: state = Running
+
+                        game.Game->game.GameSpace: generateMonsters(gameState)
+                        note over game.GameSpace, game.GameState #FFAAAA
+                            Génération aléatoire des positions du monstre, de la salle attribuée
+                        end note
+                        game.GameSpace->game.GameState: addMonster(new Character(x,y, indexRoom)
+                        game.Game->game.Game: generateHero()
+                        note over game.Game, game.GameState #FFAAAA
+                            Génération aléatoire des coordonnées x,y et
+                            placement dans la première salle
+                        end note
+                        game.Game->game.GameState: setHero(x,y)
+                        game.Game->game.Game: generateBoss()
+                        note over game.Game, game.GameState #FFAAAA
+                            Génération aléatoire des coordonnées x,y  et
+                            placement dans une salle aléatoire (indexRoom)
+                        end note
+                        game.Game->game.GameState: setBoss(x,y, indexRoom)
+                        start.Main->game.Controller: controller = new Controller() << create >> (Gestion des touches)
+                        start.Main->game.Painter: painter = new Painter(game)
+                        start.Main->engine.GameEngineGraphical: engine = new GameEngineGraphical(game, painter, controller); << create >>
+                        start.Main->engine.GameEngineGraphical: run()
+                        loop !game.isFinished() #Sleep(100)
+                            engine.GameEngineGraphical->engine.GraphicalInterface: gui = new GraphicalInterface() << create >
+                            engine.GameEngineGraphical->engine.GameController: cmd = getCommand()
+                            note over game.Game #FFAAAA
+                                Details de la fonction evolve dans diagramme
+                                de séquence : sprint_2_evolve
+                            end note
+                            engine.GameEngineGraphical->game.Game: evolve(c)
+                            note over engine.GraphicalInterface #FFAAAA
+                                  paint() va s'occuper des JFrame et de tout l'affichage
+                                   en fonction de l'état du game.
+                            end note
+                            engine.GameEngineGraphical->engine.GraphicalInterface: paint()
+                        end
+
 @enduml
