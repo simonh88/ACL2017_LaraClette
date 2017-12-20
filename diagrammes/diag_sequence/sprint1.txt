@@ -1,0 +1,62 @@
+@startuml
+title Diagramme de séquence sprint 1
+actor Joueur
+participant start.Main << (C,#ADD1B2) >>
+participant game.Game << (C,#ADD1B2) >>
+participant game.GameSpace << (C,#ADD1B2) >>
+participant environement.Room << (C,#ADD1B2) >>
+participant game.GameState << (C,#ADD1B2) >>
+
+
+Joueur -> start.Main: Lancement
+autonumber
+activate start.Main
+    start.Main -> game.Game:   new Game() << create >>
+    activate game.Game
+        game.Game -> game.GameSpace: new GameSpace() << create >>
+            activate game.GameSpace
+            activate environement.Room
+                game.GameSpace -> game.GameSpace: rooms.add(new Room() << create >>)
+                game.GameSpace -> game.GameSpace: placeChest()
+        game.Game -> game.GameState: new GameState() << create >>
+            activate game.GameState
+                game.GameState -> game.GameState: hero = new Hero() << create >>
+                game.GameState -> game.GameState: state = Running
+        start.Main -> game.Game: run()
+        loop GameState.state == Running
+            game.Game-->Joueur: Affichage du plateau
+            game.Game-->Joueur: Quel déplacement ?
+            game.Game->game.Game: new Scanner() << create >>
+            Joueur-[#0000FF]->game.Game: key = KeyDown
+            game.Game->game.Game: switch(key)
+            note right
+            	Switch sur z, q, s, d selon direction voulue
+            end note
+            game.Game->game.Game: hero = game.GameState.getHero()
+            game.Game->game.GameSpace: isValidPosition(hero.x+1,hero.y)
+            game.GameSpace->environement.Room: isValidPosition(x,y)
+            environement.Room-[#red]-> game.GameSpace: True si pas mur false sinon
+            game.GameSpace-[#red]-> game.Game: True ou false
+            alt true
+                game.Game->game.Game: hero.setPosition(hero.x+1,hero.y)
+            else false
+                game.Game->game.Game: #DoNothing
+            end
+            game.Game->game.GameSpace: isChest(hero.x,hero.y)
+            game.GameSpace->environement.Room: hasChest(x,y)
+            environement.Room-[#red]-> game.GameSpace: True si chest false sinon
+            game.GameSpace-[#red]-> game.Game: True ou false
+            alt true
+                game.Game->game.GameState: setVictory()
+            else false
+                game.Game->game.Game: #DoNothing
+            end
+        end
+        game.Game-->Joueur: Victoire
+deactivate game.Game
+deactivate environement.Room
+deactivate game.GameSpace
+deactivate game.GameState
+deactivate start.Main
+
+@enduml

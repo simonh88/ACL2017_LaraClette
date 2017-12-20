@@ -1,0 +1,32 @@
+@startuml
+title Diagramme de séquence sprint 2
+actor Joueur
+participant start.Main << (C,#ADD1B2) >>
+participant game.Game << (C,#ADD1B2) >>
+participant game.Controller << (C,#ADD1B2) >>
+participant game.Painter << (C,#ADD1B2) >>
+participant game.GameSpace << (C,#ADD1B2) >>
+participant environement.Room << (C,#ADD1B2) >>
+participant game.GameState << (C,#ADD1B2) >>
+participant factory.TileFactory << (S,#ADD1B2) >>
+participant factory.SoundFactory << (S,#ADD1B2) >>
+
+Joueur -> start.Main: Lancement
+autonumber
+activate start.Main
+    start.Main->factory.TileFactory: getInstance()
+    start.Main->factory.SoundFactory: getInstance()
+    activate factory.TileFactory
+        factory.TileFactory->factory.TileFactory: new TileFactory << create >>
+    activate factory.SoundFactory
+        factory.SoundFactory->factory.SoundFactory: new SoundFactory << create >>
+    note over factory.TileFactory, factory.SoundFactory #FFAAAA
+          Chargement des images pour
+          la TileFactory
+          (resp. Sons pour SoundFactory)
+    end note
+    start.Main -> game.Game:   new Game() << create >>
+        activate game.Game
+            game.Game -> game.GameSpace: new GameSpace() << create >>
+                activate game.GameSpace
+@enduml
