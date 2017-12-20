@@ -93,7 +93,7 @@ public class Menu {
             case "Commands":
                 menuCmd = true;
                 break;
-            case "Left":
+            case "Exit":
                 System.exit(0);
                 break;
         }
