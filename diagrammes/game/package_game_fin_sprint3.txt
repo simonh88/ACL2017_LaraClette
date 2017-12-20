@@ -1,5 +1,5 @@
 @startuml
-title Package game à la fin du sprint 2
+title Package game à la fin du sprint 3
 
 interface KeyListener {
     + keyPressed(KeyEvent)
@@ -73,6 +73,7 @@ package game {
         - printLoss(Graphics2D crayon)
         - printVictory(Graphics2D crayon)
         - printGroundLoots(Graphics2D crayon)
+        - <color:blue>printPower(Graphics2D crayon)</color>
     }
     Painter ..> GamePainter
 
@@ -81,7 +82,19 @@ package game {
 
 
 
+    class Character {
+        <color:blue>+ void setPower(Power p)</color>
+        <color:blue>+ Power getPower()</color>
+    }
 
+
+    enum Power {
+        DOUBLEATTACK
+        DOUBLERANGE
+        CIRCLESWORD
+        ...
+    }
+    Character --"1" Power
 
 
 
@@ -157,19 +170,29 @@ package game {
     Game --"1" GameSpace
     Game --"1" GameState
     Game --"1" Menu
+    Game --"1" Data
     class Game {
         + void mooveMonsters() 
         + boolean isValidPosition(int x, int y) 
         + Room currentRoom() 
         + Hero getHero() 
-        + List<Monster> monsters() 
+        + List<Monster> monsters()
+        + <color:blue>evolve() //Add check power </color>
         - <color:blue>checkHeroBossSameRoom() </color>
-        - attackHero()
+        - <color:blue>generateMonsters() //Diff monsters</color>
+        - <color:blue>mooveMonsters() //New IA </color>
+        - <color:blue>attackHero() //+Application des power</color>
         - attackMonster()
         - changeRoom()
-        - heroUse()
+        - <color:blue>heroUse() //Use of power</color>
         - heroAttackObject()
         - void restart() 
+    }
+
+    class Data {
+        + <color:blue>void saveScore()</color>
+        + <color:blue>void loadScore()</color>
+
     }
 
     Game ..> engine.Game

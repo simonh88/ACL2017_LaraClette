@@ -69,7 +69,7 @@
 #### Séance finale
 
 * Ajouter un son pour la pièce du boss, attaque des monstres, clé qui tombe, ...
-* Améliorer l'IA des monstres
+* Améliorer l'IA des monstres 
 * Ajout de niveau de difficulté (facile, moyen, difficile)
 * Ajout d'un système de temps avec score
 * Améliorations pour le Héro dans les jars (attaque x2, HP x2, ...)
@@ -85,15 +85,4 @@
 * Je ne sais pas pourquoi il s'est produit :
   * javax.sound.sampled.LineUnavailableException: line with format PCM_SIGNED 44100.0 Hz, 16 bit, stereo, 4 bytes/frame, little-endian not supported.
 Impossible de charger res/sound/Background_Retro.wav
-
-##### Pathfinder des monstres
- * Leur ajouter le fait de contourner un obstacle ?
- 
-#### Reste à faire
- * Bruit attaque monstres 
- * Bruit spécial boss ?
- * Sprites boss
- * Faire pop la clé à la mort du boss
- * Ramasser la clé
- * Checker si on ouvre coffre qu'on ai la clé
 
