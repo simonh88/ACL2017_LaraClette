@@ -154,6 +154,9 @@ public class Game implements engine.Game {
             case ECHAP:
                 menu.setMenuCmd(false);
                 break;
+            case PAUSE:
+
+                break;
         }
 
         // Si le joeur est sur un bord il doit changer de map

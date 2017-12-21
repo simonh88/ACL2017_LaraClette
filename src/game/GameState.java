@@ -19,6 +19,7 @@ public class GameState {
     private static enum State {
         Menu,
         Running,
+        Pause,
         Victory,
         Loss
     };
@@ -86,16 +87,20 @@ public class GameState {
         return this.state == State.Menu;
     }
 
+    public boolean isPause(){
+        return this.state == State.Pause;
+    }
+
     public void setVictory(){
         if (!isVictory()){
-            SoundFactory.instance().playSound("res/sound/Victory.wav");
+            SoundFactory.instance().playVictory();
             this.state = State.Victory;
         }
     }
 
     public void setLoss(){
         if (!isLoss() ){
-            SoundFactory.instance().playSound("res/sound/Lose.wav");
+            SoundFactory.instance().playLose();
             this.state = State.Loss;
         }
     }

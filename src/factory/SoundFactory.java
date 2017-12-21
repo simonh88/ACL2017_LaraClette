@@ -16,6 +16,8 @@ public class SoundFactory {
     private Clip chestOpenning;
     private Clip monsterDeath;
     private Clip heroBossSameRoom;
+    private Clip victory;
+    private Clip loss;
 
     private SoundFactory(){
 
@@ -28,6 +30,29 @@ public class SoundFactory {
             background.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception ex){
             System.out.println("Impossible de charger res/sound/Background_Retro.wav");
+            System.exit(-1);
+        }
+
+        // victory
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/Victory.wav"));
+            victory = AudioSystem.getClip();
+            victory.open(audioInputStream);
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/Victory.wav");
+            System.exit(-1);
+        }
+
+
+        // loss
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/Lose.wav"));
+            loss = AudioSystem.getClip();
+            loss.open(audioInputStream);
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/Lose.wav");
             System.exit(-1);
         }
 
@@ -147,6 +172,14 @@ public class SoundFactory {
 
     public void playBackground(){
         background.start();
+    }
+
+    public void playVictory(){
+        victory.start();
+    }
+
+    public void playLose(){
+        loss.start();
     }
 
     public void stopBackground(){
