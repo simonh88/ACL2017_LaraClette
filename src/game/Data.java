@@ -71,8 +71,23 @@ public class Data {
         }
     }
 
-    public void getScore(){
+    public ArrayList<String> getScore(){
+        try {
+            ArrayList<String> scores = new ArrayList<>(10);
+            String thisLine;
+            BufferedReader br = new BufferedReader(new FileReader(pathToScore));
+            while ((thisLine = br.readLine()) != null) { // while loop begins here
+                scores.add(thisLine);
+            } // end while
 
+            br.close();
+            return scores;
+
+        } // end try
+        catch (IOException e) {
+            System.err.println("Error: " + e);
+        }
+        return null;
     }
 
 
