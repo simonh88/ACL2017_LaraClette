@@ -43,7 +43,7 @@ public class GameState {
         hero = new Character(x,y, currentRoom);
     }
     public void setBoss(int x, int y, int currentRoom){
-        boss = new Character(x,y, currentRoom);
+        boss = new Character(x,y, currentRoom, 1);
         boss.setHP(5);
         addMonster(boss);
 

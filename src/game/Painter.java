@@ -236,20 +236,29 @@ public class Painter implements GamePainter {
 
     private void printMonsters(Graphics2D crayon) {
         for (Character monster : game.monsters()) {
-            if(monster.getCurrentRoom() == game.indexCurrentRoom()) {
+            if(monster.getCurrentRoom() == game.indexCurrentRoom() && monster.getId()!=1) {
                 if (monster.isAlive()) {
 
                     crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(monster, TileFactory.MONSTER),
                             monster.getPosX() * Room.TILE_WIDTH,
                             monster.getPosY() * Room.TILE_HEIGHT, null);
 
-                    if (monster.getHP() > 1){
+                    if (monster.getHP() == 3){
+                        crayon.drawImage(TileFactory.instance().getHP2(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT, null);
+                        crayon.drawImage(TileFactory.instance().getHP1(),
+                                monster.getPosX() * Room.TILE_WIDTH,
+                                monster.getPosY() * Room.TILE_HEIGHT+25, null);
+                    }
+
+                    if (monster.getHP() == 2){
                         crayon.drawImage(TileFactory.instance().getHP2(),
                                 monster.getPosX() * Room.TILE_WIDTH,
                                 monster.getPosY() * Room.TILE_HEIGHT, null);
                     }
 
-                    else{
+                    if (monster.getHP() == 1){
                         crayon.drawImage(TileFactory.instance().getHP1(),
                                 monster.getPosX() * Room.TILE_WIDTH,
                                 monster.getPosY() * Room.TILE_HEIGHT, null);
