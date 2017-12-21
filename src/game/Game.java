@@ -611,4 +611,22 @@ public class Game implements engine.Game {
     public long getChronoInSec(){
         return (currentChrono - startChrono)/1000;
     }
+
+    public void setDifficulty(String menuDifficulty){
+        int difficulty;
+
+        if(menuDifficulty == "Medium") difficulty=2;
+        if(menuDifficulty == "Hard") difficulty=3;
+        else difficulty=1;
+
+        System.out.println("Difficulty" + difficulty);
+
+        getHero().setHP(getHero().getHP() / difficulty);
+
+        for(Character monster : monsters()){
+            if(monster.getId() != 1) monster.setHP(difficulty);
+        }
+
+
+    }
 }

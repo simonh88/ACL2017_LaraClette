@@ -121,6 +121,7 @@ public class Menu {
         switch (menu[indiceEnCours]){
             case "Play":
                 game.getGameState().setRunning();
+                game.setDifficulty(menuDifficulty);
                 break;
             case "Commands":
                 menuCmd = true;
