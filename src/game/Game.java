@@ -62,74 +62,86 @@ public class Game implements engine.Game {
     @Override
     public void evolve(Cmd commande) {
 
+
         /**
          * Si le chrono pas set on le lance
          */
-        if((startChrono == 0) && gameState.isRunning()) startChrono = System.currentTimeMillis();
-        if(gameState.isRunning()){
+        if (!gameState.isPause() && (startChrono == 0) && gameState.isRunning()) startChrono = System.currentTimeMillis();
+        if (!gameState.isPause() && gameState.isRunning()) {
             currentChrono = System.currentTimeMillis();
+
+            if (checkBossHeroSameRoom()) {
+                SoundFactory.instance().playHeroBossSameRoom();
+            }
         }
 
         Character hero = gameState.getHero();
 
         Room currentRoom = currentRoom();
+
+
         switch (commande) {
             case LEFT://Gauche
-                int nextX = hero.getPosX() - 1;
-                int nextY = hero.getPosY();
-                if (isValidPosition(nextX, nextY)) {
-                    hero.setPosX(hero.getPosX() - 1);
-                    hero.setPosY(hero.getPosY());
-                }
+                if (!gameState.isPause()) {
+                    int nextX = hero.getPosX() - 1;
+                    int nextY = hero.getPosY();
+                    if (isValidPosition(nextX, nextY)) {
+                        hero.setPosX(hero.getPosX() - 1);
+                        hero.setPosY(hero.getPosY());
+                    }
 
-                hero.setLastMove("Q");
+                    hero.setLastMove("Q");
+                }
 
                 break;
             case DOWN:
+                if (!gameState.isPause()){
+                    if (isValidPosition(hero.getPosX(), hero.getPosY() + 1)) {
+                        hero.setPosX(hero.getPosX());
+                        hero.setPosY(hero.getPosY() + 1);
+                    }
 
-                if (isValidPosition(hero.getPosX(), hero.getPosY() + 1)) {
-                    hero.setPosX(hero.getPosX());
-                    hero.setPosY(hero.getPosY() + 1);
+                    hero.setLastMove("S");
                 }
 
-                hero.setLastMove("S");
 
                 break;
             case RIGHT:
+                if (!gameState.isPause()) {
+                    if (isValidPosition(hero.getPosX() + 1, hero.getPosY())) {
+                        hero.setPosX(hero.getPosX() + 1);
+                        hero.setPosY(hero.getPosY());
+                    }
 
-                if (isValidPosition(hero.getPosX() + 1, hero.getPosY())) {
-                    hero.setPosX(hero.getPosX() + 1);
-                    hero.setPosY(hero.getPosY());
+                    hero.setLastMove("D");
                 }
-
-                hero.setLastMove("D");
-
                 break;
             case UP:
+                if (!gameState.isPause()) {
+                    if (isValidPosition(hero.getPosX(), hero.getPosY() - 1)) {
+                        hero.setPosX(hero.getPosX());
+                        hero.setPosY(hero.getPosY() - 1);
+                    }
 
-                if (isValidPosition(hero.getPosX(), hero.getPosY() - 1)) {
-                    hero.setPosX(hero.getPosX());
-                    hero.setPosY(hero.getPosY() - 1);
+                    hero.setLastMove("Z");
                 }
-
-                hero.setLastMove("Z");
-
                 break;
             case ACTION:
                 //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
-
-                Loot loot = heroUse();
-                handleActionLoot(loot);
+                if (!gameState.isPause()) {
+                    Loot loot = heroUse();
+                    handleActionLoot(loot);
+                }
                 break;
 
             case ATTACK:
-
-                if(!hero.isOnAttack()) {
-                    //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
-                    SoundFactory.instance().playAttackSword();
-                    attackHero();
+                if (!gameState.isPause()) {
+                    if (!hero.isOnAttack()) {
+                        //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                        SoundFactory.instance().playAttackSword();
+                        attackHero();
+                    }
                 }
-
                 break;
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
@@ -148,6 +160,9 @@ public class Game implements engine.Game {
             case ECHAP:
                 menu.setMenuCmd(false);
                 break;
+            case PAUSE:
+                gameState.setPause();
+                break;
         }
 
         // Si le joeur est sur un bord il doit changer de map
@@ -157,7 +172,7 @@ public class Game implements engine.Game {
 
         //Fait bouger tous les monstres aléatoirement d'une case toutes les 1sec
 
-        if (gameState.isRunning() && (System.currentTimeMillis() - timeSinceStart > deltaTime)) {
+        if (!gameState.isPause() && gameState.isRunning() && (System.currentTimeMillis() - timeSinceStart > deltaTime)) {
             attackMonster();
             mooveMonsters();
             timeSinceStart = System.currentTimeMillis();
@@ -176,6 +191,7 @@ public class Game implements engine.Game {
         if (System.currentTimeMillis() - timeSinceStartAttack > deltaTimeAttack) {
             hero.setOnAttack(false);
         }
+
     }
 
 
@@ -189,6 +205,10 @@ public class Game implements engine.Game {
         generateBoss();
         SoundFactory.instance().playBackground();
 
+    }
+
+    public boolean checkBossHeroSameRoom(){
+        return gameState.getBoss().getCurrentRoom() == indexCurrentRoom();
     }
 
     /**
@@ -271,7 +291,7 @@ public class Game implements engine.Game {
         }
 
 
-        gameState.setBoss(x, y, 0);
+        gameState.setBoss(x, y, 1);
 
     }
 
@@ -320,6 +340,7 @@ public class Game implements engine.Game {
 
                  //Placement de la clé à la mort du boss
                 if(monster.getHP() <= 0 && getBoss().equals(monster)){
+                    SoundFactory.instance().playKeyDropped();
                     currentRoom().placeGroundLoot(monster.getPosX(), monster.getPosY(), Loot.KEY);
                     // TODO A VOIR SI ON FAIT DROP UN COEUR OU NON
                     //currentRoom().placeGroundLoot(monster.getPosX(), monster.getPosY(), Loot.HEART);
@@ -351,11 +372,13 @@ public class Game implements engine.Game {
             if (monster.isAlive() && (indexCurrentRoom() == monster.getCurrentRoom())) {
                 //System.out.println(monster.getHP());
 
+
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
 
                 // MONSTRE A GAUCHE
                 if(distanceX == -1 && distanceY == 0){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("D");
                     monster.setOnAttack(true);
@@ -363,6 +386,7 @@ public class Game implements engine.Game {
 
                 // MONSTRE A DROITE
                 if(distanceX == 1 && distanceY == 0){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("Q");
                     monster.setOnAttack(true);
@@ -371,6 +395,7 @@ public class Game implements engine.Game {
 
                 // MONSTRE EN HAUT
                 if(distanceX == 0 && distanceY == -1){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("S");
                     monster.setOnAttack(true);
@@ -378,6 +403,7 @@ public class Game implements engine.Game {
 
                 // MONSTRE EN BAS
                 if(distanceX == 0 && distanceY == 1){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("Z");
                     monster.setOnAttack(true);

@@ -1,5 +1,6 @@
 package environement;
 
+import factory.SoundFactory;
 import utils.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -279,8 +280,13 @@ public class Room {
 
 
     private Loot heroUseChest(int posX, int posY) {
-        if (!hasChest(posX, posY)) return Loot.NONE;
-        return Loot.VICTORY;
+        if (!hasChest(posX, posY)) {
+            return Loot.NONE;
+        }else {
+            SoundFactory.instance().playChestOpenning();
+            return Loot.VICTORY;
+        }
+
     }
 
     /**

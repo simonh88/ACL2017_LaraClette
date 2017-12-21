@@ -11,6 +11,7 @@ public class GameState {
     private Character hero;
     private Character boss;
     private List<Character> lMonsters;
+    private boolean pause = false;
 
     public Character getBoss() {
         return boss;
@@ -86,19 +87,28 @@ public class GameState {
         return this.state == State.Menu;
     }
 
+    public boolean isPause(){
+        return this.pause == true;
+    }
+
+    public void setPause() {
+        this.pause = !this.pause;
+    }
+
     public void setVictory(){
         if (!isVictory()){
-            SoundFactory.instance().playSound("res/sound/Victory.wav");
+            SoundFactory.instance().playVictory();
             this.state = State.Victory;
         }
     }
 
     public void setLoss(){
         if (!isLoss() ){
-            SoundFactory.instance().playSound("res/sound/Lose.wav");
+            SoundFactory.instance().playLose();
             this.state = State.Loss;
         }
     }
+
 
     public void setMenu(){ this.state = State.Menu;}
 
