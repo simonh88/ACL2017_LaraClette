@@ -28,7 +28,6 @@ public class Painter implements GamePainter {
     public void draw(BufferedImage image) {
         Graphics2D crayon = (Graphics2D) image.getGraphics();
 
-
         if (game.getGameState().isMenu()){
         /* On dessine le menu */
             if (!game.getMenu().isMenuCmd())

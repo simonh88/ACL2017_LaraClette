@@ -11,6 +11,7 @@ public class GameState {
     private Character hero;
     private Character boss;
     private List<Character> lMonsters;
+    private boolean pause = false;
 
     public Character getBoss() {
         return boss;
@@ -19,7 +20,6 @@ public class GameState {
     private static enum State {
         Menu,
         Running,
-        Pause,
         Victory,
         Loss
     };
@@ -88,7 +88,11 @@ public class GameState {
     }
 
     public boolean isPause(){
-        return this.state == State.Pause;
+        return this.pause == true;
+    }
+
+    public void setPause() {
+        this.pause = !this.pause;
     }
 
     public void setVictory(){
@@ -104,6 +108,7 @@ public class GameState {
             this.state = State.Loss;
         }
     }
+
 
     public void setMenu(){ this.state = State.Menu;}
 
