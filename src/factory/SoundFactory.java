@@ -38,6 +38,8 @@ public class SoundFactory {
     public void playSound(String fichier){
         // fonctionne qu'avec .wav
         try {
+
+
             AudioInputStream audioInputStream =
                     AudioSystem.getAudioInputStream(new File(fichier));
             Clip clip = AudioSystem.getClip();
@@ -45,12 +47,13 @@ public class SoundFactory {
             clip.start();
         }catch (Exception ex){
             System.out.println("Impossible de charger " + fichier);
-            System.exit(-1);
+            //System.exit(-1);
         }
     }
 
 
     public void playAttackSword(){
+        attackSword.setFramePosition(0);
         attackSword.start();
     }
 
