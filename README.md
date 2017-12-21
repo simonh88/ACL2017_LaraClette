@@ -6,88 +6,35 @@
 * PETIT Guillaume
 * ZABLOT Guillaume
 
-## Brain storming
-* Jeu en 2D
-* Porte pour changer de map
-* But : trouver le trésor
-* Monstres (surtout autour du coffre)
-* Perso armé d'une épée
-* Perso a des points de vie
-* Pièges (lave par exemple)
-* Touche pour fouiller et trouver des objets (bonus: pdv, boost arme, minimap, malus: monstre) cachés (jarre)
-* Boss ?
-* Sauvegarde
-* Plusieurs niveaux
-* Score / temps
-* Gestion déplacement par case, plus tard par pixel ?
+## Le Menu
 
-## Backlog
-* 1 Version texte : une carte avec coffre (pas aléatoire), un perso qui peut se déplacer case par case.
-* 2 Première version graphique basique. Génération aléatoire map ?
-* 3 Deuxième version graphique : ajout élem sur map non texturés (+piège)
-* 4 Ajout des sprites + anim ?
-* 5 Monstres + armes + combat + pdv
-* 6 Fouiller + niveaux + sauvegarde + score
- 
+Vous arrivez d'abord dans un menu.
 
-## Backlog détaillé
+Vous pouvez naviguer dedans en utilisant les fleches direcctionnelles de votre clavier.
 
-### Sprint 1
-
-#### Séance 1
-
-* Un plateau de taille fixe avec mur et obstacle [GP]
-* Un perso qui se déplace case par case (il ne peut pas sortir du plateau) [AC + SH]
-* Un coffre à une position aléatoire [GZ]
-* Détection de la victoire (touche action pour ramasser le coffre) [GZ]
-
-#### Suite du sprint 1
-
-* Intégration du moteur graphique [GP + SH]
-* Menus, hp, visuel [GZ]
-* Fond map, sprite perso, sprite coffre [AC]
-* Ajout de monstre qui se déplace vers le héro [SH]
-
-### Sprint 2
-
-#### Séance 2
-
-* Un niveau avec plusieur map fixe à parcourir pour trouver le trésor [SH + GP]
-* Le perso peut changer de maps [SH + GP]
-* Ajouter un menu [GZ]
-* Le monstre peut attaquer animation + hero [AC]
-* Ajout de sons [GZ]
-
-#### Suite du sprint 2
-
-* Génération d'ensemble de map aléatoire [GP]
-* Génération aléatoire décore [GP]
-* Génération coffre, monstres, boss [SH]
-* sprites [AC]
-* Menus, fin de partie [GZ]
-* Loots, jar [GP]
-* Boss, Key, Coffre [SH]
-* Attaques [AC]
+- Jouer : Permet de lancer le jeu
+- Commands : Permet de voir les commandes de jeu
+- Scores : Permet de voir les scores
+- Reset Scores : Permet de reinitialiser les scores
+- Easy/Medium/Hard : Permet de Choisir sa difficulté avec "Entrée". La difficultée séléctionnée sera en norie. De base c'est en facile
+- Exit : Permet de quitter le jeu
 
 
-### Sprint 3
+## Comment Jouer ?
 
-#### Séance finale
+Vous pouvez vous déplacer à l'aide des touches Z Q S D.
+Appuyez sur "Espace" pour pouvoir frapper face à vous.
+Appuyez sur "E", afin d'effectuer une action (rammaser un bonus, ouvrir un coffre, ...)
 
-* Ajouter un son pour la pièce du boss, attaque des monstres, clé qui tombe, ... [GZ] OK
-* Améliorer l'IA des monstres [AC] SUSPEND
-* Ajout de niveau de difficulté (facile, moyen, difficile) [GZ DANS MENU AC dans game] OK
-* Ajout d'un système de temps avec score [SH] OK
-* Améliorations pour le Héro dans les jars (attaque x2, HP x2, ...)
-  avec durée (peut-être) [SH] OK
-* Ajout des pouvoirs [SH] OK
-* Pouvoir mettre le jeu en pause [GZ] OK
-* Afficher les 5-10 derniers scores dans le menu OK
-* Correction bug son attaque qui veut pas se charger une fois dans la salle
-  du boss + son victoire (restart bug) [GZ] OK
-* Ralentir Héro quand peu de vie [A VOIR SI ON A LE TEMPS]
 
-#####Bugs :
+## But du jeu
 
-PATHFINDER FULL BUG MERCI ANTOINE
+Le but du jeu est d'ouvrir le coffre secret.
+Pour ce faire, il faut d'abord tuer le boss du niveau (araignée) et y rammasser la clé.
 
+Afin de vousaider, il est possible de casser des jarres avec la touche de frappe "Espace".
+Vous pourrez trouvez des bonus tels que :
+- Coeur : Vous redonne un point de vie
+- DR : DoubleRange :Permet de frapper à deux cases de portée
+- CA : CircleAttack : Permet de frapper tout autour de soi
+- DA : DoubleAttack : Permet de frapper deux fois plus fort
