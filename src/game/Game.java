@@ -158,6 +158,7 @@ public class Game implements engine.Game {
                 break;
             case ECHAP:
                 menu.setMenuCmd(false);
+                menu.setMenuScore(false);
                 break;
             case PAUSE:
                 gameState.setPause();
