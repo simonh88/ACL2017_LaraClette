@@ -296,7 +296,7 @@ public class Game implements engine.Game {
         }
 
 
-        gameState.setBoss(x, y, 1);
+        gameState.setBoss(x, y, 0);
 
     }
 

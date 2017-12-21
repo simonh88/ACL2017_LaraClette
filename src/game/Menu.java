@@ -129,7 +129,9 @@ public class Menu {
 
 
     public void printScores(Graphics2D crayon){
-
+        // update scores
+        Data d = new Data();
+        scores = d.getScore();
 
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
         crayon.setFont(new Font(" Serif ", Font.BOLD, 16));
@@ -144,7 +146,6 @@ public class Menu {
 
 
     public void reinitScores(){
-        System.out.println("Scores cleared");
         scores.clear();
         Data d = new Data();
         d.reiniScores();
