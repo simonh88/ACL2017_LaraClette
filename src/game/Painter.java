@@ -416,7 +416,7 @@ public class Painter implements GamePainter {
         crayon.drawString("You win !", getWidth()/3 + 40, getHeight()/2 + 70);
         if((game.getPlaceFinale() <11)){
             crayon.drawString(game.getChronoInSec()+ " secondes", getWidth()/3 + 40, getHeight()/2 + 150);
-            crayon.drawString("Place dans le classement : "+game.getPlaceFinale(), getWidth()/3 + 40, getHeight()/2 + 190);
+            crayon.drawString(game.getPlaceFinale()+" place", getWidth()/3 + 40, getHeight()/2 + 190);
 
         }else{
             crayon.drawString(game.getChronoInSec()+ " secondes", getWidth()/3 + 40, getHeight()/2 + 150);
