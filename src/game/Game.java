@@ -64,8 +64,10 @@ public class Game implements engine.Game {
         /**
          * Si le chrono pas set on le lance
          */
-        if(startChrono == 0) startChrono = System.currentTimeMillis();
-        if(gameState.isRunning()) currentChrono = System.currentTimeMillis();
+        if((startChrono == 0) && gameState.isRunning()) startChrono = System.currentTimeMillis();
+        if(gameState.isRunning()){
+            currentChrono = System.currentTimeMillis();
+        }
 
         Character hero = gameState.getHero();
 
@@ -177,6 +179,8 @@ public class Game implements engine.Game {
 
 
     private void restart() {
+        startChrono = 0;
+        currentChrono = 0;
         gameState = new GameState();
         gameSpace = new GameSpace();
         gameSpace.generateMonsters(gameState);

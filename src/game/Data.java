@@ -27,15 +27,13 @@ public class Data {
         try {
             BufferedReader br = new BufferedReader(new FileReader(pathToScore));
             while ((thisLine = br.readLine()) != null) { // while loop begins here
-                System.out.println("Ligne : "+thisLine);
+                //System.out.println("Ligne : "+thisLine);
                 if(!thisLine.equals("")) {
-
                     if ((Integer.parseInt(thisLine) > chrono) && !add) {
-                        System.out.println("Add score :" +chrono);
+                        //System.out.println("Add score :" +chrono);
                         scores.add((int) chrono);
                         add = true;
                     }
-
                     scores.add(Integer.parseInt(thisLine));
                 }
             } // end while
@@ -54,7 +52,7 @@ public class Data {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathToScore)));
             for(int i = 0; i<scores.size() && i<topScore; i++){
-                System.out.println("Pos i :"+ i + " score : "+scores.get(i));
+                //System.out.println("Pos i :"+ i + " score : "+scores.get(i));
                 bw.write(""+scores.get(i));
                 bw.newLine();
             }
