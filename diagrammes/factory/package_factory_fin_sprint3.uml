@@ -1,5 +1,5 @@
 @startuml
-title Package factory à la fin du sprint 2
+title Package factory à la fin du sprint 3
 
 package factory {
     
@@ -55,16 +55,24 @@ package factory {
 
     class SoundFactory << (S,#FF7700) Singleton >>  {
         - Clip background
+        - Clip attackSword
+        - Clip attackMonster
+        - Clip keyDropped
+        - Clip chestOpenning
+        - Clip monsterDeath
+        - Clip heroBossSameRoom
+        - Clip victory
+        - Clip loss
         
-        - <color:blue> Clip key </color>
-        - <color:blue> Clip attackHero </color>
-        - <color:blue> Clip attackMonster </color>
-        
-        + <color:red> playSound(String filename) </color>
-        + <color:blue> playKeyDropped() </color>
-        + <color:blue> playAttackMonster() </color>
-        + <color:blue> playAttackHero() </color>
+        + playAttackSword()
+        + playAttackMonster()
+        + playKeyDropped()
+        + playChestOpenning()
+        + playMonsterDeath()
+        + playHeroBossSameRoom()
         + playBackground()
+        + playVictory()
+        + playLose()
         + stopBackground()
 
         + {static} SoundFactory instance()

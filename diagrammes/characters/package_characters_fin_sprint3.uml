@@ -1,0 +1,28 @@
+@startuml
+
+title Package characters à la fin du sprint 3
+
+package characters {
+    
+    class Character {
+        - int hp
+        - int posX
+        - int posY
+        - int currentRoom
+        - boolean onAttack
+        - String lastMove
+        - int id
+        - boolean key
+        - Power power
+    }
+
+    enum Power {
+        DOUBLEATTACK
+        DOUBLERANGE
+        CIRCLEATTACK
+    }
+
+    Character --"1" Power
+}
+
+@enduml

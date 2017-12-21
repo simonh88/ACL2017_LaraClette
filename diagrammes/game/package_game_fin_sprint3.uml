@@ -85,15 +85,14 @@ package game {
 
 
     class Character {
-        <color:blue>+ void setPower(Power p)</color>
-        <color:blue>+ Power getPower()</color>
+
     }
 
 
     enum Power {
         DOUBLEATTACK
         DOUBLERANGE
-        CIRCLESWORD
+        CIRCLESATTACK
         ...
     }
     Character --"1" Power
@@ -179,21 +178,25 @@ package game {
         + Room currentRoom() 
         + Hero getHero() 
         + List<Monster> monsters()
-        + <color:blue>evolve() //Add check power </color>
-        - <color:blue>checkHeroBossSameRoom() </color>
-        - <color:blue>generateMonsters() //Diff monsters</color>
-        - <color:blue>mooveMonsters() //New IA </color>
-        - <color:blue>attackHero() //+Application des power</color>
+        + evolve()
+        + long getChronoInSec()
+        + setDifficulty(String difficulty)
+        - boolean checkBossHeroSameRoom()
+        - generateMonsters()
+        - mooveMonsters()
+        - attackHero()
         - attackMonster()
         - changeRoom()
-        - <color:blue>heroUse() //Use of power</color>
+        - Loot heroUse()
         - heroAttackObject()
         - void restart() 
     }
 
     class Data {
-        + <color:blue>void saveScore()</color>
-        + <color:blue>void loadScore()</color>
+        + int setScore(long chrono)
+        + ArrayList<String> getScore()
+        + reiniScores()
+        - void saveScore(ArrayList<Integer> scores)
 
     }
 
@@ -214,8 +217,8 @@ package game {
     class Menu {
         + printMenu(Graphics2D crayon)
         + printCommandes(Graphics2D crayon)
-        + <color:blue>printMenuPause(Graphics2D crayon) </color>
-        + <color:blue>action() </color>
+        + printScores(Graphics2D crayon)
+        + action()
     }
 }
 @enduml
