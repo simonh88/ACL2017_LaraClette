@@ -26,12 +26,19 @@ public class Game implements engine.Game {
     private long timeSinceStart;
     private long timeSinceStartAttack;
 
+    //Gestion Chronomètre
+    private long startChrono;
+    private long currentChrono;
+
+
     private boolean isFinished;
 
     public Game() {
         this.gameSpace = new GameSpace();
         this.gameState = new GameState();
         this.menu = new Menu(this);
+        startChrono = 0;
+        currentChrono = 0;
         gameSpace.generateMonsters(gameState);
         isFinished = false;
         generateHero();
@@ -53,6 +60,12 @@ public class Game implements engine.Game {
      */
     @Override
     public void evolve(Cmd commande) {
+
+        /**
+         * Si le chrono pas set on le lance
+         */
+        if(startChrono == 0) startChrono = System.currentTimeMillis();
+        if(gameState.isRunning()) currentChrono = System.currentTimeMillis();
 
         Character hero = gameState.getHero();
 
@@ -252,7 +265,7 @@ public class Game implements engine.Game {
         }
 
 
-        gameState.setBoss(x, y, indexRoom);
+        gameState.setBoss(x, y, 0);
 
     }
 
@@ -481,6 +494,8 @@ public class Game implements engine.Game {
             case VICTORY:
                 SoundFactory.instance().stopBackground();
                 gameState.setVictory();
+                Data d = new Data();
+                d.setScore(getChronoInSec());
                 break;
             case HEART:
                 // Ajouter une vie
@@ -545,5 +560,9 @@ public class Game implements engine.Game {
                 currentRoom.heroAttack(posX + 1, posY);
                 break;
         }
+    }
+
+    public long getChronoInSec(){
+        return (currentChrono - startChrono)/1000;
     }
 }

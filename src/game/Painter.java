@@ -62,6 +62,9 @@ public class Painter implements GamePainter {
             /* On dessine les infos du hero */
             printInfo(crayon);
 
+            /* On dessine le chrono */
+            printChrono(crayon);
+
             crayon.setColor(Color.WHITE);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,15));
             crayon.drawString("Commands : ", 10, 565);
@@ -313,6 +316,13 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.BLACK);
         crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
         crayon.drawString(strHP, lastCaseX * Room.TILE_WIDTH + 12, lastCaseY * Room.TILE_HEIGHT + 30);
+    }
+
+    private void printChrono(Graphics2D crayon){
+        long timePassed = game.getChronoInSec();
+        crayon.setColor(Color.BLACK);
+        crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
+        crayon.drawString("Chrono : "+timePassed+" s", 2 * Room.TILE_WIDTH + 12, (Room.SIZE-1) * Room.TILE_HEIGHT + 30);
     }
 
 
