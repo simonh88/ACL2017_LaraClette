@@ -73,7 +73,9 @@ package game {
         - printLoss(Graphics2D crayon)
         - printVictory(Graphics2D crayon)
         - printGroundLoots(Graphics2D crayon)
-        - <color:blue>printPower(Graphics2D crayon)</color>
+        - printChrono(Graphics2D crayon)
+        - printPower(Graphics2D crayon)
+        - printPause(Graphics2D crayon)
     }
     Painter ..> GamePainter
 
