@@ -20,24 +20,32 @@ public class Data {
      * @return la place du score
      */
     public int setScore(long chrono){
-        //System.out.println("Chrono : "+ chrono);
+        System.out.println("Chrono : "+ chrono);
         String thisLine;
         ArrayList<Integer> scores = new ArrayList<>(11);
         boolean add = false;
+        int place = 1;
+        int i = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(pathToScore));
             while ((thisLine = br.readLine()) != null) { // while loop begins here
-                //System.out.println("Ligne : "+thisLine);
+                i ++;
+                System.out.println("Ligne : "+thisLine+" i : "+i);
                 if(!thisLine.equals("")) {
                     if ((Integer.parseInt(thisLine) > chrono) && !add) {
                         //System.out.println("Add score :" +chrono);
                         scores.add((int) chrono);
+                        place = i;
                         add = true;
+
                     }
                     scores.add(Integer.parseInt(thisLine));
                 }
             } // end while
-            if((scores.size() == 0) || (scores.size()<topScore) && !add ) scores.add((int)chrono);
+            if((scores.size() == 0) || (scores.size()<topScore) && !add ){
+                scores.add((int)chrono);
+                place = scores.size();
+            }
             br.close();
             saveScore(scores);
 
@@ -45,8 +53,9 @@ public class Data {
         catch (IOException e) {
             System.err.println("Error: " + e);
         }
-        return 0;
+        return place;
     }
+
 
     private void saveScore(ArrayList<Integer> scores){
         try {
@@ -62,7 +71,7 @@ public class Data {
         }
     }
 
-    public void loadScore(){
+    public void getScore(){
 
     }
 
