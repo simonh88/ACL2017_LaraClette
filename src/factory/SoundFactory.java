@@ -10,6 +10,22 @@ public class SoundFactory {
     private static SoundFactory instance;
 
     private Clip background;
+    private Clip attackSword;
+
+    private SoundFactory(){
+
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/Sword_Swing.wav"));
+            attackSword = AudioSystem.getClip();
+            attackSword.open(audioInputStream);
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/Sword_Swing.wav");
+            System.exit(-1);
+        }
+
+
+    }
 
     public static SoundFactory instance() {
         if (instance == null) {
@@ -29,8 +45,13 @@ public class SoundFactory {
             clip.start();
         }catch (Exception ex){
             System.out.println("Impossible de charger " + fichier);
-            //System.exit(-1);
+            System.exit(-1);
         }
+    }
+
+
+    public void playAttackSword(){
+        attackSword.start();
     }
 
 
