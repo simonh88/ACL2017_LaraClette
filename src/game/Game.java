@@ -67,11 +67,18 @@ public class Game implements engine.Game {
         if((startChrono == 0) && gameState.isRunning()) startChrono = System.currentTimeMillis();
         if(gameState.isRunning()){
             currentChrono = System.currentTimeMillis();
+
+            if (checkBossHeroSameRoom()){
+                SoundFactory.instance().playHeroBossSameRoom();
+            }
         }
 
         Character hero = gameState.getHero();
 
         Room currentRoom = currentRoom();
+
+
+
         switch (commande) {
             case LEFT://Gauche
                 int nextX = hero.getPosX() - 1;
@@ -190,6 +197,10 @@ public class Game implements engine.Game {
 
     }
 
+    public boolean checkBossHeroSameRoom(){
+        return gameState.getBoss().getCurrentRoom() == indexCurrentRoom();
+    }
+
     /**
      * Fait bouger tous les monstres vers le héro.
      */
@@ -270,7 +281,7 @@ public class Game implements engine.Game {
         }
 
 
-        gameState.setBoss(x, y, 0);
+        gameState.setBoss(x, y, 1);
 
     }
 
@@ -319,6 +330,7 @@ public class Game implements engine.Game {
 
                  //Placement de la clé à la mort du boss
                 if(monster.getHP() <= 0 && getBoss().equals(monster)){
+                    SoundFactory.instance().playKeyDropped();
                     currentRoom().placeGroundLoot(monster.getPosX(), monster.getPosY(), Loot.KEY);
                     // TODO A VOIR SI ON FAIT DROP UN COEUR OU NON
                     //currentRoom().placeGroundLoot(monster.getPosX(), monster.getPosY(), Loot.HEART);

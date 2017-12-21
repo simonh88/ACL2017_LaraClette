@@ -12,9 +12,14 @@ public class SoundFactory {
     private Clip background;
     private Clip attackSword;
     private Clip attackMonster;
+    private Clip keyDropped;
+    private Clip chestOpenning;
+    private Clip monsterDeath;
+    private Clip heroBossSameRoom;
 
     private SoundFactory(){
 
+        // attack hero
         try {
             AudioInputStream audioInputStream =
                     AudioSystem.getAudioInputStream(new File("res/sound/Sword_Swing.wav"));
@@ -26,7 +31,7 @@ public class SoundFactory {
         }
 
 
-
+        // attack monstres
         try {
             AudioInputStream audioInputStream =
                     AudioSystem.getAudioInputStream(new File("res/sound/Zombie_attack.wav"));
@@ -35,6 +40,55 @@ public class SoundFactory {
 
         } catch (Exception ex){
             System.out.println("Impossible de charger res/sound/Zombie_attack.wav");
+            System.exit(-1);
+        }
+
+
+        // key dropped
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/Key_Dropped.wav"));
+            keyDropped = AudioSystem.getClip();
+            keyDropped.open(audioInputStream);
+
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/Key_Dropped.wav");
+            System.exit(-1);
+        }
+
+        // chest openning
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/Chest_Openning.wav"));
+            chestOpenning = AudioSystem.getClip();
+            chestOpenning.open(audioInputStream);
+
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/Chest_Openning.wav");
+            System.exit(-1);
+        }
+
+        // monster death
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/Monster_Death.wav"));
+            monsterDeath = AudioSystem.getClip();
+            monsterDeath.open(audioInputStream);
+
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/Monster_Death.wav");
+            System.exit(-1);
+        }
+
+        // hero boss same room
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/HeroBossSameRoom.wav"));
+            heroBossSameRoom = AudioSystem.getClip();
+            heroBossSameRoom.open(audioInputStream);
+
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/HeroBossSameRoom.wav");
             System.exit(-1);
         }
 
@@ -76,6 +130,24 @@ public class SoundFactory {
         attackMonster.start();
     }
 
+    public void playKeyDropped(){
+        keyDropped.setFramePosition(0);
+        keyDropped.start();
+    }
+
+    public void playChestOpenning(){
+        chestOpenning.setFramePosition(0);
+        chestOpenning.start();
+    }
+
+    public void playMonsterDeath(){
+        monsterDeath.setFramePosition(0);
+        monsterDeath.start();
+    }
+
+    public void playHeroBossSameRoom(){
+        heroBossSameRoom.start();
+    }
 
     public void playBackground(){
         try {
