@@ -299,7 +299,23 @@ public class Room {
         if (!hasVase(posX, posY)) return;
 
         // Sinon, on place un coeur au sol et et met le vase dans l'état used
-        placeGroundLoot(posX, posY, Loot.HEART);
+        //TIRAGE AU SORT DU GROUNDLOOT posé
+        switch ((int)System.currentTimeMillis()%4){
+            case 1:
+                placeGroundLoot(posX, posY, Loot.DOUBLERANGE);
+                break;
+            case 2:
+                placeGroundLoot(posX, posY, Loot.DOUBLEATTACK);
+                break;
+            case 3:
+                placeGroundLoot(posX, posY, Loot.CIRCLEATTACK);
+                break;
+            case 0:
+                placeGroundLoot(posX, posY, Loot.HEART);
+                break;
+        }
+        System.out.println();
+
         room[posY][posX].setUsed();
     }
 
@@ -318,7 +334,6 @@ public class Room {
             loot = heroUseChest(posX, posY);
             if (loot != Loot.NONE) return loot;
         }
-
 
 
         return loot;

@@ -11,11 +11,23 @@ public class Character {
     private String lastMove;
     private int id;
     private boolean key;
+    private Power power;
 
 
     public Character(int x, int y, int currentRoom){
         this.id = 0;
-        this.hp = 10;
+        this.hp = 12;
+        this.posX = x;
+        this.posY = y;
+        this.currentRoom = currentRoom;
+        this.onAttack = false;
+        this.lastMove = "S";
+        key = false;
+    }
+
+    public Character(int x, int y, int currentRoom, int id){
+        this.id = id;
+        this.hp = 12;
         this.posX = x;
         this.posY = y;
         this.currentRoom = currentRoom;
@@ -92,5 +104,18 @@ public class Character {
 
     public boolean hasKey() {
         return key;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setPower(Power p ){
+        power = p;
+
+    }
+
+    public Power getPower(){
+        return power;
     }
 }
