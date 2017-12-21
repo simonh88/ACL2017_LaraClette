@@ -1,0 +1,102 @@
+@startuml
+
+title Package environnement à la fin du sprint 3
+
+package environnement {
+    
+    interface Decor {
+        DecorType getType()
+        boolean isTraversable()
+        boolean hasBeenUsed()
+        void setUsed()
+    }
+    
+    class Bridge
+    Bridge ..> Decor
+
+    class Chest
+    Chest ..> Decor
+    
+    class Grass {
+        - GroundType groundType
+    }
+
+    Grass ..> Decor
+    
+    class Tree
+    Tree ..> Decor
+    
+    class Vase
+    Vase ..> Decor
+    
+    class Wall
+    Wall ..> Decor
+    
+    class Water
+    Water ..> Decor
+
+
+
+    class GroundLoot {
+        - Position position
+        - Loot loot
+    }
+
+
+    enum Loot {
+        VICTORY
+        HEART
+        KEY
+        DOUBLEATTACK
+        DOUBLERANGE
+        CIRCLEATTACK
+        NONE
+    }
+
+    GroundLoot -- Loot
+
+    enum GroundType {
+        SIMPLE1
+        SIMPLE2
+        SIMPLE3
+        GRASS
+        DIRT
+        FULL_DIRT
+        BONES1
+        BONES2
+    }
+
+    Grass -- GroundType
+    Room -- GroundType
+    Room -- Loot
+    Room --"*" GroundLoot
+    Room --"SIZE x SIZE" Decor
+
+    Room --"4" Room
+
+    class Room {
+        + {static} int TILE_HEIGHT = 50;
+        + {static} int TILE_WIDTH = 50;
+        + {static} int SIZE = 11;
+
+        + placeChestInRoom()
+        + boolean isValidPosition(int x, int y)
+        + Decor get(int i, int j)
+        
+        + boolean hasNeighborRoom(Direction direction)
+        + setNeighborRoom(Direction dir, int index)
+        + int getNeighborRoomIndex(Direction direction)
+        
+        + List<GroundLoot> getGroundLoots()
+        + placeGroundLoot(int posX, int posY, Loot loot)
+        
+        + heroAttack(int posX, int posY)
+        + Loot heroUse(int posX, int posY, boolean hasKey)
+
+        - placeObjectOrNot(DecorType decorType)
+        - placeRiverOrNot()
+    }
+
+}
+
+@enduml

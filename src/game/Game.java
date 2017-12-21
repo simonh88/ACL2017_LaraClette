@@ -212,7 +212,7 @@ public class Game implements engine.Game {
 
     }
 
-    public boolean checkBossHeroSameRoom(){
+    private boolean checkBossHeroSameRoom(){
         return gameState.getBoss().getCurrentRoom() == indexCurrentRoom();
     }
 
