@@ -1,6 +1,7 @@
 package game;
 
 import characters.Character;
+import characters.Power;
 import engine.GamePainter;
 import environement.Grass;
 import environement.GroundLoot;
@@ -64,6 +65,9 @@ public class Painter implements GamePainter {
 
             /* On dessine le chrono */
             printChrono(crayon);
+
+            /* On dessine le pouvoir */
+            printPower(crayon);
 
             crayon.setColor(Color.WHITE);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,15));
@@ -266,28 +270,63 @@ public class Painter implements GamePainter {
     private void printAttack(Graphics2D crayon, Character c, int cas){
         if(c.isOnAttack()){
 
-            if(c.getLastMove() == "S"){
-                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
-                        c.getPosX() * Room.TILE_WIDTH,
-                        (c.getPosY()+1) * Room.TILE_HEIGHT, null);
-            }
+            if(c.getPower() == Power.CIRCLEATTACK) {
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            c.getPosX() * Room.TILE_WIDTH,
+                            (c.getPosY() + 1) * Room.TILE_HEIGHT, null);
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            c.getPosX() * Room.TILE_WIDTH,
+                            (c.getPosY() - 1) * Room.TILE_HEIGHT, null);
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            (c.getPosX() - 1) * Room.TILE_WIDTH,
+                            c.getPosY() * Room.TILE_HEIGHT, null);
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            (c.getPosX() + 1) * Room.TILE_WIDTH,
+                            c.getPosY() * Room.TILE_HEIGHT, null);
+            }else{
+                if (c.getLastMove() == "S") {
+                    if(c.getPower() == Power.DOUBLERANGE){
+                        crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                                c.getPosX() * Room.TILE_WIDTH,
+                                (c.getPosY() + 2) * Room.TILE_HEIGHT, null);
+                    }
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            c.getPosX() * Room.TILE_WIDTH,
+                            (c.getPosY() + 1) * Room.TILE_HEIGHT, null);
+                }
 
-            if(c.getLastMove() == "Z"){
-                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
-                        c.getPosX() * Room.TILE_WIDTH,
-                        (c.getPosY()-1) * Room.TILE_HEIGHT, null);
-            }
+                if (c.getLastMove() == "Z") {
+                    if(c.getPower() == Power.DOUBLERANGE){
+                        crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                                c.getPosX() * Room.TILE_WIDTH,
+                                (c.getPosY() - 2) * Room.TILE_HEIGHT, null);
+                    }
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            c.getPosX() * Room.TILE_WIDTH,
+                            (c.getPosY() - 1) * Room.TILE_HEIGHT, null);
+                }
 
-            if(c.getLastMove() == "Q"){
-                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
-                        (c.getPosX()-1) * Room.TILE_WIDTH,
-                        c.getPosY() * Room.TILE_HEIGHT, null);
-            }
+                if (c.getLastMove() == "Q") {
+                    if(c.getPower() == Power.DOUBLERANGE){
+                        crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                                (c.getPosX() - 2) * Room.TILE_WIDTH,
+                                c.getPosY() * Room.TILE_HEIGHT, null);
+                    }
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            (c.getPosX() - 1) * Room.TILE_WIDTH,
+                            c.getPosY() * Room.TILE_HEIGHT, null);
+                }
 
-            if(c.getLastMove() == "D"){
-                crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
-                        (c.getPosX()+1) * Room.TILE_WIDTH,
-                        c.getPosY() * Room.TILE_HEIGHT, null);
+                if (c.getLastMove() == "D") {
+                    if(c.getPower() == Power.DOUBLERANGE){
+                        crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                                (c.getPosX() + 2) * Room.TILE_WIDTH,
+                                c.getPosY() * Room.TILE_HEIGHT, null);
+                    }
+                    crayon.drawImage(TileFactory.instance().getSpriteCharacterByOrientation(c, cas),
+                            (c.getPosX() + 1) * Room.TILE_WIDTH,
+                            c.getPosY() * Room.TILE_HEIGHT, null);
+                }
             }
         }
     }
@@ -325,6 +364,15 @@ public class Painter implements GamePainter {
         crayon.drawString("Chrono : "+timePassed+" s", 2 * Room.TILE_WIDTH + 12, (Room.SIZE-1) * Room.TILE_HEIGHT + 30);
     }
 
+    private void printPower(Graphics2D crayon){
+        Character hero = game.getHero();
+        if(hero.getPower()!=null) {
+            crayon.setColor(Color.GREEN);
+            crayon.setFont(new Font(" TimesRoman ", Font.BOLD, 18));
+            crayon.drawString(hero.getPower().toString(), (Room.SIZE - 5) * Room.TILE_WIDTH , (Room.SIZE - 1) * Room.TILE_HEIGHT + 30);
+        }
+    }
+
 
     private void printLoss(Graphics2D crayon){
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
@@ -349,7 +397,8 @@ public class Painter implements GamePainter {
 
     private void printGroundLoots(Graphics2D crayon) {
         Room currentRoom = game.currentRoom();
-
+        crayon.setFont(new Font(" Serif ",Font.BOLD,18));
+        crayon.setColor(Color.black);
         for (GroundLoot loot : currentRoom.getGroundLoots()) {
             switch (loot.getType()) {
                 case HEART:
@@ -359,6 +408,17 @@ public class Painter implements GamePainter {
                 case KEY:
                     crayon.drawImage(TileFactory.instance().getKey(),
                             loot.getPosition().getX() * Room.TILE_WIDTH, loot.getPosition().getY() * Room.TILE_HEIGHT, null);
+                    break;
+                case DOUBLERANGE:
+                    crayon.drawString("DR", loot.getPosition().getX() * Room.TILE_WIDTH + 20, loot.getPosition().getY() * Room.TILE_HEIGHT +20);
+                    //crayon.drawString(TileFactory.instance().getKey(),
+                            //loot.getPosition().getX() * Room.TILE_WIDTH, loot.getPosition().getY() * Room.TILE_HEIGHT, null);
+                    break;
+                case CIRCLEATTACK:
+                    crayon.drawString("CA", loot.getPosition().getX() * Room.TILE_WIDTH, loot.getPosition().getY() * Room.TILE_HEIGHT);
+                    break;
+                case DOUBLEATTACK:
+                    crayon.drawString("DA", loot.getPosition().getX() * Room.TILE_WIDTH, loot.getPosition().getY() * Room.TILE_HEIGHT);
                     break;
             }
         }

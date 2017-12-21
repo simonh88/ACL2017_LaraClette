@@ -2,6 +2,7 @@ package game;
 
 
 import characters.Character;
+import characters.Power;
 import engine.Cmd;
 import environement.DecorType;
 import environement.Loot;
@@ -508,6 +509,15 @@ public class Game implements engine.Game {
                 break;
             case KEY:
                 hero.setKey();
+                break;
+            case DOUBLERANGE:
+                hero.setPower(Power.DOUBLERANGE);
+                break;
+            case CIRCLEATTACK:
+                hero.setPower(Power.CIRCLEATTACK);
+                break;
+            case DOUBLEATTACK:
+                hero.setPower(Power.DOUBLEATTACK);
                 break;
 
         }
