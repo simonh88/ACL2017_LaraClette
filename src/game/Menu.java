@@ -10,6 +10,7 @@ public class Menu {
     private int indiceEnCours;
     private Game game;
     private boolean menuCmd;
+    private String menuDifficulty = "Easy";
 
     private float alpha = 1f;
     private float diff = -0.02f;
@@ -53,6 +54,7 @@ public class Menu {
 
 
         for (int i = 0; i < menu.length; i++){
+
             if (i == indiceEnCours){
                 Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
                 crayon.setComposite(c);
@@ -83,7 +85,18 @@ public class Menu {
 
 
 
+            if ( menuDifficulty == menu[i]){
+                crayon.setColor(Color.BLACK);
+                if (i == 3) { // print medium
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 180 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 30);
+                } else {
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 180 + i * 60, Painter.WIN_HEIGHT / 2 + 3 * 30);
+                }
+            }
+
         }
+
+
 
     }
 
@@ -112,6 +125,15 @@ public class Menu {
             case "Commands":
                 menuCmd = true;
                 break;
+            case "Easy":
+                menuDifficulty = "Easy";
+                break;
+            case "Medium":
+                menuDifficulty = "Medium";
+                break;
+            case "Hard":
+                menuDifficulty = "Hard";
+                break;
             case "Exit":
                 System.exit(0);
                 break;
@@ -125,5 +147,13 @@ public class Menu {
 
     public void setMenuCmd(boolean menuCmd) {
         this.menuCmd = menuCmd;
+    }
+
+    public String getMenuDifficulty() {
+        return menuDifficulty;
+    }
+
+    public void setMenuDifficulty(String menuDifficulty) {
+        this.menuDifficulty = menuDifficulty;
     }
 }
