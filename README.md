@@ -74,23 +74,20 @@
 
 #### Séance finale
 
-* Ajouter un son pour la pièce du boss, attaque des monstres, clé qui tombe, ... [GZ]
-* Améliorer l'IA des monstres [AC]
-* Ajout de niveau de difficulté (facile, moyen, difficile) [GZ DANS MENU AC dans game] 
-* Ajout d'un système de temps avec score [SH]
+* Ajouter un son pour la pièce du boss, attaque des monstres, clé qui tombe, ... [GZ] OK
+* Améliorer l'IA des monstres [AC] SUSPEND
+* Ajout de niveau de difficulté (facile, moyen, difficile) [GZ DANS MENU AC dans game] OK
+* Ajout d'un système de temps avec score [SH] OK
 * Améliorations pour le Héro dans les jars (attaque x2, HP x2, ...)
-  avec durée (peut-être) [SH]
-* Ajout des pouvoirs [SH]
-* Pouvoir mettre le jeu en pause [GZ]
-* Afficher les 5-10 derniers scores dans le menu
+  avec durée (peut-être) [SH] OK
+* Ajout des pouvoirs [SH] OK
+* Pouvoir mettre le jeu en pause [GZ] OK, mais Texte a écrire
+* Afficher les 5-10 derniers scores dans le menu EN COURS
 * Correction bug son attaque qui veut pas se charger une fois dans la salle
-  du boss + son victoire (restart bug) [GZ]
+  du boss + son victoire (restart bug) [GZ] OK
 * Ralentir Héro quand peu de vie [A VOIR SI ON A LE TEMPS]
 
 #####Bugs :
 
-* Je ne sais pas pourquoi il s'est produit :
-  * javax.sound.sampled.LineUnavailableException: line with format PCM_SIGNED 44100.0 Hz, 16 bit, stereo, 4 bytes/frame, little-endian not supported.
-Impossible de charger res/sound/Background_Retro.wav
-    [GZ => A résoudre]
+PATHFINDER FULL BUG MERCI ANTOINE
 

@@ -159,6 +159,7 @@ public class Game implements engine.Game {
                 break;
             case ECHAP:
                 menu.setMenuCmd(false);
+                menu.setMenuScore(false);
                 break;
             case PAUSE:
                 gameState.setPause();
@@ -299,8 +300,11 @@ public class Game implements engine.Game {
         Character hero = gameState.getHero();
         hero.setOnAttack(true);
         timeSinceStartAttack = System.currentTimeMillis();
-
         int forceAttack = 1;
+        //Attaque x2
+        if(hero.getPower() == Power.DOUBLEATTACK){
+            forceAttack *=2;
+        }
 
         // Attaque vers pots
         heroAttackObject();
@@ -314,26 +318,28 @@ public class Game implements engine.Game {
 
                 //System.out.println("\n\ndistanceX  : " + distanceX);
                 //System.out.println("distanceY  : " + distanceY);
-
-
+                int range = 1;
+                if(hero.getPower() == Power.DOUBLERANGE){
+                    range = 2;
+                }
                 // MONSTRE A GAUCHE
-                if(distanceX == -1 && distanceY == 0 && hero.getLastMove()=="Q"){
+                if(distanceX == -range && distanceY == 0 && (hero.getLastMove()=="Q" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
                 // MONSTRE A DROITE
-                if(distanceX == 1 && distanceY == 0 && hero.getLastMove()=="D"){
+                if(distanceX == range && distanceY == 0 && (hero.getLastMove()=="D" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
 
                 // MONSTRE EN HAUT
-                if(distanceX == 0 && distanceY == -1 && hero.getLastMove()=="Z"){
+                if(distanceX == 0 && distanceY == -range && (hero.getLastMove()=="Z" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
                 // MONSTRE EN BAS
-                if(distanceX == 0 && distanceY == 1 && hero.getLastMove()=="S"){
+                if(distanceX == 0 && distanceY == range && (hero.getLastMove()=="S" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 

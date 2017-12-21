@@ -20,6 +20,7 @@ public class Painter implements GamePainter {
     public static final int WIN_HEIGHT = Room.SIZE * Room.TILE_HEIGHT;
 
     private Game game;
+    private boolean read = false;
 
     public Painter(Game game) {
         this.game = game;
@@ -35,6 +36,15 @@ public class Painter implements GamePainter {
                 game.getMenu().printMenu(crayon);
             else
                 game.getMenu().printCommandes(crayon);
+
+
+            if (!game.getMenu().isMenuScore()) {
+                game.getMenu().printMenu(crayon);
+            } else {
+                if (!read)
+                game.getMenu().printScores(crayon);
+                read = true;
+            }
         } else if (game.getGameState().isRunning()) {
             /* On dessine les mur et le sol */
             printWalls(crayon);
@@ -67,6 +77,9 @@ public class Painter implements GamePainter {
 
             /* On dessine le pouvoir */
             printPower(crayon);
+
+            /* print de la pause */
+            if(game.getGameState().isPause()) printPause(crayon);
 
             crayon.setColor(Color.WHITE);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,15));
@@ -370,6 +383,12 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.BLACK);
         crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
         crayon.drawString("Chrono : "+timePassed+" s", 2 * Room.TILE_WIDTH + 12, (Room.SIZE-1) * Room.TILE_HEIGHT + 30);
+    }
+
+    private void printPause(Graphics2D crayon){
+        crayon.setColor(Color.GREEN);
+        crayon.setFont(new Font(" TimesRoman ",Font.BOLD,22));
+        crayon.drawString("JEU EN PAUSE"+ "        P pour reprendre",  Room.TILE_WIDTH + 25,  Room.TILE_HEIGHT -25);
     }
 
     private void printPower(Graphics2D crayon){
