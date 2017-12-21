@@ -505,7 +505,7 @@ public class Game implements engine.Game {
                 SoundFactory.instance().stopBackground();
                 gameState.setVictory();
                 Data d = new Data();
-                d.setScore(getChronoInSec());
+                System.out.println("Votre place : "+d.setScore(getChronoInSec()));
                 break;
             case HEART:
                 // Ajouter une vie
