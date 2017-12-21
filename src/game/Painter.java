@@ -414,13 +414,13 @@ public class Painter implements GamePainter {
 
         crayon.drawString("Press R to restart", getWidth()/3 + 13, getHeight()/2 + 90);
         crayon.drawString("You win !", getWidth()/3 + 40, getHeight()/2 + 50);
-        if((game.getPlaceFinale() <11)){
+        if((game.getPlaceFinale() !=-1)){
             crayon.drawString(game.getChronoInSec()+ " secondes", getWidth()/3 + 40, getHeight()/2 + 130);
             crayon.drawString(game.getPlaceFinale()+" e place", getWidth()/3 + 40, getHeight()/2 + 170);
 
         }else{
             crayon.drawString(game.getChronoInSec()+ " secondes", getWidth()/3 + 40, getHeight()/2 + 130);
-            crayon.drawString("Pas dans TOP 10", getWidth()/3 + 40, getHeight()/2 + 170);
+            crayon.drawString("No TOP 10 ):", getWidth()/3 + 40, getHeight()/2 + 170);
 
         }
     }

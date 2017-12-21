@@ -24,7 +24,7 @@ public class Data {
         String thisLine;
         ArrayList<Integer> scores = new ArrayList<>(11);
         boolean add = false;
-        int place = 1;
+        int place = -1;
         int i = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(pathToScore));
