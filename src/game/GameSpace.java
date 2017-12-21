@@ -27,7 +27,7 @@ public class GameSpace {
 
     private void placeChest() {
         int choosedRoom = (int) (Math.random() * ((rooms.size() - 1) + 1));
-        rooms.get(choosedRoom).placeChestInRoom();
+        rooms.get(0).placeChestInRoom();
     }
 
     int sizeRooms(){

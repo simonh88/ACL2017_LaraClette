@@ -77,10 +77,8 @@ public class Data {
             String thisLine;
             BufferedReader br = new BufferedReader(new FileReader(pathToScore));
 
-            int i = 0;
-            while ((thisLine = br.readLine()) != null && i < 10) { // while loop begins here
+            while ((thisLine = br.readLine()) != null) { // while loop begins here
                 scores.add(thisLine);
-                i++;
             } // end while
 
             br.close();
