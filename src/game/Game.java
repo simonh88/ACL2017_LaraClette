@@ -122,7 +122,8 @@ public class Game implements engine.Game {
             case ATTACK:
 
                 if(!hero.isOnAttack()) {
-                    SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                    //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                    SoundFactory.instance().playAttackSword();
                     attackHero();
                 }
 

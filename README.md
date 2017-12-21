@@ -82,6 +82,7 @@
   avec durée (peut-être) [SH]
 * Ajout des pouvoirs [SH]
 * Pouvoir mettre le jeu en pause [GZ]
+* Afficher les 5-10 derniers scores dans le menu
 * Correction bug son attaque qui veut pas se charger une fois dans la salle
   du boss + son victoire (restart bug) [GZ]
 * Ralentir Héro quand peu de vie [A VOIR SI ON A LE TEMPS]
