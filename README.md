@@ -81,8 +81,8 @@
 * Améliorations pour le Héro dans les jars (attaque x2, HP x2, ...)
   avec durée (peut-être) [SH] OK
 * Ajout des pouvoirs [SH] OK
-* Pouvoir mettre le jeu en pause [GZ] OK, mais Texte a écrire
-* Afficher les 5-10 derniers scores dans le menu EN COURS
+* Pouvoir mettre le jeu en pause [GZ] OK
+* Afficher les 5-10 derniers scores dans le menu OK
 * Correction bug son attaque qui veut pas se charger une fois dans la salle
   du boss + son victoire (restart bug) [GZ] OK
 * Ralentir Héro quand peu de vie [A VOIR SI ON A LE TEMPS]

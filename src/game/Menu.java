@@ -11,12 +11,13 @@ import java.util.List;
 
 public class Menu {
 
-    private String[] menu = {"Play","Commands", "Scores", "Easy", "Medium", "Hard", "Exit"};
+    private String[] menu = {"Play","Commands", "Scores", "Reset Scores", "Easy", "Medium", "Hard", "Exit"};
     private int indiceEnCours;
     private Game game;
     private boolean menuCmd;
     private boolean menuScore;
     private String menuDifficulty = "Easy";
+    private ArrayList<String> scores;
 
     private float alpha = 1f;
     private float diff = -0.02f;
@@ -26,6 +27,8 @@ public class Menu {
         this.game = game;
         this.menuCmd = false;
         this.menuScore = false;
+        Data d = new Data();
+        scores = d.getScore();
     }
 
     public void setIndiceVersBas(){
@@ -78,14 +81,14 @@ public class Menu {
                 crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 50, Painter.WIN_HEIGHT / 2 + 10 + i * 35);
             }else if ((i == menu.length - 1)) { // print exit
                 crayon.setFont(new Font(" Serif ", Font.PLAIN, 25)); // restore font
-                crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 50, Painter.WIN_HEIGHT / 2 + i * 28);
+                crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 50, Painter.WIN_HEIGHT / 2 + i * 25);
             } else {
                 crayon.setFont(new Font(" Serif ", Font.PLAIN, 18)); // modify font
 
-                if (i == 4) { // print medium
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 245 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 40);
+                if (i == 5) { // print medium
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 48);
                 } else { // print easy hard
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 240 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 40);
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 48);
                 }
 
             }
@@ -94,10 +97,10 @@ public class Menu {
 
             if ( menuDifficulty == menu[i]){
                 crayon.setColor(Color.BLACK);
-                if (i == 4) { // print medium
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 245 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 40);
+                if (i == 5) { // print medium
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 48);
                 } else {
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 240 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 40);
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 48);
                 }
             }
 
@@ -127,13 +130,24 @@ public class Menu {
 
     public void printScores(Graphics2D crayon){
 
-        System.out.println("hello");
+
+        crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
+        crayon.setFont(new Font(" Serif ", Font.BOLD, 16));
+        crayon.setColor(new Color(102, 51, 0));
 
 
+        for (int i = 0; i < scores.size(); i++) {
+            crayon.drawString((i+1) + ". " + scores.get(i)+ "s", Painter.WIN_WIDTH / 3 + 40, Painter.WIN_HEIGHT / 2 + i * 20);
+        }
+
+    }
 
 
-
-
+    public void reinitScores(){
+        System.out.println("Scores cleared");
+        scores.clear();
+        Data d = new Data();
+        d.reiniScores();
     }
 
 
@@ -148,6 +162,9 @@ public class Menu {
                 break;
             case "Scores":
                 menuScore = true;
+                break;
+            case "Reset Scores":
+                reinitScores();
                 break;
             case "Easy":
                 menuDifficulty = "Easy";

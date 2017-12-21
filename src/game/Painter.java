@@ -20,7 +20,6 @@ public class Painter implements GamePainter {
     public static final int WIN_HEIGHT = Room.SIZE * Room.TILE_HEIGHT;
 
     private Game game;
-    private boolean read = false;
 
     public Painter(Game game) {
         this.game = game;
@@ -32,19 +31,14 @@ public class Painter implements GamePainter {
 
         if (game.getGameState().isMenu()){
         /* On dessine le menu */
-            if (!game.getMenu().isMenuCmd())
+            if (!game.getMenu().isMenuCmd() && !game.getMenu().isMenuScore()) {
                 game.getMenu().printMenu(crayon);
-            else
+            } else if (game.getMenu().isMenuCmd() && !game.getMenu().isMenuScore()) {
                 game.getMenu().printCommandes(crayon);
-
-
-            if (!game.getMenu().isMenuScore()) {
-                game.getMenu().printMenu(crayon);
-            } else {
-                if (!read)
+            } else if (game.getMenu().isMenuScore() && !game.getMenu().isMenuCmd()){
                 game.getMenu().printScores(crayon);
-                read = true;
             }
+
         } else if (game.getGameState().isRunning()) {
             /* On dessine les mur et le sol */
             printWalls(crayon);

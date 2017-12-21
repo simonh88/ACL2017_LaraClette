@@ -158,8 +158,12 @@ public class Game implements engine.Game {
                 menu.setIndiceVersBas();
                 break;
             case ECHAP:
-                menu.setMenuCmd(false);
-                menu.setMenuScore(false);
+                if (menu.isMenuCmd()){
+                    menu.setMenuCmd(false);
+                } else if (menu.isMenuScore()){
+                    menu.setMenuScore(false);
+                }
+
                 break;
             case PAUSE:
                 gameState.setPause();
