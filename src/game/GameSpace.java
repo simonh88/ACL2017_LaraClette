@@ -176,7 +176,7 @@ public class GameSpace {
         for (Room room : rooms) {
 
             // On itère aléatoirement entre 0 et 8 fois
-            for (int i = 0; i < Math.abs(rand.nextInt()) % (8); i++) {
+            for (int i = 0; i < 1; i++) {
 
                 x = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;
                 y = Math.abs(rand.nextInt()) % (Room.SIZE - 2) + 1;

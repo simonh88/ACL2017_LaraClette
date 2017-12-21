@@ -182,42 +182,13 @@ public class Game implements engine.Game {
         for (Character monster : monsters()) {
 
             if (monster.isAlive() && (monster.getCurrentRoom() == indexCurrentRoom())) {
-                //System.out.println(" m : "+ monster.getCurrentRoom() + " h : " + indexCurrentRoom());
-                //System.out.println("Monster : " + monster.getPosX() + "," + monster.getPosY());
-                //System.out.println("Hero : " + h.getPosX() + "," + h.getPosY());
 
 
-                if (monster.getPosX() > h.getPosX()) {
-                    // DROITE
-                    if (isValidPosition(monster.getPosX() - 1, monster.getPosY())) {
-                        monster.setPosX(monster.getPosX() - 1);
-                        monster.setLastMove("Q");
-                    }
-                }
+                AlgoRecherche algo = new AlgoRecherche();
 
-                if (monster.getPosX() < h.getPosX()) {
-                    // GAUCHE
-                    if (isValidPosition(monster.getPosX() + 1, monster.getPosY())) {
-                        monster.setPosX(monster.getPosX() + 1);
-                        monster.setLastMove("D");
-                    }
-                }
+                String mvmt = algo.rechercheChemin(h, monster, currentRoom());
 
-                if (monster.getPosY() > h.getPosY()) {
-                    // BAS
-                    if (isValidPosition(monster.getPosX(), monster.getPosY() - 1)) {
-                        monster.setPosY(monster.getPosY() - 1);
-                        monster.setLastMove("Z");
-                    }
-                }
-
-                if (monster.getPosY() < h.getPosY()) {
-                    // HAUT
-                    if (isValidPosition(monster.getPosX(), monster.getPosY() + 1)) {
-                        monster.setPosY(monster.getPosY() + 1);
-                        monster.setLastMove("S");
-                    }
-                }
+                monster.setDeplacement(mvmt);
 
             }
 

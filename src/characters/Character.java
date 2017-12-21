@@ -93,4 +93,26 @@ public class Character {
     public boolean hasKey() {
         return key;
     }
+
+    public void setDeplacement(String mvmt){
+
+
+        if(mvmt == "Z"){
+            this.posY = this.posY - 1;
+            this.lastMove = mvmt;
+        }
+        if(mvmt == "S"){
+            this.posY = this.posY + 1;
+            this.lastMove = mvmt;
+        }
+        if(mvmt == "Q"){
+            this.posX = this.posX - 1;
+            this.lastMove = mvmt;
+        }
+        if(mvmt == "D"){
+            this.posX = this.posX + 1;
+            this.lastMove = mvmt;
+        }
+
+    }
 }
