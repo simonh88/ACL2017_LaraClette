@@ -4,5 +4,9 @@ public enum Loot {
     VICTORY,
     HEART,
     KEY,
-    NONE
+    DOUBLEATTACK,
+    DOUBLERANGE,
+    CIRCLEATTACK,
+    NONE,
+
 }

@@ -106,7 +106,7 @@ public class Menu {
 
     public void printCommandes(Graphics2D crayon){
         //String[] cmd = {"LEFT: q | RIGHT: d | UP: z | DOWN: s", "ACTION: e | ATTACK: spacebar", "Return with ESC"};
-        String[] cmd = {"LEFT: q",  "RIGHT: d", "UP: z", "DOWN: s", "ACTION: e", "ATTACK: spacebar", "RETURN : esc"};
+        String[] cmd = {"LEFT: q",  "RIGHT: d", "UP: z", "DOWN: s", "ACTION: e", "ATTACK: spacebar", "RETURN : esc","PAUSE: p"};
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
         crayon.setFont(new Font(" Serif ",Font.BOLD,16));
         crayon.setColor(new Color(102, 51, 0));

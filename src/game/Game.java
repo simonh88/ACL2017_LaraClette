@@ -2,6 +2,7 @@ package game;
 
 
 import characters.Character;
+import characters.Power;
 import engine.Cmd;
 import environement.DecorType;
 import environement.Loot;
@@ -61,14 +62,15 @@ public class Game implements engine.Game {
     @Override
     public void evolve(Cmd commande) {
 
+
         /**
          * Si le chrono pas set on le lance
          */
-        if((startChrono == 0) && gameState.isRunning()) startChrono = System.currentTimeMillis();
-        if(gameState.isRunning()){
+        if (!gameState.isPause() && (startChrono == 0) && gameState.isRunning()) startChrono = System.currentTimeMillis();
+        if (!gameState.isPause() && gameState.isRunning()) {
             currentChrono = System.currentTimeMillis();
 
-            if (checkBossHeroSameRoom()){
+            if (checkBossHeroSameRoom()) {
                 SoundFactory.instance().playHeroBossSameRoom();
             }
         }
@@ -78,64 +80,68 @@ public class Game implements engine.Game {
         Room currentRoom = currentRoom();
 
 
-
         switch (commande) {
             case LEFT://Gauche
-                int nextX = hero.getPosX() - 1;
-                int nextY = hero.getPosY();
-                if (isValidPosition(nextX, nextY)) {
-                    hero.setPosX(hero.getPosX() - 1);
-                    hero.setPosY(hero.getPosY());
-                }
+                if (!gameState.isPause()) {
+                    int nextX = hero.getPosX() - 1;
+                    int nextY = hero.getPosY();
+                    if (isValidPosition(nextX, nextY)) {
+                        hero.setPosX(hero.getPosX() - 1);
+                        hero.setPosY(hero.getPosY());
+                    }
 
-                hero.setLastMove("Q");
+                    hero.setLastMove("Q");
+                }
 
                 break;
             case DOWN:
+                if (!gameState.isPause()){
+                    if (isValidPosition(hero.getPosX(), hero.getPosY() + 1)) {
+                        hero.setPosX(hero.getPosX());
+                        hero.setPosY(hero.getPosY() + 1);
+                    }
 
-                if (isValidPosition(hero.getPosX(), hero.getPosY() + 1)) {
-                    hero.setPosX(hero.getPosX());
-                    hero.setPosY(hero.getPosY() + 1);
+                    hero.setLastMove("S");
                 }
 
-                hero.setLastMove("S");
 
                 break;
             case RIGHT:
+                if (!gameState.isPause()) {
+                    if (isValidPosition(hero.getPosX() + 1, hero.getPosY())) {
+                        hero.setPosX(hero.getPosX() + 1);
+                        hero.setPosY(hero.getPosY());
+                    }
 
-                if (isValidPosition(hero.getPosX() + 1, hero.getPosY())) {
-                    hero.setPosX(hero.getPosX() + 1);
-                    hero.setPosY(hero.getPosY());
+                    hero.setLastMove("D");
                 }
-
-                hero.setLastMove("D");
-
                 break;
             case UP:
+                if (!gameState.isPause()) {
+                    if (isValidPosition(hero.getPosX(), hero.getPosY() - 1)) {
+                        hero.setPosX(hero.getPosX());
+                        hero.setPosY(hero.getPosY() - 1);
+                    }
 
-                if (isValidPosition(hero.getPosX(), hero.getPosY() - 1)) {
-                    hero.setPosX(hero.getPosX());
-                    hero.setPosY(hero.getPosY() - 1);
+                    hero.setLastMove("Z");
                 }
-
-                hero.setLastMove("Z");
-
                 break;
             case ACTION:
                 //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
-
-                Loot loot = heroUse();
-                handleActionLoot(loot);
+                if (!gameState.isPause()) {
+                    Loot loot = heroUse();
+                    handleActionLoot(loot);
+                }
                 break;
 
             case ATTACK:
-
-                if(!hero.isOnAttack()) {
-                    //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
-                    SoundFactory.instance().playAttackSword();
-                    attackHero();
+                if (!gameState.isPause()) {
+                    if (!hero.isOnAttack()) {
+                        //SoundFactory.instance().playSound("res/sound/Sword_Swing.wav");
+                        SoundFactory.instance().playAttackSword();
+                        attackHero();
+                    }
                 }
-
                 break;
             case RESTART:
                 if (gameState.isVictory() || gameState.isLoss()) {
@@ -155,7 +161,7 @@ public class Game implements engine.Game {
                 menu.setMenuCmd(false);
                 break;
             case PAUSE:
-
+                gameState.setPause();
                 break;
         }
 
@@ -166,7 +172,7 @@ public class Game implements engine.Game {
 
         //Fait bouger tous les monstres aléatoirement d'une case toutes les 1sec
 
-        if (gameState.isRunning() && (System.currentTimeMillis() - timeSinceStart > deltaTime)) {
+        if (!gameState.isPause() && gameState.isRunning() && (System.currentTimeMillis() - timeSinceStart > deltaTime)) {
             attackMonster();
             mooveMonsters();
             timeSinceStart = System.currentTimeMillis();
@@ -185,6 +191,7 @@ public class Game implements engine.Game {
         if (System.currentTimeMillis() - timeSinceStartAttack > deltaTimeAttack) {
             hero.setOnAttack(false);
         }
+
     }
 
 
@@ -528,6 +535,15 @@ public class Game implements engine.Game {
                 break;
             case KEY:
                 hero.setKey();
+                break;
+            case DOUBLERANGE:
+                hero.setPower(Power.DOUBLERANGE);
+                break;
+            case CIRCLEATTACK:
+                hero.setPower(Power.CIRCLEATTACK);
+                break;
+            case DOUBLEATTACK:
+                hero.setPower(Power.DOUBLEATTACK);
                 break;
 
         }

@@ -11,6 +11,7 @@ public class Character {
     private String lastMove;
     private int id;
     private boolean key;
+    private Power power;
 
 
     public Character(int x, int y, int currentRoom){
@@ -107,5 +108,14 @@ public class Character {
 
     public int getId() {
         return id;
+    }
+
+    public void setPower(Power p ){
+        power = p;
+
+    }
+
+    public Power getPower(){
+        return power;
     }
 }
