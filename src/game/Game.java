@@ -350,11 +350,13 @@ public class Game implements engine.Game {
             if (monster.isAlive() && (indexCurrentRoom() == monster.getCurrentRoom())) {
                 //System.out.println(monster.getHP());
 
+
                 int distanceX = monster.getPosX() - hero.getPosX();
                 int distanceY = monster.getPosY() - hero.getPosY();
 
                 // MONSTRE A GAUCHE
                 if(distanceX == -1 && distanceY == 0){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("D");
                     monster.setOnAttack(true);
@@ -362,6 +364,7 @@ public class Game implements engine.Game {
 
                 // MONSTRE A DROITE
                 if(distanceX == 1 && distanceY == 0){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("Q");
                     monster.setOnAttack(true);
@@ -370,6 +373,7 @@ public class Game implements engine.Game {
 
                 // MONSTRE EN HAUT
                 if(distanceX == 0 && distanceY == -1){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("S");
                     monster.setOnAttack(true);
@@ -377,6 +381,7 @@ public class Game implements engine.Game {
 
                 // MONSTRE EN BAS
                 if(distanceX == 0 && distanceY == 1){
+                    SoundFactory.instance().playAttackMonster();
                     hero.setHP(hero.getHP() - forceAttack);
                     monster.setLastMove("Z");
                     monster.setOnAttack(true);

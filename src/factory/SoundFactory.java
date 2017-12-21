@@ -11,6 +11,7 @@ public class SoundFactory {
 
     private Clip background;
     private Clip attackSword;
+    private Clip attackMonster;
 
     private SoundFactory(){
 
@@ -21,6 +22,19 @@ public class SoundFactory {
             attackSword.open(audioInputStream);
         } catch (Exception ex){
             System.out.println("Impossible de charger res/sound/Sword_Swing.wav");
+            System.exit(-1);
+        }
+
+
+
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("res/sound/Zombie_attack.wav"));
+            attackMonster = AudioSystem.getClip();
+            attackMonster.open(audioInputStream);
+
+        } catch (Exception ex){
+            System.out.println("Impossible de charger res/sound/Zombie_attack.wav");
             System.exit(-1);
         }
 
@@ -55,6 +69,11 @@ public class SoundFactory {
     public void playAttackSword(){
         attackSword.setFramePosition(0);
         attackSword.start();
+    }
+
+    public void playAttackMonster(){
+        attackMonster.setFramePosition(0);
+        attackMonster.start();
     }
 
 
