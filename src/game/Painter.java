@@ -68,6 +68,9 @@ public class Painter implements GamePainter {
             /* On dessine le pouvoir */
             printPower(crayon);
 
+            /* print de la pause */
+            if(game.getGameState().isPause()) printPause(crayon);
+
             crayon.setColor(Color.WHITE);
             crayon.setFont(new Font(" TimesRoman ",Font.BOLD,15));
             crayon.drawString("Commands : ", 10, 565);
@@ -370,6 +373,12 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.BLACK);
         crayon.setFont(new Font(" TimesRoman ",Font.BOLD,18));
         crayon.drawString("Chrono : "+timePassed+" s", 2 * Room.TILE_WIDTH + 12, (Room.SIZE-1) * Room.TILE_HEIGHT + 30);
+    }
+
+    private void printPause(Graphics2D crayon){
+        crayon.setColor(Color.GREEN);
+        crayon.setFont(new Font(" TimesRoman ",Font.BOLD,22));
+        crayon.drawString("JEU EN PAUSE"+ "        P pour reprendre",  Room.TILE_WIDTH + 25,  Room.TILE_HEIGHT -25);
     }
 
     private void printPower(Graphics2D crayon){
