@@ -31,6 +31,8 @@ public class Game implements engine.Game {
     private long startChrono;
     private long currentChrono;
 
+    private int placeFinale;
+
 
     private boolean isFinished;
 
@@ -296,7 +298,9 @@ public class Game implements engine.Game {
         }
 
 
-        gameState.setBoss(x, y, 1);
+
+        gameState.setBoss(x, y, indexRoom);
+
 
     }
 
@@ -327,23 +331,26 @@ public class Game implements engine.Game {
                     range = 2;
                 }
                 // MONSTRE A GAUCHE
-                if(distanceX == -range && distanceY == 0 && (hero.getLastMove()=="Q" || hero.getPower() == Power.CIRCLEATTACK)){
+                if(((distanceX == -range || distanceX == -1) && distanceY == 0) &&
+                        (hero.getLastMove()=="Q" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
                 // MONSTRE A DROITE
-                if(distanceX == range && distanceY == 0 && (hero.getLastMove()=="D" || hero.getPower() == Power.CIRCLEATTACK)){
+                if(((distanceX == range || distanceX == 1)&& distanceY == 0) && (hero.getLastMove()=="D" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
 
                 // MONSTRE EN HAUT
-                if(distanceX == 0 && distanceY == -range && (hero.getLastMove()=="Z" || hero.getPower() == Power.CIRCLEATTACK)){
+                if((distanceX == 0  && (distanceY == -range || distanceY == -1) )
+                        && (hero.getLastMove()=="Z" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
                 // MONSTRE EN BAS
-                if(distanceX == 0 && distanceY == range && (hero.getLastMove()=="S" || hero.getPower() == Power.CIRCLEATTACK)){
+                if((distanceX == 0 && (distanceY == range || distanceY == 1) )
+                        && (hero.getLastMove()=="S" || hero.getPower() == Power.CIRCLEATTACK)){
                     monster.setHP(monster.getHP() - forceAttack);
                 }
 
@@ -537,7 +544,8 @@ public class Game implements engine.Game {
                 SoundFactory.instance().stopBackground();
                 gameState.setVictory();
                 Data d = new Data();
-                System.out.println("Votre place : "+d.setScore(getChronoInSec()));
+                placeFinale = d.setScore(getChronoInSec());
+                //System.out.println("Votre place : "+d.setScore(getChronoInSec()));
                 break;
             case HEART:
                 // Ajouter une vie
@@ -633,5 +641,9 @@ public class Game implements engine.Game {
         }
 
 
+    }
+
+    public int getPlaceFinale(){
+        return placeFinale;
     }
 }

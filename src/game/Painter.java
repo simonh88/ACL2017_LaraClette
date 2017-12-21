@@ -414,6 +414,15 @@ public class Painter implements GamePainter {
 
         crayon.drawString("Press R to restart", getWidth()/3 + 13, getHeight()/2 + 110);
         crayon.drawString("You win !", getWidth()/3 + 40, getHeight()/2 + 70);
+        if((game.getPlaceFinale() <11)){
+            crayon.drawString(game.getChronoInSec()+ " secondes", getWidth()/3 + 40, getHeight()/2 + 150);
+            crayon.drawString(game.getPlaceFinale()+" place", getWidth()/3 + 40, getHeight()/2 + 190);
+
+        }else{
+            crayon.drawString(game.getChronoInSec()+ " secondes", getWidth()/3 + 40, getHeight()/2 + 150);
+            crayon.drawString("Pas dans TOP 10", getWidth()/3 + 40, getHeight()/2 + 190);
+
+        }
     }
 
     private void printGroundLoots(Graphics2D crayon) {

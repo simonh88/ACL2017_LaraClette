@@ -78,17 +78,17 @@ public class Menu {
             // si on est dans indice taille menu - 4 (exit + avant 3 lvl difficultees)
             if ( (i < menu.length - 4)  ) {
                 crayon.setFont(new Font(" Serif ", Font.PLAIN, 25)); // restore font
-                crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 50, Painter.WIN_HEIGHT / 2 + 10 + i * 35);
+                crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 50, Painter.WIN_HEIGHT / 2  + i * 25);
             }else if ((i == menu.length - 1)) { // print exit
                 crayon.setFont(new Font(" Serif ", Font.PLAIN, 25)); // restore font
-                crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 50, Painter.WIN_HEIGHT / 2 + i * 25);
+                crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 50, Painter.WIN_HEIGHT / 2 + i * 19);
             } else {
                 crayon.setFont(new Font(" Serif ", Font.PLAIN, 18)); // modify font
 
                 if (i == 5) { // print medium
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 48);
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 35);
                 } else { // print easy hard
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 48);
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 35);
                 }
 
             }
@@ -98,9 +98,9 @@ public class Menu {
             if ( menuDifficulty == menu[i]){
                 crayon.setColor(Color.BLACK);
                 if (i == 5) { // print medium
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 48);
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 55, Painter.WIN_HEIGHT / 2 + 3 * 35);
                 } else {
-                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 48);
+                    crayon.drawString(menu[i], Painter.WIN_WIDTH / 2 - 300 + i * 58, Painter.WIN_HEIGHT / 2 + 3 * 35);
                 }
             }
 
@@ -129,7 +129,9 @@ public class Menu {
 
 
     public void printScores(Graphics2D crayon){
-
+        // update scores
+        Data d = new Data();
+        scores = d.getScore();
 
         crayon.drawImage(TileFactory.instance().getMenuTile(), 0, 0, null);
         crayon.setFont(new Font(" Serif ", Font.BOLD, 16));
@@ -144,7 +146,6 @@ public class Menu {
 
 
     public void reinitScores(){
-        System.out.println("Scores cleared");
         scores.clear();
         Data d = new Data();
         d.reiniScores();
